@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>freaknerd · Estrategia que se vuelve estructura</title>
-<meta name="description" content="Consultoría que entra por un problema que ya duele, lo resuelve con tu equipo adentro y sale cuando el equipo puede sostenerlo solo. Cajas transparentes, no cajas negras.">
+<meta name="description" content="Consultoría que aborda un problema que ya duele, lo resuelve con tu equipo adentro y sale cuando el equipo puede sostenerlo solo. Cajas transparentes, no cajas negras.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 <meta property="og:locale" content="es_CO">
 <meta property="og:url" content="https://freaknerd.co/">
 <meta property="og:title" content="freaknerd · Estrategia que se vuelve estructura">
-<meta property="og:description" content="Consultoría que entra por un problema que ya duele, lo resuelve con tu equipo adentro y sale cuando el equipo puede sostenerlo solo. Cajas transparentes, no cajas negras.">
+<meta property="og:description" content="Consultoría que aborda un problema que ya duele, lo resuelve con tu equipo adentro y sale cuando el equipo puede sostenerlo solo. Cajas transparentes, no cajas negras.">
 <meta property="og:image" content="https://freaknerd.co/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -36,7 +36,7 @@
   "logo": "https://freaknerd.co/assets/icon-512.png",
   "image": "https://freaknerd.co/assets/og.png",
   "slogan": "Estrategia que se vuelve estructura.",
-  "description": "Consultoría que entra por un problema que ya duele, lo resuelve con el equipo del cliente adentro y sale cuando ese equipo puede sostenerlo solo.",
+  "description": "Consultoría que aborda un problema que ya duele, lo resuelve con el equipo del cliente adentro y sale cuando ese equipo puede sostenerlo solo.",
   "email": "contacto@freaknerd.co",
   "telephone": "+573117191394",
   "address": { "@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO" },
@@ -124,6 +124,23 @@
 
   .dim { color: var(--fn-ink-on-dark-mute); }
   .light .dim { color: var(--fn-ink-on-light-mute); }
+
+  /* Prosa justificada de 760px para arriba.
+     Va siempre con partición de palabras: justificar sin partir abre ríos
+     de espacio en mitad del párrafo, y en español, con palabras largas,
+     es peor que en inglés. Depende del lang="es" del <html>.
+     En móvil no se aplica: a 30 caracteres por línea partiría casi todas.
+
+     Los .lead quedan fuera a propósito: a ese cuerpo, cada espacio estirado
+     se ve, y el párrafo de entrada terminaba más desordenado justificado
+     que en bandera. Justificar ordena el texto pequeño, no el grande. */
+  @media (min-width: 760px) {
+    .motor p, .step p, .row p, .offer p {
+      text-align: justify;
+      -webkit-hyphens: auto;
+              hyphens: auto;
+    }
+  }
 
   section { padding-block: clamp(3.75rem, 7vw, 7rem); }
 
@@ -346,7 +363,9 @@
   }
 
   /* Rejilla, no fila libre: con 9 marcas el flex dejaba 7+2 y la segunda
-     fila se leía como sobrante. 3 columnas abajo (3x3 exacto) y 5 arriba. */
+     fila se leía como sobrante. Tres columnas en los dos tamaños, que con
+     nueve logos da 3x3 exacto; a cuatro columnas quedaba 4+4+1 y la marca
+     suelta de la última fila parecía un error. */
   .logowall {
     list-style: none; margin: var(--fn-space-12) 0 0; padding: 0;
     display: grid;
@@ -356,7 +375,6 @@
   }
   @media (min-width: 760px) {
     .logowall {
-      grid-template-columns: repeat(4, 1fr);
       gap: var(--fn-space-12) var(--fn-space-8);
     }
   }
@@ -555,10 +573,24 @@
     }
   }
 
-  /* ---------- motores ---------- */
+  /* ---------- motores ----------
+     Cuatro motores en 2x2, no en fila de cuatro: a cuatro columnas cada
+     tarjeta baja de 270px y el párrafo se parte en tiras de tres palabras.
+     El 2x2 además rima con el ciclo, que también son cuatro. */
   .motors { display: grid; gap: var(--fn-space-8); margin-top: var(--fn-space-12); }
-  @media (min-width: 860px) { .motors { grid-template-columns: repeat(3, 1fr); gap: var(--fn-space-12); } }
+  @media (min-width: 760px) { .motors { grid-template-columns: repeat(2, 1fr); gap: var(--fn-space-12); } }
   .motor { border-top: 2px solid var(--fn-green-ink); padding-top: var(--fn-space-6); }
+  /* Ata cada motor a su paso del ciclo: sin esto, cuatro tarjetas seguidas
+     se leen como una lista suelta y no como las piezas de una rueda. */
+  .motor-tag {
+    display: block;
+    margin-bottom: var(--fn-space-3);
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    text-transform: uppercase;
+    color: var(--fn-green-ink);
+  }
   .motor h3 { margin-bottom: var(--fn-space-4); }
   .motor p { margin-bottom: var(--fn-space-4); }
   .motor ul {
@@ -570,6 +602,30 @@
     color: var(--fn-ink-on-light-mute);
   }
   .motor li { padding: var(--fn-space-2) 0; border-bottom: 1px solid var(--fn-rule-on-light); }
+  /* Una salida por motor, con el asunto ya escrito: quien se reconoce en uno
+     no debería tener que bajar hasta el final y redactar de cero.
+     Enlace de texto y no botón: cuatro botones aquí le competirían al CTA
+     del foro, que es lo que de verdad queremos que se compre primero. */
+  .motor-cta {
+    display: inline-flex; align-items: center; gap: var(--fn-space-2);
+    margin-top: var(--fn-space-4);
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    text-transform: uppercase;
+    color: var(--fn-green-ink);
+    text-decoration: none;
+  }
+  /* Solo se mueve la flecha, y solo con puntero fino. */
+  .motor-cta span { transition: transform var(--fn-dur-hover) var(--fn-ease-out); }
+  @media (prefers-reduced-motion: reduce) {
+    .motor-cta span { transition: none; }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .motor-cta:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .motor-cta:hover span { transform: translateX(3px); }
+  }
+  .motor-cta:focus-visible { outline: 2px solid var(--fn-green-ink); outline-offset: 3px; }
 
   /* ---------- contratación ---------- */
   .steps { counter-reset: s; display: grid; gap: var(--fn-space-8); margin-top: var(--fn-space-12); }
@@ -586,6 +642,44 @@
   }
   .step h3 { margin-bottom: var(--fn-space-3); }
   .step p { margin: 0; }
+
+  /* ---------- puerta de entrada: el foro de ideación ----------
+     Único panel elevado del sitio: es lo que se puede comprar hoy sin
+     una reunión previa, y necesita separarse de la prosa que lo rodea.
+     Lleva el filete de la casa arriba, el mismo de las piezas de redes.
+
+     Esquinas rectas a propósito: con radio, el filete de 2px se cortaba
+     en seco contra la curva en vez de seguirla. Además el resto del sitio
+     solo redondea lo pequeño (botones y chips), nunca los bloques. */
+  .offer {
+    position: relative;
+    margin-top: var(--fn-space-12);
+    padding: var(--fn-space-8);
+    background: var(--fn-surface-dark-2);
+    border: 1px solid var(--fn-rule-on-dark);
+  }
+  @media (min-width: 760px) { .offer { padding: var(--fn-space-12); } }
+  .offer::before {
+    content: "";
+    position: absolute; inset: 0 0 auto 0; height: 2px;
+    background: var(--fn-signature);
+  }
+  .offer h3 { margin: var(--fn-space-3) 0 var(--fn-space-4); }
+  .offer p { margin: 0; max-width: var(--fn-measure); }
+  /* Dos salidas, una rápida y una pausada: el CTA no puede depender de
+     que la persona tenga ganas de redactar un correo. */
+  .offer-cta {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: var(--fn-space-6);
+  }
+  .btn--quiet {
+    background: transparent;
+    color: var(--fn-ink-on-dark);
+    border: 1px solid var(--fn-rule-on-dark);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn--quiet:hover { background: transparent; border-color: var(--fn-green); color: var(--fn-green); }
+  }
 
   /* ---------- sectores ---------- */
   .sectors {
@@ -726,7 +820,7 @@
       <p class="kicker reveal">Consultoría · Medellín</p>
       <h1 class="reveal" style="--d:60ms">Estrategia que se vuelve <span class="accent">estructura</span>.</h1>
       <p class="lead reveal" style="--d:120ms">
-        Casi toda consultoría termina en un informe. Nosotros entramos por un problema
+        Casi toda consultoría termina en un informe. Nosotros abordamos un problema
         que ya te está doliendo, lo resolvemos con <strong>tu equipo adentro</strong>, y
         salimos cuando ese equipo puede sostenerlo solo.
       </p>
@@ -796,8 +890,8 @@
       <p class="kicker reveal">02 · Nuestros clientes</p>
       <h2 class="reveal" style="--d:60ms">Industrias que no se parecen en nada.</h2>
       <p class="lead dim reveal" style="--d:100ms; margin-top:1.75rem">
-        Pagos, belleza, alimentos, aseo industrial, manufactura, formación corporativa.
-        El problema nunca es el mismo. La forma de entrar, sí.
+        Pagos, belleza, alimentos, aseo industrial, manufactura, impermeabilización,
+        formación corporativa. El problema nunca es el mismo. La forma de abordarlo, sí.
       </p>
       <ul class="logowall reveal" style="--d:140ms">
         <li><img src="assets/logos/l-puntos.png" alt="Puntos Colombia" width="367" height="135" loading="lazy"></li>
@@ -808,6 +902,7 @@
         <li><img src="assets/logos/l-alinutri.png" alt="Ali Nutri" width="140" height="129" loading="lazy" style="--h:46px"></li>
         <li><img src="assets/logos/l-estrella.png" alt="Grupo Estrella" width="399" height="368" loading="lazy" style="--h:56px; --w:70px"></li>
         <li><img src="assets/logos/l-victoria.png" alt="Sartenes Victoria · Mecánicos Unidos" width="527" height="193" loading="lazy" style="--h:40px; --w:168px"></li>
+        <li><img src="assets/logos/l-impercap.png" alt="Impercap" width="375" height="376" loading="lazy" style="--h:54px; --w:64px"></li>
       </ul>
     </div>
   </section>
@@ -893,6 +988,7 @@
 
       <div class="motors">
         <article class="motor reveal" style="--d:100ms">
+          <span class="motor-tag">Motor 01 · Ver</span>
           <h3>Vigilancia estratégica</h3>
           <p class="dim">
             Mirar afuera antes de que el cambio sea obvio. En Colombia la norma suele
@@ -905,8 +1001,11 @@
             <li>Tecnología</li>
             <li>Normativa</li>
           </ul>
+          <a class="motor-cta" target="_blank" rel="noopener"
+             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Vigilancia%20estrat%C3%A9gica">Consultar por vigilancia <span aria-hidden="true">&rarr;</span></a>
         </article>
         <article class="motor reveal" style="--d:140ms">
+          <span class="motor-tag">Motor 02 · Encontrar</span>
           <h3>Motor de valor</h3>
           <p class="dim">
             Dónde estás perdiendo plata, dónde puedes ahorrar y dónde puedes ganar más.
@@ -916,11 +1015,14 @@
           <ul>
             <li>Procesos y capacidad</li>
             <li>Inventario y caja</li>
-            <li>Logística y tiempos</li>
+            <li>Abastecimiento y logística</li>
             <li>Confiabilidad del dato</li>
           </ul>
+          <a class="motor-cta" target="_blank" rel="noopener"
+             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Motor%20de%20valor">Consultar por motor de valor <span aria-hidden="true">&rarr;</span></a>
         </article>
         <article class="motor reveal" style="--d:180ms">
+          <span class="motor-tag">Motor 03 · Crear</span>
           <h3>Fábrica de proyectos</h3>
           <p class="dim">
             Casi toda empresa tiene un banco de ideas que no avanza. Esto lo vuelve un
@@ -933,6 +1035,25 @@
             <li>Transformación digital</li>
             <li>Adopción de IA</li>
           </ul>
+          <a class="motor-cta" target="_blank" rel="noopener"
+             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20F%C3%A1brica%20de%20proyectos">Consultar por fábrica de proyectos <span aria-hidden="true">&rarr;</span></a>
+        </article>
+        <article class="motor reveal" style="--d:220ms">
+          <span class="motor-tag">Motor 04 · Mejorar</span>
+          <h3>Mejora continua</h3>
+          <p class="dim">
+            La mejora no es un evento. Es lo que sostiene el ciclo: el proyecto que
+            ya se ejecutó deja indicadores, los indicadores dejan desperdicios a la
+            vista, y de ahí sale el siguiente proyecto.
+          </p>
+          <ul>
+            <li>Procesos y desperdicios</li>
+            <li>Productividad</li>
+            <li>Quick wins</li>
+            <li>Seguimiento de resultados</li>
+          </ul>
+          <a class="motor-cta" target="_blank" rel="noopener"
+             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Mejora%20continua">Consultar por mejora continua <span aria-hidden="true">&rarr;</span></a>
         </article>
       </div>
     </div>
@@ -945,7 +1066,7 @@
       <h2 class="reveal" style="--d:60ms">Primero probamos el valor. Después hablamos de recurrencia.</h2>
       <div class="steps">
         <article class="step reveal" style="--d:100ms">
-          <h3>Entras por un dolor</h3>
+          <h3>Empiezas por un dolor</h3>
           <p class="dim">
             Un problema acotado, con alcance y entregable claros desde el primer día. Nadie compra un acompañamiento mensual de alguien que todavía
             no le ha resuelto nada.
@@ -967,6 +1088,25 @@
         </article>
       </div>
 
+      <div class="offer reveal" style="--d:220ms">
+        <p class="kicker">La puerta de entrada</p>
+        <h3>Un foro de ideación con tu propio equipo</h3>
+        <p class="dim">
+          Media jornada, la plataforma en pantalla y la gente de la operación
+          proponiendo y calificando en vivo. De la última sesión salieron
+          <strong>65 ideas priorizadas por el mismo equipo</strong>, con los frentes
+          de caja y costos arriba. Sirve para arrancar: sale un portafolio real y
+          nadie tiene que creernos nada de antemano.
+        </p>
+        <div class="offer-cta">
+          <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20c%C3%B3mo%20funciona%20el%20foro%20de%20ideaci%C3%B3n"
+             target="_blank" rel="noopener">Cómo funciona el foro</a>
+          <a class="btn btn--quiet" href="mailto:contacto@freaknerd.co?subject=Foro%20de%20ideaci%C3%B3n">
+            Prefiero correo
+          </a>
+        </div>
+      </div>
+
       <p class="kicker reveal" style="margin-top:3.25rem">Sectores</p>
       <ul class="sectors reveal" style="--d:60ms">
         <li>Manufactura de proceso</li>
@@ -976,6 +1116,7 @@
         <li>Medios</li>
         <li>Software B2B</li>
         <li>Propiedad horizontal</li>
+        <li>Ambiental y residuos</li>
       </ul>
     </div>
   </section>
