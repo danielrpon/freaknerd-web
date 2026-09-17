@@ -44,22 +44,54 @@ def a_html(md):
             salida.append("<h2>%s</h2>" % en_linea(l[3:]))
         elif l.startswith("> "):
             salida.append("<blockquote><p>%s</p></blockquote>" % en_linea(l[2:]))
+        elif l.startswith("|") and l.endswith("|"):
+            salida.append(("TR", [c.strip() for c in l.strip("|").split("|")]))
         elif re.match(r'^[-*] ', l):
             salida.append(("LI", en_linea(l[2:])))
         else:
             salida.append("<p>%s</p>" % en_linea(l))
-    # agrupa los <li> sueltos en listas
-    final, buffer = [], []
+    # agrupa los sueltos: <li> en listas, filas en tablas
+    final, lista, tabla = [], [], []
+
+    def cerrar():
+        if lista:
+            final.append("<ul>%s</ul>" % "".join(lista)); lista.clear()
+        if tabla:
+            final.append(armar_tabla(tabla)); tabla.clear()
+
     for b in salida:
-        if isinstance(b, tuple):
-            buffer.append("<li>%s</li>" % b[1])
+        if isinstance(b, tuple) and b[0] == "LI":
+            if tabla: cerrar()
+            lista.append("<li>%s</li>" % b[1])
+        elif isinstance(b, tuple) and b[0] == "TR":
+            if lista: cerrar()
+            tabla.append(b[1])
         else:
-            if buffer:
-                final.append("<ul>%s</ul>" % "".join(buffer)); buffer = []
-            final.append(b)
-    if buffer:
-        final.append("<ul>%s</ul>" % "".join(buffer))
+            cerrar(); final.append(b)
+    cerrar()
     return "\n      ".join(final)
+
+
+def armar_tabla(filas):
+    """La fila de guiones que separa el encabezado no se pinta: solo marca
+    que la primera fila es encabezado."""
+    def es_separador(f):
+        return all(re.fullmatch(r':?-{2,}:?', c) for c in f if c)
+
+    cuerpo = [f for f in filas if not es_separador(f)]
+    if not cuerpo:
+        return ""
+    con_encabezado = len(filas) > 1 and es_separador(filas[1])
+    partes = ["<table>"]
+    if con_encabezado:
+        partes.append("<thead><tr>%s</tr></thead>"
+                      % "".join("<th>%s</th>" % en_linea(c) for c in cuerpo[0]))
+        cuerpo = cuerpo[1:]
+    partes.append("<tbody>")
+    for f in cuerpo:
+        partes.append("<tr>%s</tr>" % "".join("<td>%s</td>" % en_linea(c) for c in f))
+    partes.append("</tbody></table>")
+    return "".join(partes)
 
 
 def fecha_larga(iso):

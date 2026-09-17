@@ -116,6 +116,30 @@ p { margin: 0 0 var(--fn-space-4); }
 .post-body a { color: var(--fn-green-ink); text-underline-offset: 3px; }
 .post-body ul { margin: 0 0 var(--fn-space-6); padding-left: 1.1rem; }
 .post-body li { margin-bottom: var(--fn-space-3); line-height: 1.7; }
+.post-body table {
+  width: 100%; border-collapse: collapse;
+  margin: var(--fn-space-8) 0;
+  font-size: 0.97rem;
+}
+.post-body th, .post-body td {
+  text-align: left; vertical-align: top;
+  padding: var(--fn-space-3) var(--fn-space-4) var(--fn-space-3) 0;
+  border-bottom: 1px solid var(--fn-rule-on-light);
+}
+.post-body th {
+  font-family: var(--fn-font-mono);
+  font-size: var(--fn-size-mono);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fn-green-ink);
+  border-bottom: 2px solid var(--fn-green-ink);
+  font-weight: 600;
+}
+.post-body tr:last-child td { border-bottom: 0; }
+@media (max-width: 640px) {
+  /* Una tabla no se comprime: en móvil se desliza en su propia caja. */
+  .post-body table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+
 .post-body blockquote {
   margin: var(--fn-space-8) 0; padding-left: var(--fn-space-6);
   border-left: 2px solid var(--fn-green-ink);

@@ -63,6 +63,31 @@ def texto(rich):
     return "".join(salida)
 
 
+def tabla_a_md(bloque_id):
+    """Notion guarda las tablas como filas hijas, no como texto. Sin esto se
+    perderían enteras, y son la mitad de lo que hace legible una comparación."""
+    filas, cursor = [], None
+    while True:
+        ruta = "/blocks/%s/children?page_size=100" % bloque_id
+        if cursor:
+            ruta += "&start_cursor=" + cursor
+        datos = api(ruta)
+        for r in datos["results"]:
+            if r["type"] != "table_row":
+                continue
+            filas.append(["| " + " | ".join(texto(c) for c in r["table_row"]["cells"]) + " |"])
+        if not datos.get("has_more"):
+            break
+        cursor = datos["next_cursor"]
+    if not filas:
+        return []
+    salida = [filas[0][0]]
+    columnas = filas[0][0].count("|") - 1
+    salida.append("|" + "---|" * columnas)      # separador de encabezado
+    salida.extend(f[0] for f in filas[1:])
+    return salida
+
+
 def bloques_a_md(page_id):
     lineas, cursor = [], None
     while True:
@@ -77,9 +102,12 @@ def bloques_a_md(page_id):
             contenido = b.get(t, {})
             rich = contenido.get("rich_text", [])
             cuerpo = texto(rich)
-            if not cuerpo and t != "divider":
+            if not cuerpo and t != "table":
                 continue
-            if   t == "heading_1":          lineas.append("## " + cuerpo)   # h1 lo pone el sitio
+            if   t == "table":
+                lineas.extend(tabla_a_md(b["id"]))
+                continue
+            elif t == "heading_1":          lineas.append("## " + cuerpo)   # h1 lo pone el sitio
             elif t == "heading_2":          lineas.append("## " + cuerpo)
             elif t == "heading_3":          lineas.append("### " + cuerpo)
             elif t == "bulleted_list_item": lineas.append("- " + cuerpo)
