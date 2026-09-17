@@ -16,6 +16,31 @@
      margin:40px 0 14px;font-family:ui-monospace,Menlo,monospace;font-weight:600;}
   .hint{color:#5A6469;font-size:14px;margin:-8px 0 14px;}
   .box{background:#fff;border:1px dashed #C7CEC9;border-radius:8px;padding:26px;}
+
+  .head{display:flex;align-items:baseline;justify-content:space-between;
+        gap:16px;margin:40px 0 14px;}
+  .head h2{margin:0;}
+  /* min-width fijo: sin él el botón cambia de tamaño al cambiar la etiqueta
+     y el encabezado da un salto. */
+  .copy{font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;
+        text-transform:uppercase;color:#14171A;background:#fff;
+        border:1px solid #C7CEC9;border-radius:6px;padding:10px 14px;
+        cursor:pointer;min-width:132px;white-space:nowrap;
+        transition:background-color 180ms ease,border-color 180ms ease,
+                   color 180ms ease,transform 140ms cubic-bezier(.23,1,.32,1);}
+  @media (hover:hover) and (pointer:fine){
+    .copy:hover{border-color:#0A7040;color:#0A7040;}
+  }
+  .copy:active{transform:scale(.97);}
+  .copy:focus-visible{outline:2px solid #0A7040;outline-offset:3px;}
+  /* Verde oscuro, no el de marca: blanco sobre #0F9E56 da 3,4:1 y no pasa
+     el mínimo de contraste; sobre #0A7040 da 6,2:1. */
+  .copy[data-ok="true"]{background:#0A7040;border-color:#0A7040;color:#fff;}
+  .copy[data-ok="false"]{border-color:#B4451F;color:#B4451F;}
+  @media (prefers-reduced-motion:reduce){
+    .copy{transition-duration:120ms;}
+    .copy:active{transform:none;}
+  }
   ol{color:#5A6469;font-size:15px;padding-left:20px;}
   ol b{color:#14171A;}
   code{background:#EAEDE8;padding:2px 6px;border-radius:4px;font-size:14px;}
@@ -29,8 +54,11 @@
      en tu cliente de correo. No copies el recuadro punteado: es solo el borde de esta página.
      Los tres consultores comparten <b>contacto@freaknerd.co</b> y se distinguen por el teléfono.</p>
 
-  <h2>1 · Daniel Restrepo</h2>
-  <div class="box">
+  <div class="head">
+    <h2>1 · Daniel Restrepo</h2>
+    <button class="copy" type="button" data-sig="sig-1" aria-live="polite">Copiar firma</button>
+  </div>
+  <div class="box" id="sig-1">
 
 <!-- ========== FIRMA · DANIEL RESTREPO — copiar desde aquí ========== -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
@@ -79,8 +107,11 @@
 
   </div>
 
-  <h2>2 · Andrés Ardila</h2>
-  <div class="box">
+  <div class="head">
+    <h2>2 · Andrés Ardila</h2>
+    <button class="copy" type="button" data-sig="sig-2" aria-live="polite">Copiar firma</button>
+  </div>
+  <div class="box" id="sig-2">
 
 <!-- ========== FIRMA · ANDRÉS ARDILA — copiar desde aquí ========== -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
@@ -129,8 +160,11 @@
 
   </div>
 
-  <h2>3 · John Restrepo</h2>
-  <div class="box">
+  <div class="head">
+    <h2>3 · John Restrepo</h2>
+    <button class="copy" type="button" data-sig="sig-3" aria-live="polite">Copiar firma</button>
+  </div>
+  <div class="box" id="sig-3">
 
 <!-- ========== FIRMA · JOHN RESTREPO — copiar desde aquí ========== -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
@@ -179,9 +213,12 @@
 
   </div>
 
-  <h2>4 · Institucional</h2>
+  <div class="head">
+    <h2>4 · Institucional</h2>
+    <button class="copy" type="button" data-sig="sig-4" aria-live="polite">Copiar firma</button>
+  </div>
   <p class="hint">Para el buzón compartido, cuando no firma una persona en particular.</p>
-  <div class="box">
+  <div class="box" id="sig-4">
 
 <!-- ========== FIRMA · INSTITUCIONAL — copiar desde aquí ========== -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
@@ -254,5 +291,57 @@
   </ol>
 
 </div>
+
+<script>
+(function () {
+  var ETIQUETA = 'Copiar firma';
+
+  function limpiar(html) {
+    // Los comentarios guían a quien edita el archivo, no tienen por qué
+    // viajar dentro de la firma de cada correo que se envíe.
+    return html.replace(/<!--[\s\S]*?-->/g, '').trim();
+  }
+
+  async function copiar(caja) {
+    var html = limpiar(caja.innerHTML);
+    var texto = caja.innerText.trim();
+    // La firma tiene que llegar CON formato: si solo se copia texto plano,
+    // al pegarla en Gmail aparece el código fuente en vez de la firma.
+    if (navigator.clipboard && window.ClipboardItem && window.isSecureContext) {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/html':  new Blob([html],  { type: 'text/html'  }),
+          'text/plain': new Blob([texto], { type: 'text/plain' })
+        })]);
+        return true;
+      } catch (e) { /* cae al respaldo */ }
+    }
+    // Respaldo para navegadores viejos: seleccionar el nodo y copiar.
+    try {
+      var sel = window.getSelection(), rango = document.createRange();
+      rango.selectNodeContents(caja);
+      sel.removeAllRanges(); sel.addRange(rango);
+      var ok = document.execCommand('copy');
+      sel.removeAllRanges();
+      return ok;
+    } catch (e) { return false; }
+  }
+
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', async function () {
+      var caja = document.getElementById(btn.getAttribute('data-sig'));
+      if (!caja) return;
+      var ok = await copiar(caja);
+      btn.textContent = ok ? 'Copiado ✓' : 'Selecciónala a mano';
+      btn.setAttribute('data-ok', String(ok));
+      clearTimeout(btn._t);
+      btn._t = setTimeout(function () {
+        btn.textContent = ETIQUETA;
+        btn.removeAttribute('data-ok');
+      }, 2200);
+    });
+  });
+})();
+</script>
 </body>
 </html>
