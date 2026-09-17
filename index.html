@@ -211,25 +211,30 @@
     margin-bottom: var(--fn-space-8);
     overflow: visible;
   }
+  /* Estado de reposo. La secuencia NO arranca sola: espera a data-on, que
+     el script pone cuando la página se está viendo de verdad. Atarla a la
+     carga la hacía terminar en pestañas de fondo o al volver con "atrás". */
   .boot .frame {
     fill: none;
     stroke: var(--fn-green);
     stroke-width: 4;
     stroke-dasharray: 400;
     stroke-dashoffset: 400;
-    animation: fn-draw 520ms var(--fn-ease-out) 80ms forwards;
   }
-  .boot .dot   { fill: var(--fn-green); opacity: 0; animation: fn-in 180ms ease forwards; }
-  .boot .dot:nth-of-type(1) { animation-delay: 520ms; }
-  .boot .dot:nth-of-type(2) { animation-delay: 570ms; }
-  .boot .dot:nth-of-type(3) { animation-delay: 620ms; }
+  .boot .dot  { fill: var(--fn-green); opacity: 0; }
   .boot .chev {
     fill: none; stroke: var(--fn-ink-on-dark); stroke-width: 7;
-    stroke-linecap: round; stroke-linejoin: round;
-    opacity: 0; animation: fn-in 240ms var(--fn-ease-out) 560ms forwards;
+    stroke-linecap: round; stroke-linejoin: round; opacity: 0;
   }
-  .boot .cursor {
-    fill: var(--fn-green); opacity: 0;
+  .boot .cursor { fill: var(--fn-green); opacity: 0; }
+
+  .boot[data-on="true"] .frame { animation: fn-draw 520ms var(--fn-ease-out) 80ms forwards; }
+  .boot[data-on="true"] .dot   { animation: fn-in 180ms ease forwards; }
+  .boot[data-on="true"] .dot:nth-of-type(1) { animation-delay: 520ms; }
+  .boot[data-on="true"] .dot:nth-of-type(2) { animation-delay: 570ms; }
+  .boot[data-on="true"] .dot:nth-of-type(3) { animation-delay: 620ms; }
+  .boot[data-on="true"] .chev  { animation: fn-in 240ms var(--fn-ease-out) 560ms forwards; }
+  .boot[data-on="true"] .cursor {
     animation: fn-in 160ms ease 700ms forwards,
                fn-blink 420ms linear 880ms 3 forwards;
   }
@@ -615,13 +620,14 @@
     .btn:active { transform: none; }
     .wa, .wa[data-shown="true"] { transform: none; }
     .wa[data-shown="true"]:active { transform: none; }
-    .boot .frame  { stroke-dashoffset: 0; animation: none; }
-    .boot .dot,
-    .boot .chev,
-    .boot .cursor { opacity: 1; animation: none; }
+    .boot .frame, .boot[data-on="true"] .frame { stroke-dashoffset: 0; animation: none; }
+    .boot .dot, .boot .chev, .boot .cursor,
+    .boot[data-on="true"] .dot,
+    .boot[data-on="true"] .chev,
+    .boot[data-on="true"] .cursor { opacity: 1; animation: none; }
   }
 </style>
-<noscript><style>.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}</style></noscript>
+<noscript><style>.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}.boot .frame{stroke-dashoffset:0}.boot .dot,.boot .chev,.boot .cursor{opacity:1}</style></noscript>
 </head>
 <body>
 
@@ -984,6 +990,28 @@
     probe.style.cssText = 'position:absolute;top:0;height:1px;width:1px;';
     document.body.prepend(probe);
     sentinel.observe(probe);
+
+    // La marca enciende cuando la página se está viendo, no cuando carga.
+    // pageshow cubre la carga normal y el regreso desde el caché de atrás.
+    var boot = document.querySelector('.boot');
+    function encender() {
+      if (!boot) return;
+      boot.removeAttribute('data-on');
+      void boot.getBoundingClientRect();   // fuerza reinicio de las animaciones
+      boot.setAttribute('data-on', 'true');
+    }
+    function encenderCuandoSeVea() {
+      if (document.visibilityState === 'visible') {
+        requestAnimationFrame(encender);
+        return;
+      }
+      document.addEventListener('visibilitychange', function alVerse() {
+        if (document.visibilityState !== 'visible') return;
+        document.removeEventListener('visibilitychange', alVerse);
+        requestAnimationFrame(encender);
+      });
+    }
+    window.addEventListener('pageshow', encenderCuandoSeVea);
 
     // WhatsApp: aparece cuando el hero sale de cuadro, no antes.
     var wa = document.querySelector('.wa');
