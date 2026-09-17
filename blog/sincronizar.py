@@ -92,6 +92,7 @@ def valor(props, nombre):
     if t == "rich_text": return texto(p["rich_text"])
     if t == "select":    return (p["select"] or {}).get("name")
     if t == "date":      return (p["date"] or {}).get("start")
+    if t == "url":       return p["url"]
     if t == "last_edited_time": return p["last_edited_time"]
     return None
 
@@ -123,6 +124,7 @@ def main():
                 "descripcion": valor(props, "Descripción") or "",
                 "categoria": valor(props, "Categoría") or "",
                 "autor": valor(props, "Autor") or "freaknerd",
+                "imagen": valor(props, "Imagen") or "",
                 "cuerpo": bloques_a_md(pg["id"]),
             })
         if not datos.get("has_more"):

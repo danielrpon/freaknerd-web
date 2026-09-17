@@ -173,7 +173,71 @@
   @media (hover: hover) and (pointer: fine) {
     .topbar a.nav:hover { color: var(--fn-ink-on-dark); }
   }
-  @media (max-width: 640px) { .topbar nav { display: none; } }
+  /* ---------- menú móvil ----------
+     Antes la navegación simplemente desaparecía bajo 640px y el sitio se
+     quedaba sin forma de moverse. */
+  .menu-btn {
+    display: none;
+    width: 44px; height: 44px;          /* objetivo táctil mínimo */
+    margin-right: -10px;
+    align-items: center; justify-content: center;
+    background: none; border: 0; padding: 0; cursor: pointer;
+  }
+  .menu-btn span {
+    display: block; position: relative;
+    width: 20px; height: 2px; background: var(--fn-ink-on-dark);
+    transition: background-color 60ms linear var(--fn-dur-press);
+  }
+  .menu-btn span::before,
+  .menu-btn span::after {
+    content: ""; position: absolute; left: 0;
+    width: 20px; height: 2px; background: var(--fn-ink-on-dark);
+    transition: transform var(--fn-dur-press) var(--fn-ease-out);
+  }
+  .menu-btn span::before { top: -6px; }
+  .menu-btn span::after  { top:  6px; }
+  /* Abierto: la línea de en medio se apaga y las otras dos cruzan. */
+  .topbar[data-menu="true"] .menu-btn span { background: transparent; }
+  .topbar[data-menu="true"] .menu-btn span::before { transform: translateY(6px) rotate(45deg); }
+  .topbar[data-menu="true"] .menu-btn span::after  { transform: translateY(-6px) rotate(-45deg); }
+  .menu-btn:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    .menu-btn { display: flex; }
+    .topbar { position: relative; }
+    .topbar nav {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0;
+      padding: var(--fn-space-2) var(--fn-gutter) var(--fn-space-6);
+      /* Opaco, no translúcido: con el titular gigante detrás, cualquier
+         transparencia se come la legibilidad del menú. */
+      background: var(--fn-surface-dark);
+      border-bottom: 1px solid var(--fn-rule-on-dark);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+      opacity: 0; visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity var(--fn-dur-hover) var(--fn-ease-out),
+                  transform var(--fn-dur-hover) var(--fn-ease-out),
+                  visibility 0s linear var(--fn-dur-hover);
+    }
+    .topbar[data-menu="true"] nav {
+      opacity: 1; visibility: visible; transform: none;
+      transition: opacity var(--fn-dur-hover) var(--fn-ease-out),
+                  transform var(--fn-dur-hover) var(--fn-ease-out),
+                  visibility 0s;
+    }
+    .topbar nav a.nav {
+      padding: var(--fn-space-4) 0;
+      border-bottom: 1px solid var(--fn-rule-on-dark);
+    }
+    .topbar nav a.nav:last-child { border-bottom: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topbar nav, .menu-btn span, .menu-btn span::before, .menu-btn span::after {
+      transition-duration: 1ms;
+    }
+  }
 
   /* ---------- hero ---------- */
   .hero {
@@ -633,7 +697,9 @@
 
 <header class="wrap topbar" id="topbar">
   <a class="wordmark" href="#top">freaknerd<i>_</i></a>
-  <nav>
+  <button class="menu-btn" type="button" aria-label="Abrir el menú"
+          aria-expanded="false" aria-controls="menu"><span></span></button>
+  <nav id="menu">
     <a class="nav" href="#equipo">Quiénes somos</a>
     <a class="nav" href="#clientes">Clientes</a>
     <a class="nav" href="#metodo">Método</a>
@@ -992,6 +1058,33 @@
     probe.style.cssText = 'position:absolute;top:0;height:1px;width:1px;';
     document.body.prepend(probe);
     sentinel.observe(probe);
+
+    // Menú móvil.
+    var barra = document.getElementById('topbar');
+    var boton = barra && barra.querySelector('.menu-btn');
+    if (boton) {
+      var abrir = function (abierto) {
+        barra.setAttribute('data-menu', String(abierto));
+        boton.setAttribute('aria-expanded', String(abierto));
+        boton.setAttribute('aria-label', abierto ? 'Cerrar el menú' : 'Abrir el menú');
+      };
+      boton.addEventListener('click', function () {
+        abrir(barra.getAttribute('data-menu') !== 'true');
+      });
+      // Al tocar un enlace el menú estorba: se cierra solo.
+      barra.querySelectorAll('nav a').forEach(function (a) {
+        a.addEventListener('click', function () { abrir(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && barra.getAttribute('data-menu') === 'true') {
+          abrir(false); boton.focus();
+        }
+      });
+      // Si la ventana crece hasta el escritorio, el panel no debe quedar colgado.
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 640) abrir(false);
+      });
+    }
 
     // La marca enciende cuando la página se está viendo, no cuando carga.
     // pageshow cubre la carga normal y el regreso desde el caché de atrás.

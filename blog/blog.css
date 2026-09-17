@@ -87,6 +87,53 @@ p { margin: 0 0 var(--fn-space-4); }
   border-top: 1px solid var(--fn-rule-on-dark);
 }
 
+/* ---------- franja visual del artículo ----------
+   La foto es opcional; la capa no. Sin foto queda la textura de marca,
+   que es lo que sostiene la identidad cuando no hay imagen del tema. */
+.post-visual { background: var(--fn-surface-dark); padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.visual {
+  position: relative; margin: 0;
+  aspect-ratio: 2.4 / 1;
+  border-radius: var(--fn-radius-md);
+  overflow: hidden;
+  background: var(--fn-surface-dark-2);
+  border: 1px solid var(--fn-rule-on-dark);
+}
+.visual img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  filter: grayscale(0.4) contrast(1.05);
+}
+/* La capa: oscurece la foto para que el logo y la categoría se lean,
+   y encima la trama de puntos de la casa. */
+.visual-capa {
+  position: absolute; inset: 0;
+  background-image: var(--fn-dotgrid),
+    linear-gradient(160deg, rgba(10,11,13,0.55) 0%, rgba(10,11,13,0.88) 100%);
+  background-size: var(--fn-dotgrid-size), auto;
+}
+.visual[data-sinfoto="true"] .visual-capa {
+  background-image: var(--fn-dotgrid),
+    linear-gradient(160deg, #101317 0%, #0A0B0D 100%);
+}
+.visual-marca {
+  position: absolute; left: clamp(1.25rem, 4%, 2.5rem); bottom: clamp(1rem, 3.5%, 2rem);
+  font-family: var(--fn-font-display); font-weight: 900;
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  letter-spacing: -0.045em; line-height: 1;
+  color: var(--fn-ink-on-dark); opacity: 0.17;
+}
+.visual-marca i { font-style: normal; color: var(--fn-green); opacity: 0.9; }
+.visual-cat {
+  position: absolute; right: clamp(1.25rem, 4%, 2.5rem); top: clamp(1rem, 3.5%, 2rem);
+  font-family: var(--fn-font-mono); font-size: var(--fn-size-mono);
+  letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+  color: var(--fn-green);
+  border: 1px solid rgba(38, 229, 124, 0.35);
+  border-radius: 999px; padding: 0.5rem 1rem;
+}
+
 /* ---------- cuerpo ----------
    Fondo claro: el resto del sitio es oscuro, pero 600 palabras en blanco
    sobre negro cansan. Aquí manda la lectura, no la coherencia cromática. */

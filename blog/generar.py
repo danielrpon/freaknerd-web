@@ -120,6 +120,27 @@ PIE = """<footer class="wrap">
 """
 
 
+def bloque_visual(e):
+    """Franja de marca del artículo.
+
+    La capa es lo constante y la foto lo opcional: así toda entrada tiene su
+    bloque aunque no haya imagen, y cuando se pega una URL en Notion la foto
+    entra detrás de la misma capa sin cambiar nada más."""
+    foto = (e.get("imagen") or "").strip()
+    img = ('<img src="%s" alt="" loading="lazy">' % html.escape(foto)) if foto else ""
+    return """  <div class="post-visual">
+    <div class="wrap">
+      <figure class="visual"{sinfoto}>
+        {img}
+        <span class="visual-capa" aria-hidden="true"></span>
+        <span class="visual-marca" aria-hidden="true">freaknerd<i>_</i></span>
+        <span class="visual-cat" aria-hidden="true">{cat}</span>
+      </figure>
+    </div>
+  </div>""".format(img=img, cat=html.escape(e["categoria"]),
+                   sinfoto="" if foto else ' data-sinfoto="true"')
+
+
 def pagina_entrada(e):
     url = "%s/blog/%s/" % (BASE, e["slug"])
     portada = "%s/blog/%s/portada.png" % (BASE, e["slug"])
@@ -148,6 +169,8 @@ def pagina_entrada(e):
     </div>
   </header>
 
+  {visual}
+
   <div class="post-body light">
     <div class="wrap">
       {cuerpo}
@@ -166,7 +189,7 @@ def pagina_entrada(e):
 """.format(cat=html.escape(e["categoria"]), fecha=fecha_larga(e["fecha"]),
            titulo=html.escape(e["titulo"]), desc=html.escape(e["descripcion"]),
            autor=html.escape(e["autor"]), mins=minutos(e["cuerpo"]),
-           cuerpo=a_html(e["cuerpo"]), BASE=BASE)
+           cuerpo=a_html(e["cuerpo"]), visual=bloque_visual(e), BASE=BASE)
         + PIE.format(BASE=BASE))
 
 
