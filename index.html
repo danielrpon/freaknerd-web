@@ -159,7 +159,7 @@
   /* ---------- hero ---------- */
   .hero {
     position: relative;
-    padding-block: clamp(4rem, 11vw, 8.5rem) clamp(3rem, 6vw, 5rem);
+    padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(3rem, 6vw, 5rem);
     overflow: hidden;
   }
   .hero::before {
@@ -178,6 +178,51 @@
 
   .accent { color: var(--fn-green); }
   .light .accent { color: var(--fn-green-ink); }
+
+  /* ---------- marca de arranque ----------
+     El logo es una terminal y el guion bajo es un cursor, así que la marca
+     pide parpadeo. Pero un cursor que late para siempre le compite al titular,
+     que es el único trabajo del hero. Entonces: enciende una vez y se calla.
+     Dibuja el marco, aparece el prompt, el cursor parpadea tres veces y queda
+     fijo. Nada vuelve a moverse. */
+  .boot {
+    display: block;
+    width: clamp(64px, 8vw, 104px);
+    height: auto;
+    margin-bottom: var(--fn-space-8);
+    overflow: visible;
+  }
+  .boot .frame {
+    fill: none;
+    stroke: var(--fn-green);
+    stroke-width: 4;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: fn-draw 520ms var(--fn-ease-out) 80ms forwards;
+  }
+  .boot .dot   { fill: var(--fn-green); opacity: 0; animation: fn-in 180ms ease forwards; }
+  .boot .dot:nth-of-type(1) { animation-delay: 520ms; }
+  .boot .dot:nth-of-type(2) { animation-delay: 570ms; }
+  .boot .dot:nth-of-type(3) { animation-delay: 620ms; }
+  .boot .chev {
+    fill: none; stroke: var(--fn-ink-on-dark); stroke-width: 7;
+    stroke-linecap: round; stroke-linejoin: round;
+    opacity: 0; animation: fn-in 240ms var(--fn-ease-out) 560ms forwards;
+  }
+  .boot .cursor {
+    fill: var(--fn-green); opacity: 0;
+    animation: fn-in 160ms ease 700ms forwards,
+               fn-blink 420ms linear 880ms 3 forwards;
+  }
+
+  @keyframes fn-draw  { to { stroke-dashoffset: 0; } }
+  @keyframes fn-in    { to { opacity: 1; } }
+  /* Corte duro, no desvanecido: un cursor de terminal salta, no respira. */
+  @keyframes fn-blink {
+    0%,   49.9% { opacity: 1; }
+    50%,  99.9% { opacity: 0; }
+    100%        { opacity: 1; }
+  }
 
   /* ---------- botón ---------- */
   .btn {
@@ -551,6 +596,10 @@
     .btn:active { transform: none; }
     .wa, .wa[data-shown="true"] { transform: none; }
     .wa[data-shown="true"]:active { transform: none; }
+    .boot .frame  { stroke-dashoffset: 0; animation: none; }
+    .boot .dot,
+    .boot .chev,
+    .boot .cursor { opacity: 1; animation: none; }
   }
 </style>
 <noscript><style>.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}</style></noscript>
@@ -574,6 +623,14 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
+      <svg class="boot" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+        <rect class="frame" x="3" y="3" width="114" height="94" rx="14"></rect>
+        <circle class="dot" cx="19" cy="18" r="3.4"></circle>
+        <circle class="dot" cx="31" cy="18" r="3.4"></circle>
+        <circle class="dot" cx="43" cy="18" r="3.4"></circle>
+        <path class="chev" d="M 44 38 L 56 50 L 44 62"></path>
+        <rect class="cursor" x="64" y="36" width="16" height="28" rx="2"></rect>
+      </svg>
       <p class="kicker reveal">Consultoría · Medellín</p>
       <h1 class="reveal" style="--d:60ms">Estrategia que se vuelve <span class="accent">estructura</span>.</h1>
       <p class="lead reveal" style="--d:120ms">
