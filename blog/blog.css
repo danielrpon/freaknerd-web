@@ -1,0 +1,201 @@
+/* ============================================================
+   Blog de freaknerd.co
+   Hereda todo de tokens.css. Aquí solo va lo propio del blog.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fn-surface-dark);
+  color: var(--fn-ink-on-dark);
+  font-family: var(--fn-font-body);
+  font-weight: var(--fn-weight-body-lt);
+  font-size: var(--fn-size-body);
+  line-height: var(--fn-leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Firma de la casa, igual que en la landing. */
+body::before {
+  content: "";
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 3px; z-index: 30; pointer-events: none;
+  background: var(--fn-signature);
+}
+
+.wrap { max-width: 760px; margin-inline: auto; padding-inline: var(--fn-gutter); }
+
+h1, h2, h3 { font-weight: var(--fn-weight-display); margin: 0; }
+p { margin: 0 0 var(--fn-space-4); }
+.dim { color: var(--fn-ink-on-dark-mute); }
+.light .dim { color: var(--fn-ink-on-light-mute); }
+.light { background: var(--fn-surface-light); color: var(--fn-ink-on-light); }
+
+.kicker {
+  font-family: var(--fn-font-mono);
+  font-size: var(--fn-size-mono);
+  font-weight: 500;
+  letter-spacing: var(--fn-track-mono);
+  text-transform: uppercase;
+  color: var(--fn-green);
+  margin: 0 0 var(--fn-space-6);
+}
+
+/* ---------- barra ---------- */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-block: var(--fn-space-4);
+  border-bottom: 1px solid var(--fn-rule-on-dark);
+  max-width: var(--fn-max-width);
+}
+.wordmark {
+  font-family: var(--fn-font-display); font-weight: 900; font-size: 1.25rem;
+  letter-spacing: -0.04em; color: var(--fn-ink-on-dark);
+  text-decoration: none; display: inline-flex; align-items: baseline;
+}
+.wordmark i { color: var(--fn-green); font-style: normal; margin-left: 1px; }
+.topbar nav { display: flex; gap: var(--fn-space-6); }
+.topbar a.nav {
+  font-family: var(--fn-font-mono); font-size: var(--fn-size-mono);
+  letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+  color: var(--fn-ink-on-dark-mute); text-decoration: none;
+  transition: color var(--fn-dur-hover) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .topbar a.nav:hover { color: var(--fn-ink-on-dark); }
+}
+
+/* ---------- cabecera de la entrada ---------- */
+.post-head { padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2.5rem, 5vw, 4rem); }
+.post-head h1 {
+  font-size: clamp(2rem, 1.3rem + 2.9vw, 3.4rem);
+  line-height: var(--fn-leading-snug);
+  letter-spacing: var(--fn-track-h2);
+}
+.post-head .lead {
+  font-size: var(--fn-size-lead); line-height: 1.5;
+  font-weight: var(--fn-weight-body);
+  margin-top: var(--fn-space-6);
+}
+.post-head .meta {
+  font-family: var(--fn-font-mono); font-size: var(--fn-size-mono);
+  letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+  color: var(--fn-ink-on-dark-mute);
+  margin: var(--fn-space-8) 0 0;
+  padding-top: var(--fn-space-4);
+  border-top: 1px solid var(--fn-rule-on-dark);
+}
+
+/* ---------- cuerpo ----------
+   Fondo claro: el resto del sitio es oscuro, pero 600 palabras en blanco
+   sobre negro cansan. Aquí manda la lectura, no la coherencia cromática. */
+.post-body { padding-block: clamp(3rem, 6vw, 4.5rem); }
+.post-body .wrap > * { max-width: 68ch; }
+.post-body h2 {
+  font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.75rem);
+  line-height: var(--fn-leading-snug); letter-spacing: -0.015em;
+  margin: var(--fn-space-12) 0 var(--fn-space-4);
+  padding-top: var(--fn-space-4);
+  border-top: 2px solid var(--fn-green-ink);
+}
+.post-body .wrap > *:first-child { margin-top: 0; }
+.post-body p { font-size: 1.0625rem; line-height: 1.7; margin-bottom: var(--fn-space-6); }
+.post-body strong { font-weight: var(--fn-weight-body); color: var(--fn-ink-on-light); }
+.post-body em { font-style: italic; }
+.post-body a { color: var(--fn-green-ink); text-underline-offset: 3px; }
+.post-body ul { margin: 0 0 var(--fn-space-6); padding-left: 1.1rem; }
+.post-body li { margin-bottom: var(--fn-space-3); line-height: 1.7; }
+.post-body blockquote {
+  margin: var(--fn-space-8) 0; padding-left: var(--fn-space-6);
+  border-left: 2px solid var(--fn-green-ink);
+}
+.post-body blockquote p { font-size: var(--fn-size-lead); margin: 0; }
+
+/* ---------- cierre ---------- */
+.post-cta { padding-block: clamp(3rem, 6vw, 4.5rem); }
+.post-cta h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  line-height: var(--fn-leading-snug); letter-spacing: var(--fn-track-h2);
+  max-width: 18ch;
+}
+.post-cta .lead { margin-top: var(--fn-space-4); font-size: var(--fn-size-lead); }
+.volver { margin-top: var(--fn-space-8); }
+.volver a {
+  font-family: var(--fn-font-mono); font-size: var(--fn-size-mono);
+  letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+  color: var(--fn-ink-on-dark-mute); text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .volver a:hover { color: var(--fn-green); }
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: var(--fn-space-3);
+  margin-top: var(--fn-space-6);
+  padding: var(--fn-space-3) var(--fn-space-6);
+  font-family: var(--fn-font-mono); font-size: var(--fn-size-mono);
+  letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+  color: var(--fn-black); background: var(--fn-green);
+  border: 0; border-radius: var(--fn-radius-sm); text-decoration: none;
+  transition: transform var(--fn-dur-press) var(--fn-ease-out),
+              background-color var(--fn-dur-hover) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: var(--fn-green-lite); }
+}
+.btn:active { transform: scale(0.97); }
+.btn:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 3px; }
+
+/* ---------- índice ---------- */
+.blog-index section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.blog-index h1 {
+  font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem);
+  line-height: var(--fn-leading-snug); letter-spacing: var(--fn-track-h2);
+}
+.blog-index .lead {
+  font-size: var(--fn-size-lead); line-height: 1.5;
+  margin-top: var(--fn-space-6); max-width: 54ch;
+}
+.cards { list-style: none; margin: var(--fn-space-16) 0 0; padding: 0; display: grid; gap: 0; }
+.card { border-top: 1px solid var(--fn-rule-on-dark); }
+.card:last-child { border-bottom: 1px solid var(--fn-rule-on-dark); }
+.card a {
+  display: block; padding: var(--fn-space-8) 0;
+  text-decoration: none; color: inherit;
+  transition: background-color var(--fn-dur-hover) ease;
+}
+.card h2 {
+  font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem);
+  line-height: var(--fn-leading-snug); letter-spacing: var(--fn-track-h2);
+  margin-bottom: var(--fn-space-3);
+}
+.card .kicker { margin-bottom: var(--fn-space-3); }
+.card .mas {
+  display: inline-block; margin-top: var(--fn-space-4);
+  font-family: var(--fn-font-mono); font-size: var(--fn-size-mono);
+  letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+  color: var(--fn-green);
+}
+@media (hover: hover) and (pointer: fine) {
+  .card a:hover { background: var(--fn-surface-dark-2); }
+}
+
+/* ---------- pie ---------- */
+footer {
+  border-top: 1px solid var(--fn-rule-on-dark);
+  padding-block: var(--fn-space-8);
+  display: flex; flex-wrap: wrap; gap: var(--fn-space-4);
+  align-items: center; justify-content: space-between;
+  font-family: var(--fn-font-mono); font-size: var(--fn-size-mono);
+  letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+  color: var(--fn-ink-on-dark-mute);
+  max-width: var(--fn-max-width);
+}
+footer a { color: inherit; text-decoration: none; transition: color var(--fn-dur-hover) ease; }
+@media (hover: hover) and (pointer: fine) { footer a:hover { color: var(--fn-green); } }
+.foot-links { display: flex; flex-wrap: wrap; gap: var(--fn-space-6); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:active { transform: none; }
+}
