@@ -147,7 +147,10 @@ p { margin: 0 0 var(--fn-space-4); }
 .btn:active { transform: scale(0.97); }
 .btn:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 3px; }
 
-/* ---------- índice ---------- */
+/* ---------- índice ----------
+   Más ancho que el cuerpo de una entrada: aquí conviven miniatura y texto,
+   y a 760px los dos quedan apretados. */
+.blog-index .wrap { max-width: 980px; }
 .blog-index section { padding-block: clamp(3rem, 7vw, 5.5rem); }
 .blog-index h1 {
   font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem);
@@ -161,9 +164,18 @@ p { margin: 0 0 var(--fn-space-4); }
 .card { border-top: 1px solid var(--fn-rule-on-dark); }
 .card:last-child { border-bottom: 1px solid var(--fn-rule-on-dark); }
 .card a {
-  display: block; padding: var(--fn-space-8) 0;
+  display: grid; gap: var(--fn-space-6);
+  padding: var(--fn-space-8) 0;
   text-decoration: none; color: inherit;
   transition: background-color var(--fn-dur-hover) ease;
+}
+@media (min-width: 720px) {
+  .card a { grid-template-columns: 260px 1fr; align-items: start; }
+}
+.thumb {
+  display: block; width: 100%; height: auto;
+  border-radius: var(--fn-radius-md);
+  border: 1px solid var(--fn-rule-on-dark);
 }
 .card h2 {
   font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem);

@@ -86,7 +86,9 @@ CABEZA = """<!DOCTYPE html>
 <meta property="og:url" content="{url}">
 <meta property="og:title" content="{titulo}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{BASE}/assets/og.png">
+<meta property="og:image" content="{imagen}">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -120,6 +122,7 @@ PIE = """<footer class="wrap">
 
 def pagina_entrada(e):
     url = "%s/blog/%s/" % (BASE, e["slug"])
+    portada = "%s/blog/%s/portada.png" % (BASE, e["slug"])
     ld = json.dumps({
         "@context": "https://schema.org", "@type": "Article",
         "headline": e["titulo"], "description": e["descripcion"],
@@ -127,12 +130,12 @@ def pagina_entrada(e):
         "author": {"@type": "Person", "name": e["autor"]},
         "publisher": {"@type": "Organization", "name": "freaknerd",
                       "logo": {"@type": "ImageObject", "url": BASE + "/assets/icon-512.png"}},
-        "mainEntityOfPage": url, "image": BASE + "/assets/og.png",
+        "mainEntityOfPage": url, "image": portada,
         "inLanguage": "es-CO",
     }, ensure_ascii=False, indent=2)
     extra = '<script type="application/ld+json">\n%s\n</script>\n' % ld
     return (CABEZA.format(titulo=html.escape(e["titulo"] + " · freaknerd"),
-                          desc=html.escape(e["descripcion"]), url=url,
+                          desc=html.escape(e["descripcion"]), url=url, imagen=portada,
                           ogtipo="article", BASE=BASE, extra=extra)
         + """
 <main class="post">
@@ -172,10 +175,13 @@ def pagina_indice(entradas):
         tarjetas = "\n".join(
             """      <li class="card">
         <a href="/blog/{slug}/">
-          <p class="kicker">{cat} · {fecha}</p>
-          <h2>{titulo}</h2>
-          <p class="dim">{desc}</p>
-          <span class="mas">Leer →</span>
+          <img class="thumb" src="/blog/{slug}/portada.png" alt="" loading="lazy" width="2400" height="1260">
+          <div>
+            <p class="kicker">{cat} · {fecha}</p>
+            <h2>{titulo}</h2>
+            <p class="dim">{desc}</p>
+            <span class="mas">Leer →</span>
+          </div>
         </a>
       </li>""".format(BASE=BASE, slug=e["slug"], cat=html.escape(e["categoria"]),
                       fecha=fecha_larga(e["fecha"]), titulo=html.escape(e["titulo"]),
@@ -186,7 +192,8 @@ def pagina_indice(entradas):
 
     return (CABEZA.format(titulo="Blog · freaknerd",
                           desc="Notas sobre estrategia, operaciones y datos para empresas medianas colombianas.",
-                          url=BASE + "/blog/", ogtipo="website", BASE=BASE, extra="")
+                          url=BASE + "/blog/", ogtipo="website", BASE=BASE, extra="",
+                          imagen=BASE + "/assets/og.png")
         + """
 <main class="blog-index">
   <section>
