@@ -268,7 +268,13 @@
 
   /* ---------- quiénes somos ---------- */
   .team { display: grid; gap: var(--fn-space-12); margin-top: var(--fn-space-12); }
-  @media (min-width: 820px) { .team { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 720px) { .team { grid-template-columns: repeat(2, 1fr); } }
+  /* Con tres consultores la tarjeta horizontal deja la columna de texto
+     demasiado angosta: a partir de aquí la foto se va arriba. */
+  @media (min-width: 1040px) {
+    .team { grid-template-columns: repeat(3, 1fr); gap: var(--fn-space-8); }
+    .team > .member { grid-template-columns: 1fr; gap: var(--fn-space-4); }
+  }
   .member { display: grid; grid-template-columns: 96px 1fr; gap: var(--fn-space-6); align-items: start; }
   .member img {
     width: 96px; height: 96px;
@@ -613,9 +619,21 @@
             </p>
           </div>
         </article>
+        <article class="member reveal" style="--d:220ms">
+          <img src="assets/p-john.jpg" alt="John Restrepo" width="96" height="96">
+          <div>
+            <h3>John Restrepo</h3>
+            <span class="role">Dirección estratégica / Gobierno corporativo / Finanzas</span>
+            <p class="dim">
+              Dirección estratégica y gobierno corporativo. Viene del retail de lujo
+              y de la inversión: private equity, venture capital y estructuración de
+              family offices.
+            </p>
+          </div>
+        </article>
       </div>
 
-      <p class="rule-line reveal" style="--d:220ms">
+      <p class="rule-line reveal" style="--d:260ms">
         Trabajamos con una regla: lo que dejamos sigue funcionando sin nosotros.
       </p>
     </div>
