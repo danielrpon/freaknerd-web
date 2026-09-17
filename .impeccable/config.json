@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "blog/blog.css"
+        ],
+        "createdAt": "2026-09-17T05:38:24.614Z",
+        "reason": "Claude: la L20 es body::before, una barra horizontal de 3px fija en el borde superior de la ventana (top/left/right:0, height:3px), no un borde lateral de tarjeta. Es el dispositivo de marca .rule que Daniel ya tenia en sus piezas de Instagram (02 Posts Instagram/post_*.html) y que ya esta en produccion en la landing. El unico border-left del archivo es un blockquote de 2px, convencion tipografica estandar."
+      }
+    ]
+  }
+}
