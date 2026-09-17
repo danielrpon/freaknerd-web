@@ -127,7 +127,7 @@ def bloque_visual(e):
     que en Propiman: una sola pieza en vez de dos tratamientos parecidos."""
     return """  <div class="post-visual">
     <div class="wrap">
-      <img class="visual" src="/blog/{slug}/portada.png" alt=""
+      <img class="visual" src="/blog/{slug}/portada.jpg" alt=""
            width="2400" height="1260" loading="lazy">
     </div>
   </div>""".format(slug=e["slug"])
@@ -135,7 +135,7 @@ def bloque_visual(e):
 
 def pagina_entrada(e):
     url = "%s/blog/%s/" % (BASE, e["slug"])
-    portada = "%s/blog/%s/portada.png" % (BASE, e["slug"])
+    portada = "%s/blog/%s/portada.jpg" % (BASE, e["slug"])
     ld = json.dumps({
         "@context": "https://schema.org", "@type": "Article",
         "headline": e["titulo"], "description": e["descripcion"],
@@ -190,7 +190,7 @@ def pagina_indice(entradas):
         tarjetas = "\n".join(
             """      <li class="card">
         <a href="/blog/{slug}/">
-          <img class="thumb" src="/blog/{slug}/portada.png" alt="" loading="lazy" width="2400" height="1260">
+          <img class="thumb" src="/blog/{slug}/portada.jpg" alt="" loading="lazy" width="2400" height="1260">
           <div>
             <p class="kicker">{cat} · {fecha}</p>
             <h2>{titulo}</h2>

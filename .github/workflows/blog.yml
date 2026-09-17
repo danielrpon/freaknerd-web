@@ -20,16 +20,8 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         run: python3 blog/sincronizar.py
 
-      # Las portadas se arman con Chrome sobre un servidor local,
-      # igual que en el Mac.
-      - name: Levantar servidor local
-        run: |
-          python3 -m http.server 4321 --directory . &
-          for i in $(seq 1 20); do
-            curl -sf http://localhost:4321/ >/dev/null && break
-            sleep 1
-          done
-
+      # Las portadas llevan la foto y el logo embebidos en base64, así que
+      # Chrome las arma desde un archivo suelto: sin servidor local.
       - name: Generar portadas
         run: python3 blog/portadas.py
 
