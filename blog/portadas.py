@@ -16,7 +16,7 @@ retina y sirvan igual como imagen de compartir.
 
 Necesita Chrome y el servidor local en el puerto 4321.
 """
-import json, os, re, subprocess, sys, html
+import json, os, re, subprocess, sys, html, urllib.request, urllib.error
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def _chrome():
@@ -96,8 +96,9 @@ PLANTILLA = """<!DOCTYPE html><html><head><meta charset="utf-8">
        border-top:1px solid rgba(244,246,243,.14);padding-top:26px;}}
   .url{{font-family:var(--mono);font-size:18px;color:var(--dim);}}
   .pill{{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:1px;
-        color:var(--green);border:1px solid rgba(38,229,124,.4);border-radius:999px;
-        padding:10px 20px;}}
+        color:var(--green);border:1px solid rgba(38,229,124,.45);border-radius:999px;
+        padding:10px 20px;background:rgba(10,11,13,.72);}}
+  .url{{text-shadow:0 1px 6px rgba(10,11,13,.8);}}
 </style></head><body>
 <div class="c">
   {foto}
@@ -129,6 +130,37 @@ def tamano(titulo, con_foto=False):
     return base - 6 if con_foto else base
 
 
+def _contexto_ssl():
+    """Python de macOS suele venir sin el paquete de certificados y entonces
+    TODA petición https falla. Sin esto, la comprobación llamaría rotas a
+    imágenes sanas."""
+    try:
+        import ssl, certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except Exception:
+        return None
+
+
+def estado_imagen(url):
+    """"ok", "rota" o "desconocido".
+
+    La distinción importa: que la comprobación falle no significa que la imagen
+    esté rota. Solo se descarta la foto cuando el servidor lo confirma."""
+    if not url.startswith("http"):
+        return "ok"
+    try:
+        req = urllib.request.Request(url, method="GET",
+                                     headers={"User-Agent": "freaknerd-blog",
+                                              "Range": "bytes=0-0"})
+        with urllib.request.urlopen(req, timeout=20, context=_contexto_ssl()) as r:
+            tipo = r.headers.get("Content-Type", "")
+            return "ok" if r.status in (200, 206) and "image" in tipo else "rota"
+    except urllib.error.HTTPError as e:
+        return "rota" if e.code in (400, 403, 404, 410) else "desconocido"
+    except Exception:
+        return "desconocido"
+
+
 def generar(entrada, rehacer=False):
     slug = entrada["slug"]
     destino = os.path.join(RAIZ, "blog", slug, "portada.png")
@@ -141,6 +173,14 @@ def generar(entrada, rehacer=False):
         sub = sub[:147].rsplit(" ", 1)[0] + "…"
 
     foto = (entrada.get("imagen") or "").strip()
+    if foto:
+        est = estado_imagen(foto)
+        if est == "rota":
+            # Sin este aviso la portada sale sin foto y nadie se entera.
+            print("  ⚠ %s: la imagen NO existe, la portada sale sin foto\n    %s" % (slug, foto))
+            foto = ""
+        elif est == "desconocido":
+            print("  · %s: no pude comprobar la imagen; la uso igual." % slug)
     bloque_foto = ('<img class="foto" src="%s" alt="">\n  <div class="velo"></div>'
                    % html.escape(foto)) if foto else ""
 

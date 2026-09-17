@@ -24,6 +24,16 @@ if not TOKEN:
              "no se guarda en el repositorio.")
 
 
+def _ssl():
+    """El Python de macOS suele venir sin certificados y entonces toda llamada
+    https falla. En GitHub Actions sobra, pero así también corre en el Mac."""
+    try:
+        import ssl, certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except Exception:
+        return None
+
+
 def api(ruta, metodo="GET", cuerpo=None):
     req = urllib.request.Request(
         "https://api.notion.com/v1" + ruta, method=metodo,
@@ -32,7 +42,7 @@ def api(ruta, metodo="GET", cuerpo=None):
                  "Notion-Version": VERSION,
                  "Content-Type": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=30, context=_ssl()) as r:
             return json.load(r)
     except urllib.error.HTTPError as e:
         sys.exit("Notion respondió %s en %s:\n%s" % (e.code, ruta, e.read().decode()[:400]))
