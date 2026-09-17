@@ -1,0 +1,100 @@
+/* ============================================================
+   Freaknerd · tokens de marca para web
+   Sistema "casa" reutilizable (Freaknerd, y base para clientes)
+   Fuente de verdad: identidad validada 2026-07-29
+   ============================================================ */
+
+:root {
+  /* --- Color: tres valores, un solo acento --- */
+  --fn-black:      #0A0B0D;
+  --fn-bone:       #F4F6F3;
+  --fn-green:      #26E57C;   /* acento sobre oscuro */
+  --fn-green-lite: #7CF4B0;   /* verde claro de la casa: hover y degradados */
+  --fn-green-ink:  #0F9E56;   /* mismo acento, legible sobre claro */
+
+  /* Superficies derivadas */
+  --fn-surface-dark:   #0A0B0D;
+  --fn-surface-dark-2: #101317;
+  --fn-surface-light:  #F4F6F3;
+  --fn-surface-light-2:#EAEDE8;
+
+  /* Tinta */
+  --fn-ink-on-dark:       #F4F6F3;
+  --fn-ink-on-dark-mute:  #8A928C;   /* igual que --dim de los posts de Instagram */
+  --fn-ink-on-dark-bold:  #DCEFE3;   /* negrita dentro de párrafo atenuado */
+  --fn-ink-on-light:      #14171A;
+  --fn-ink-on-light-mute: #5A6469;
+
+  /* Filetes */
+  --fn-rule-on-dark:  rgba(244, 246, 243, 0.12);
+  --fn-rule-on-light: rgba(20, 23, 26, 0.12);
+
+  /* --- Tipografía --- */
+  --fn-font-display: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --fn-font-body:    "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --fn-font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --fn-weight-display: 900;
+  --fn-weight-body:    500;
+  --fn-weight-body-lt: 400;
+
+  /* Escala fluida: se adapta sin media queries */
+  --fn-size-display: clamp(2.75rem, 1.6rem + 5.2vw, 6.5rem);
+  --fn-size-h2:      clamp(2rem, 1.35rem + 2.6vw, 3.5rem);
+  --fn-size-h3:      clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
+  --fn-size-lead:    clamp(1.1rem, 1rem + 0.5vw, 1.4rem);
+  --fn-size-body:    clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --fn-size-mono:    0.75rem;
+
+  --fn-leading-tight: 1.02;
+  --fn-leading-snug:  1.2;
+  --fn-leading-body:  1.6;
+
+  /* Tracking: los titulares 900 necesitan aire negativo; la mono, aire positivo */
+  --fn-track-display: -0.03em;
+  --fn-track-h2:      -0.02em;
+  --fn-track-mono:     0.14em;
+
+  /* --- Espaciado (escala de 4) --- */
+  --fn-space-1: 0.25rem;
+  --fn-space-2: 0.5rem;
+  --fn-space-3: 0.75rem;
+  --fn-space-4: 1rem;
+  --fn-space-6: 1.5rem;
+  --fn-space-8: 2rem;
+  --fn-space-12: 3rem;
+  --fn-space-16: 4rem;
+  --fn-space-24: 6rem;
+  --fn-space-32: 8rem;
+
+  --fn-gutter: clamp(1.25rem, 5vw, 5rem);
+  --fn-measure: 62ch;       /* ancho de lectura */
+  --fn-max-width: 1180px;
+
+  /* --- Radios --- */
+  --fn-radius-sm: 4px;
+  --fn-radius-md: 8px;
+
+  /* --- Movimiento ---
+     Curvas fuertes: las nativas de CSS no tienen punch.
+     Nunca ease-in en UI: arranca lento y se siente pesado. */
+  --fn-ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --fn-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --fn-dur-press:  140ms;   /* feedback de presión */
+  --fn-dur-hover:  180ms;   /* color / hover */
+  --fn-dur-reveal: 420ms;   /* entrada por scroll: se ve una vez, puede respirar */
+
+  /* --- Firma de la casa ---
+     Filete degradado del borde superior. Es el dispositivo más
+     reconocible de las piezas de Instagram: al ponerlo aquí, el sitio
+     y el feed se leen como la misma marca sin repetir el logo. */
+  --fn-signature: linear-gradient(90deg,
+                    var(--fn-green) 0%,
+                    var(--fn-green-lite) 40%,
+                    transparent 76%);
+
+  /* --- Textura: rejilla de puntos verde --- */
+  --fn-dotgrid: radial-gradient(rgba(38, 229, 124, 0.30) 1px, transparent 1px);
+  --fn-dotgrid-size: 22px 22px;
+}

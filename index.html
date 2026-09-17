@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>freaknerd · Estrategia que se vuelve estructura</title>
+<meta name="description" content="Consultoría que entra por un problema concreto, trabaja hombro a hombro con el equipo y deja capacidad instalada. Cajas transparentes, no cajas negras.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://freaknerd.co/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="freaknerd">
+<meta property="og:locale" content="es_CO">
+<meta property="og:url" content="https://freaknerd.co/">
+<meta property="og:title" content="freaknerd · Estrategia que se vuelve estructura">
+<meta property="og:description" content="Consultoría que entra por un problema concreto, trabaja hombro a hombro con el equipo y deja capacidad instalada. Cajas transparentes, no cajas negras.">
+<meta property="og:image" content="https://freaknerd.co/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="freaknerd — Estrategia que se vuelve estructura">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0A0B0D">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* Firma de la casa: el mismo filete degradado que abre cada post.
+     Va por encima de la barra pegajosa y del botón flotante. */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--fn-signature);
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--fn-surface-dark);
+    color: var(--fn-ink-on-dark);
+    font-family: var(--fn-font-body);
+    font-weight: var(--fn-weight-body-lt);
+    font-size: var(--fn-size-body);
+    line-height: var(--fn-leading-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- primitivas ---------- */
+  .wrap { max-width: var(--fn-max-width); margin-inline: auto; padding-inline: var(--fn-gutter); }
+
+  .kicker {
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    font-weight: 500;
+    letter-spacing: var(--fn-track-mono);
+    text-transform: uppercase;
+    color: var(--fn-green);
+    margin: 0 0 var(--fn-space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--fn-space-3);
+  }
+  .kicker::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: currentColor;
+    opacity: 0.35;
+  }
+  .light .kicker { color: var(--fn-green-ink); }
+
+  h1, h2, h3 { font-weight: var(--fn-weight-display); margin: 0; }
+
+  h1 {
+    font-size: var(--fn-size-display);
+    line-height: var(--fn-leading-tight);
+    letter-spacing: var(--fn-track-display);
+  }
+  h2 {
+    font-size: var(--fn-size-h2);
+    line-height: var(--fn-leading-snug);
+    letter-spacing: var(--fn-track-h2);
+    max-width: 20ch;
+  }
+  h3 {
+    font-size: var(--fn-size-h3);
+    line-height: var(--fn-leading-snug);
+    letter-spacing: -0.01em;
+  }
+
+  p { margin: 0 0 var(--fn-space-4); max-width: var(--fn-measure); }
+  .lead { font-size: var(--fn-size-lead); line-height: 1.45; font-weight: var(--fn-weight-body); }
+
+  .dim { color: var(--fn-ink-on-dark-mute); }
+  .light .dim { color: var(--fn-ink-on-light-mute); }
+
+  section { padding-block: clamp(3.75rem, 7vw, 7rem); }
+
+  .light {
+    background: var(--fn-surface-light);
+    color: var(--fn-ink-on-light);
+  }
+
+  /* ---------- wordmark ---------- */
+  .wordmark {
+    font-family: var(--fn-font-display);
+    font-weight: 900;
+    font-size: 1.25rem;
+    letter-spacing: -0.04em;
+    color: var(--fn-ink-on-dark);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .wordmark i {
+    color: var(--fn-green);
+    font-style: normal;
+    margin-left: 1px;
+  }
+
+  /* ---------- barra superior ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding-block: var(--fn-space-4);
+    background: color-mix(in srgb, var(--fn-surface-dark) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--fn-dur-hover) ease;
+  }
+  .topbar[data-stuck="true"] { border-bottom-color: var(--fn-rule-on-dark); }
+  .topbar nav { display: flex; gap: var(--fn-space-6); }
+  .topbar a.nav {
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    text-transform: uppercase;
+    color: var(--fn-ink-on-dark-mute);
+    text-decoration: none;
+    transition: color var(--fn-dur-hover) ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .topbar a.nav:hover { color: var(--fn-ink-on-dark); }
+  }
+  @media (max-width: 640px) { .topbar nav { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    padding-block: clamp(4rem, 11vw, 8.5rem) clamp(3rem, 6vw, 5rem);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: var(--fn-dotgrid);
+    background-size: var(--fn-dotgrid-size);
+    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 78% 18%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 78%);
+    mask-image: radial-gradient(ellipse 85% 75% at 78% 18%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 78%);
+    pointer-events: none;
+  }
+  .hero > * { position: relative; }
+  .hero h1 { max-width: 15ch; }
+  .hero .lead { margin-top: var(--fn-space-8); max-width: 54ch; color: var(--fn-ink-on-dark-mute); }
+  .hero .lead strong { color: var(--fn-ink-on-dark-bold); font-weight: var(--fn-weight-body); }
+
+  .accent { color: var(--fn-green); }
+  .light .accent { color: var(--fn-green-ink); }
+
+  /* ---------- botón ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: var(--fn-space-3);
+    margin-top: var(--fn-space-8);
+    padding: var(--fn-space-3) var(--fn-space-6);
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    text-transform: uppercase;
+    color: var(--fn-black);
+    background: var(--fn-green);
+    border: 0; border-radius: var(--fn-radius-sm);
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform var(--fn-dur-press) var(--fn-ease-out),
+                background-color var(--fn-dur-hover) ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover { background: var(--fn-green-lite); }
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 3px; }
+
+  /* ---------- muro de clientes ----------
+     Banda oscura entre dos secciones: los logos vienen en blanco sobre
+     transparente y en claro habría que aplanarlos con un filtro.
+     Va un tono por encima del negro base y con filetes arriba y abajo
+     para que se lea como banda, no como "otra sección negra". */
+  .clients {
+    background: var(--fn-surface-dark-2);
+    border-block: 1px solid var(--fn-rule-on-dark);
+  }
+
+  /* Rejilla, no fila libre: con 9 marcas el flex dejaba 7+2 y la segunda
+     fila se leía como sobrante. 3 columnas abajo (3x3 exacto) y 5 arriba. */
+  .logowall {
+    list-style: none; margin: var(--fn-space-12) 0 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: var(--fn-space-8) var(--fn-space-6);
+  }
+  @media (min-width: 760px) {
+    .logowall {
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--fn-space-12) var(--fn-space-8);
+    }
+  }
+  .logowall li { display: grid; place-items: center; }
+  /* Cada marca trae su propio peso óptico: la altura se ajusta por logo,
+     no por una sola regla que deja unos gigantes y otros invisibles. */
+  .logowall img {
+    display: block;
+    width: auto; height: auto;
+    max-height: var(--h, 44px);
+    max-width: var(--w, 148px);
+    opacity: 0.85;
+  }
+
+  /* ---------- las tres consultorías ---------- */
+  .stack { display: grid; gap: var(--fn-space-4); margin-top: var(--fn-space-12); }
+  .row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--fn-space-6);
+    align-items: start;
+    padding: var(--fn-space-6) 0;
+    border-top: 1px solid var(--fn-rule-on-dark);
+  }
+  .light .row { border-top-color: var(--fn-rule-on-light); }
+  .row .num {
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    color: var(--fn-ink-on-dark-mute);
+    padding-top: 0.45em;
+    min-width: 3ch;
+  }
+  .light .row .num { color: var(--fn-ink-on-light-mute); }
+  .row h3 { margin-bottom: var(--fn-space-2); }
+  .row p { margin: 0; }
+
+  .row--mine { border-top-color: var(--fn-green); }
+  .row--mine .num { color: var(--fn-green); }
+  .light .row--mine { border-top-color: var(--fn-green-ink); }
+  .light .row--mine .num { color: var(--fn-green-ink); }
+
+  /* ---------- quiénes somos ---------- */
+  .team { display: grid; gap: var(--fn-space-12); margin-top: var(--fn-space-12); }
+  @media (min-width: 820px) { .team { grid-template-columns: 1fr 1fr; } }
+  .member { display: grid; grid-template-columns: 96px 1fr; gap: var(--fn-space-6); align-items: start; }
+  .member img {
+    width: 96px; height: 96px;
+    border-radius: var(--fn-radius-md);
+    object-fit: cover;
+    display: block;
+    filter: grayscale(1) contrast(1.05);
+    border: 1px solid var(--fn-rule-on-light);
+  }
+  .member h3 { margin-bottom: var(--fn-space-2); }
+  .member .role {
+    font-family: var(--fn-font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    color: var(--fn-green-ink);
+    margin-bottom: var(--fn-space-3);
+    display: block;
+  }
+  .member p { margin: 0; font-size: 0.97rem; }
+  .rule-line {
+    margin-top: var(--fn-space-12);
+    padding-top: var(--fn-space-6);
+    border-top: 2px solid var(--fn-green-ink);
+    font-family: var(--fn-font-display);
+    font-weight: 900;
+    font-size: var(--fn-size-h3);
+    letter-spacing: -0.01em;
+    max-width: 34ch;
+  }
+
+  /* ---------- diagrama del ciclo ----------
+     Un circuito cerrado, no una fila de pasos: la forma ES el argumento.
+     El trazo grueso es el camino de trabajo; el fino, el retorno.
+     Móvil: baja por la izquierda y vuelve por la derecha.
+     >=760px: avanza por arriba y vuelve por abajo. */
+  .loop {
+    --loop-pad: var(--fn-space-6);
+    position: relative;
+    margin-top: var(--fn-space-12);
+    padding: var(--loop-pad) var(--fn-space-6);
+    border: 1px solid var(--fn-green-ink);
+    border-left-width: 2px;
+    border-radius: var(--fn-radius-md);
+  }
+
+  .loop-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--fn-space-8); }
+
+  .node { position: relative; }
+  .node-n {
+    display: block;
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    color: var(--fn-green-ink);
+    margin-bottom: var(--fn-space-2);
+  }
+  .node-verb {
+    display: block;
+    font-family: var(--fn-font-display);
+    font-weight: var(--fn-weight-display);
+    font-size: clamp(1.35rem, 1rem + 1.4vw, 2rem);
+    line-height: var(--fn-leading-tight);
+    letter-spacing: var(--fn-track-h2);
+  }
+  .node-out {
+    display: block;
+    margin-top: var(--fn-space-3);
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fn-ink-on-light-mute);
+  }
+
+  /* Punta de flecha entre estaciones, montada sobre el trazo de trabajo. */
+  .node:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc((var(--loop-pad) + 6px) * -1);
+    top: calc(100% + (var(--fn-space-8) / 2) - 5px);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 9px solid var(--fn-green-ink);
+  }
+
+  /* Punta del retorno: reentra al circuito. */
+  .loop::after {
+    content: "";
+    position: absolute;
+    right: -6px; top: 32%;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 9px solid var(--fn-green-ink);
+  }
+
+  /* La etiqueta perfora la línea en vez de cruzarla. */
+  .loop-back {
+    position: absolute;
+    right: -1px; top: 50%;
+    transform: translate(50%, -50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    background: var(--fn-surface-light);
+    padding-block: var(--fn-space-3);
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    text-transform: uppercase;
+    color: var(--fn-green-ink);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 760px) {
+    .loop {
+      border-left-width: 1px;
+      border-top-width: 2px;
+      padding-bottom: var(--fn-space-8);
+    }
+    .loop-steps { grid-template-columns: repeat(4, 1fr); }
+
+    .node:not(:last-child)::after {
+      left: calc(100% + (var(--fn-space-8) / 2) - 4px);
+      top: calc((var(--loop-pad) + 6px) * -1);
+      border-left: 9px solid var(--fn-green-ink);
+      border-right: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+    .loop::after {
+      right: auto; top: auto;
+      left: 24%; bottom: -6px;
+      border-left: 0;
+      border-right: 9px solid var(--fn-green-ink);
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+    .loop-back {
+      right: auto; top: auto;
+      left: 50%; bottom: -1px;
+      transform: translate(-50%, 50%);
+      writing-mode: horizontal-tb;
+      padding-block: 0;
+      padding-inline: var(--fn-space-4);
+    }
+  }
+
+  /* ---------- motores ---------- */
+  .motors { display: grid; gap: var(--fn-space-8); margin-top: var(--fn-space-12); }
+  @media (min-width: 860px) { .motors { grid-template-columns: repeat(3, 1fr); gap: var(--fn-space-12); } }
+  .motor { border-top: 2px solid var(--fn-green-ink); padding-top: var(--fn-space-6); }
+  .motor h3 { margin-bottom: var(--fn-space-4); }
+  .motor p { margin-bottom: var(--fn-space-4); }
+  .motor ul {
+    margin: 0; padding: 0; list-style: none;
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fn-ink-on-light-mute);
+  }
+  .motor li { padding: var(--fn-space-2) 0; border-bottom: 1px solid var(--fn-rule-on-light); }
+
+  /* ---------- contratación ---------- */
+  .steps { counter-reset: s; display: grid; gap: var(--fn-space-8); margin-top: var(--fn-space-12); }
+  @media (min-width: 760px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+  .step { position: relative; padding-top: var(--fn-space-8); border-top: 1px solid var(--fn-rule-on-dark); }
+  .step::before {
+    counter-increment: s;
+    content: "0" counter(s);
+    position: absolute; top: var(--fn-space-3); left: 0;
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    color: var(--fn-green);
+  }
+  .step h3 { margin-bottom: var(--fn-space-3); }
+  .step p { margin: 0; }
+
+  /* ---------- sectores ---------- */
+  .sectors {
+    display: flex; flex-wrap: wrap; gap: var(--fn-space-2);
+    margin-top: var(--fn-space-12); padding: 0; list-style: none;
+  }
+  .sectors li {
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: var(--fn-space-2) var(--fn-space-4);
+    border: 1px solid var(--fn-rule-on-dark);
+    border-radius: var(--fn-radius-sm);
+    color: var(--fn-ink-on-dark-mute);
+  }
+
+  /* ---------- cierre ---------- */
+  .close { text-align: left; }
+  .close h2 { max-width: 16ch; }
+
+  footer {
+    border-top: 1px solid var(--fn-rule-on-dark);
+    padding-block: var(--fn-space-8);
+    display: flex; flex-wrap: wrap; gap: var(--fn-space-4);
+    align-items: center; justify-content: space-between;
+    font-family: var(--fn-font-mono);
+    font-size: var(--fn-size-mono);
+    letter-spacing: var(--fn-track-mono);
+    text-transform: uppercase;
+    color: var(--fn-ink-on-dark-mute);
+  }
+  footer a { color: inherit; text-decoration: none; transition: color var(--fn-dur-hover) ease; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: var(--fn-space-6); }
+  @media (hover: hover) and (pointer: fine) { footer a:hover { color: var(--fn-green); } }
+
+  /* ---------- WhatsApp flotante ----------
+     Verde de marca, no el verde de WhatsApp (#25D366): están a un tono
+     de distancia, así que el oficial leería como un error de color,
+     no como otra marca. El glifo ya carga el reconocimiento.
+     No aparece sobre el hero: ahí ya hay un CTA y competirían. */
+  .wa {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: calc(clamp(1rem, 3vw, 2rem) + env(safe-area-inset-bottom, 0px));
+    z-index: 20;
+    width: 56px; height: 56px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--fn-green);
+    color: var(--fn-black);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.42);
+    /* Anclado a su esquina: entra desde donde vive. */
+    transform-origin: 100% 100%;
+    opacity: 0;
+    transform: scale(0.9);
+    visibility: hidden;
+    transition: opacity 220ms var(--fn-ease-out),
+                transform 220ms var(--fn-ease-out),
+                background-color var(--fn-dur-hover) ease,
+                visibility 0s linear 220ms;
+  }
+  .wa[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition: opacity 220ms var(--fn-ease-out),
+                transform 220ms var(--fn-ease-out),
+                background-color var(--fn-dur-hover) ease,
+                visibility 0s;
+  }
+  .wa svg { width: 27px; height: 27px; display: block; }
+  @media (hover: hover) and (pointer: fine) {
+    .wa:hover { background: var(--fn-green-lite); }
+  }
+  .wa[data-shown="true"]:active {
+    transform: scale(0.94);
+    transition-duration: var(--fn-dur-press);
+  }
+  .wa:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 4px; }
+
+  /* ---------- entrada por scroll ----------
+     Se ve una sola vez por sesión: puede respirar (420ms).
+     Stagger corto para que no se sienta lento. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--fn-dur-reveal) var(--fn-ease-out),
+                transform var(--fn-dur-reveal) var(--fn-ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal[data-shown="true"] { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transform: none; transition-duration: 200ms; }
+    .btn:active { transform: none; }
+    .wa, .wa[data-shown="true"] { transform: none; }
+    .wa[data-shown="true"]:active { transform: none; }
+  }
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}</style></noscript>
+</head>
+<body>
+
+<header class="wrap topbar" id="topbar">
+  <a class="wordmark" href="#top">freaknerd<i>_</i></a>
+  <nav>
+    <a class="nav" href="#equipo">Quiénes somos</a>
+    <a class="nav" href="#clientes">Clientes</a>
+    <a class="nav" href="#metodo">Método</a>
+    <a class="nav" href="#motores">Motores</a>
+    <a class="nav" href="#contratar">Cómo se contrata</a>
+    <a class="nav" href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker reveal">Consultoría · Medellín</p>
+      <h1 class="reveal" style="--d:60ms">Estrategia que se vuelve <span class="accent">estructura</span>.</h1>
+      <p class="lead reveal" style="--d:120ms">
+        La mayoría de la consultoría entrega un informe y se va. Entramos por un problema
+        concreto, trabajamos <strong>hombro a hombro</strong> con tu equipo y nos vamos
+        dejando la capacidad instalada — no la dependencia.
+      </p>
+      <a class="btn reveal" href="#contacto" style="--d:180ms">Hablemos del problema</a>
+    </div>
+  </section>
+
+  <!-- QUIÉNES SOMOS -->
+  <section id="equipo" class="light">
+    <div class="wrap">
+      <p class="kicker reveal">01 · Quiénes somos</p>
+      <h2 class="reveal" style="--d:60ms">Más de 40 años sumados.</h2>
+      <p class="lead dim reveal" style="--d:100ms; margin-top:1.75rem">
+        Somos consultores con experiencia en compañías de consumo masivo y en empresas
+        familiares en crecimiento, con modelos comerciales complejos.
+      </p>
+
+      <div class="team">
+        <article class="member reveal" style="--d:140ms">
+          <img src="assets/p-daniel.jpg" alt="Daniel Restrepo" width="96" height="96">
+          <div>
+            <h3>Daniel Restrepo</h3>
+            <span class="role">Estrategia / Analítica / Automatización</span>
+            <p class="dim">
+              Estrategia, analítica y operaciones. Ex gerente general de una compañía
+              de fragancias y cuidado personal.
+            </p>
+          </div>
+        </article>
+        <article class="member reveal" style="--d:180ms">
+          <img src="assets/p-andres.jpg" alt="Andrés Ardila" width="96" height="96">
+          <div>
+            <h3>Andrés Ardila</h3>
+            <span class="role">Operaciones / Procesos / Mejora continua</span>
+            <p class="dim">
+              Ingeniero biológico. Operaciones y transformación, ex director de
+              operaciones de una corporación de alimentos donde escaló la operación
+              seis veces en 41 meses.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <p class="rule-line reveal" style="--d:220ms">
+        Trabajamos con una regla: lo que dejamos sigue funcionando sin nosotros.
+      </p>
+    </div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section id="clientes" class="clients">
+    <div class="wrap">
+      <p class="kicker reveal">02 · Nuestros clientes</p>
+      <h2 class="reveal" style="--d:60ms">Industrias que no se parecen en nada.</h2>
+      <p class="lead dim reveal" style="--d:100ms; margin-top:1.75rem">
+        Pagos, belleza, alimentos, aseo industrial, manufactura, formación corporativa.
+        El problema nunca es el mismo. La forma de entrar, sí.
+      </p>
+      <ul class="logowall reveal" style="--d:140ms">
+        <li><img src="assets/logos/l-puntos.png" alt="Puntos Colombia" width="367" height="135" loading="lazy"></li>
+        <li><img src="assets/logos/l-mastercard.png" alt="Mastercard" width="179" height="139" loading="lazy" style="--h:40px"></li>
+        <li><img src="assets/logos/l-natura.png" alt="Natura" width="159" height="95" loading="lazy"></li>
+        <li><img src="assets/logos/l-actionclean.png" alt="Action Clean" width="232" height="131" loading="lazy"></li>
+        <li><img src="assets/logos/l-diana.png" alt="Diana Corporación" width="261" height="118" loading="lazy" style="--h:36px"></li>
+        <li><img src="assets/logos/l-motta.png" alt="Grupo Motta Internacional" width="194" height="93" loading="lazy"></li>
+        <li><img src="assets/logos/l-alinutri.png" alt="Ali Nutri" width="140" height="129" loading="lazy" style="--h:46px"></li>
+        <li><img src="assets/logos/l-estrella.png" alt="Grupo Estrella" width="399" height="368" loading="lazy" style="--h:56px; --w:70px"></li>
+        <li><img src="assets/logos/l-victoria.png" alt="Sartenes Victoria · Mecánicos Unidos" width="527" height="193" loading="lazy" style="--h:40px; --w:168px"></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MÉTODO: cajas transparentes -->
+  <section id="metodo">
+    <div class="wrap">
+      <p class="kicker reveal">03 · Cómo trabajamos</p>
+      <h2 class="reveal" style="--d:60ms">Ni credenciales, ni caja negra.</h2>
+      <div class="stack">
+        <article class="row reveal" style="--d:100ms">
+          <span class="num">A</span>
+          <div>
+            <h3 class="dim">La que se compra por credenciales</h3>
+            <p class="dim">
+              Llega una firma grande, entrega un diagnóstico impecable y la gerencia
+              queda tranquila ante la junta. El respaldo es real. La raíz, a veces,
+              sigue exactamente donde estaba.
+            </p>
+          </div>
+        </article>
+        <article class="row reveal" style="--d:140ms">
+          <span class="num">B</span>
+          <div>
+            <h3 class="dim">La caja negra</h3>
+            <p class="dim">
+              Alguien entra a la mina y resuelve de verdad. Pero diseña desde su propia
+              mirada, entrega la solución y se va. El equipo que va a operarla no la
+              construyó, así que la solución se muere poco después que el contrato.
+            </p>
+          </div>
+        </article>
+        <article class="row row--mine reveal" style="--d:180ms">
+          <span class="num">C</span>
+          <div>
+            <h3>Caja transparente</h3>
+            <p>
+              Tu equipo entiende cómo se llegó a la solución porque participó en armarla.
+              Intervenimos donde movemos la aguja, no donde se llenan horas. Cuando salimos,
+              lo que queda no es un PDF: es gente que sabe hacerlo y herramientas que
+              siguen corriendo.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CICLO + MOTORES -->
+  <section id="motores" class="light">
+    <div class="wrap">
+      <p class="kicker reveal">04 · El ciclo</p>
+      <h2 class="reveal" style="--d:60ms">Ver, encontrar, crear, mejorar. Y otra vez.</h2>
+      <p class="lead dim reveal" style="--d:100ms; margin-top:1.5rem">
+        Las observaciones se vuelven decisiones; las decisiones, oportunidades;
+        las oportunidades, proyectos; los proyectos, resultados.
+      </p>
+      <div class="loop reveal" style="--d:140ms">
+        <ol class="loop-steps">
+          <li class="node">
+            <span class="node-n">01</span>
+            <span class="node-verb">Ver</span>
+            <span class="node-out">Observaciones</span>
+          </li>
+          <li class="node">
+            <span class="node-n">02</span>
+            <span class="node-verb">Encontrar</span>
+            <span class="node-out">Oportunidades</span>
+          </li>
+          <li class="node">
+            <span class="node-n">03</span>
+            <span class="node-verb">Crear</span>
+            <span class="node-out">Proyectos</span>
+          </li>
+          <li class="node">
+            <span class="node-n">04</span>
+            <span class="node-verb">Mejorar</span>
+            <span class="node-out">Resultados</span>
+          </li>
+        </ol>
+        <span class="loop-back" aria-hidden="true">Y otra vez</span>
+      </div>
+
+      <div class="motors">
+        <article class="motor reveal" style="--d:100ms">
+          <h3>Vigilancia estratégica</h3>
+          <p class="dim">
+            Mirar afuera antes de que el cambio sea obvio. En Colombia la norma suele
+            llegar copiada de otro mercado: si sabes de cuál, tienes años de ventaja,
+            no meses.
+          </p>
+          <ul>
+            <li>Competidores</li>
+            <li>Clientes</li>
+            <li>Tecnología</li>
+            <li>Normativa</li>
+          </ul>
+        </article>
+        <article class="motor reveal" style="--d:140ms">
+          <h3>Motor de valor</h3>
+          <p class="dim">
+            Dónde estás perdiendo plata, dónde puedes ahorrar y dónde puedes ganar más.
+            Sostenido con estadística, no con la intuición del consultor — y traducido
+            a lenguaje que la junta pueda decidir.
+          </p>
+          <ul>
+            <li>Procesos y capacidad</li>
+            <li>Inventario y caja</li>
+            <li>Logística y tiempos</li>
+            <li>Confiabilidad del dato</li>
+          </ul>
+        </article>
+        <article class="motor reveal" style="--d:180ms">
+          <h3>Fábrica de proyectos</h3>
+          <p class="dim">
+            Casi toda empresa tiene un banco de ideas que no avanza. Esto lo vuelve un
+            portafolio con prioridades, responsables y plata asignada. No todas se
+            ejecutan: ese es el punto.
+          </p>
+          <ul>
+            <li>Priorización</li>
+            <li>Hoja de ruta</li>
+            <li>Transformación digital</li>
+            <li>Adopción de IA</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO SE CONTRATA -->
+  <section id="contratar">
+    <div class="wrap">
+      <p class="kicker reveal">05 · Cómo se contrata</p>
+      <h2 class="reveal" style="--d:60ms">Primero probamos el valor. Después hablamos de recurrencia.</h2>
+      <div class="steps">
+        <article class="step reveal" style="--d:100ms">
+          <h3>Entras por un dolor</h3>
+          <p class="dim">
+            Un problema concreto y acotado, con alcance y entregable claros desde el
+            primer día. Nadie compra un acompañamiento mensual de alguien que todavía
+            no le ha resuelto nada.
+          </p>
+        </article>
+        <article class="step reveal" style="--d:140ms">
+          <h3>El proyecto deja una rueda</h3>
+          <p class="dim">
+            Cada trabajo deja algo reutilizable: una herramienta, un tablero, un proceso
+            documentado. No se vuelve a construir el mismo diagnóstico desde cero.
+          </p>
+        </article>
+        <article class="step reveal" style="--d:180ms">
+          <h3>La recurrencia llega sola</h3>
+          <p class="dim">
+            Cuando ya viste el efecto, unas pocas horas al mes de acompañamiento valen
+            la pena: orientamos al equipo, desbloqueamos, y nos retiramos mientras ustedes ejecutan.
+          </p>
+        </article>
+      </div>
+
+      <p class="kicker reveal" style="margin-top:3.25rem">Sectores</p>
+      <ul class="sectors reveal" style="--d:60ms">
+        <li>Manufactura de proceso</li>
+        <li>Alimentos</li>
+        <li>Fragancias y belleza</li>
+        <li>Construcción</li>
+        <li>Medios</li>
+        <li>Software B2B</li>
+        <li>Propiedad horizontal</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="contacto" class="close">
+    <div class="wrap">
+      <p class="kicker reveal">06 · Contacto</p>
+      <h2 class="reveal" style="--d:60ms">Cuéntanos qué se está rompiendo.</h2>
+      <p class="lead dim reveal" style="--d:100ms; margin-top:1.75rem">
+        Si hay un problema que ya intentaron resolver dos veces, esa es la
+        conversación que sirve. La primera charla no se cobra.
+      </p>
+      <a class="btn reveal" href="mailto:contacto@freaknerd.co?subject=Consultor%C3%ADa%20freaknerd" style="--d:140ms">
+        Escríbenos
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>freaknerd_</span>
+  <span class="foot-links">
+    <a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a>
+    <a href="mailto:contacto@freaknerd.co">contacto@freaknerd.co</a>
+  </span>
+</footer>
+
+<a class="wa"
+   href="https://wa.me/573117191394?text=Hola%2C%20los%20contacto%20desde%20la%20web%20de%20freaknerd."
+   target="_blank" rel="noopener noreferrer"
+   aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 016.988 2.896 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<script>
+  // Entrada por scroll: una sola vez, sin bloquear interacción.
+  (function () {
+    var items = document.querySelectorAll('.reveal');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!('IntersectionObserver' in window) || reduce) {
+      items.forEach(function (el) { el.setAttribute('data-shown', 'true'); });
+      if (!reduce) return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.setAttribute('data-shown', 'true');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+
+    items.forEach(function (el) { io.observe(el); });
+
+    // Si no queda scroll por hacer, nada debe quedarse invisible.
+    function flushIfUnscrollable() {
+      var d = document.documentElement;
+      if (d.scrollHeight - window.scrollY - window.innerHeight > 2) return;
+      items.forEach(function (el) {
+        if (el.getAttribute('data-shown') !== 'true') {
+          el.setAttribute('data-shown', 'true');
+          io.unobserve(el);
+        }
+      });
+    }
+    window.addEventListener('load', flushIfUnscrollable);
+    window.addEventListener('resize', flushIfUnscrollable);
+    window.addEventListener('scroll', flushIfUnscrollable, { passive: true });
+
+    // Filete de la barra solo cuando ya se hizo scroll.
+    var bar = document.getElementById('topbar');
+    var sentinel = new IntersectionObserver(function (e) {
+      bar.setAttribute('data-stuck', String(!e[0].isIntersecting));
+    }, { threshold: 1 });
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;top:0;height:1px;width:1px;';
+    document.body.prepend(probe);
+    sentinel.observe(probe);
+
+    // WhatsApp: aparece cuando el hero sale de cuadro, no antes.
+    var wa = document.querySelector('.wa');
+    var hero = document.querySelector('.hero');
+    if (wa && hero) {
+      new IntersectionObserver(function (e) {
+        wa.setAttribute('data-shown', String(!e[0].isIntersecting));
+      }, { threshold: 0 }).observe(hero);
+    }
+  })();
+</script>
+</body>
+</html>
