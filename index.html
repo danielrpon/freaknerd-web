@@ -309,19 +309,50 @@
   }
   .boot .cursor { fill: var(--fn-green); opacity: 0; }
 
+  /* Antes del prompt pasan dos oficios: los binoculares son vigilancia y la
+     caja de herramientas es la fábrica de proyectos. Se relevan uno al otro
+     y desembocan en el >|, que sigue siendo el estado final y el único que
+     queda en pantalla. Así la marca del hero nombra los motores en vez de
+     ser un adorno de terminal.
+
+     Son glifos, no íconos de catálogo: mismo grosor de trazo y mismas puntas
+     redondeadas que el chevron, para que se lean como la misma mano. */
+  .boot .glyph {
+    fill: none;
+    stroke: var(--fn-ink-on-dark);
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
   .boot[data-on="true"] .frame { animation: fn-draw 520ms var(--fn-ease-out) 80ms forwards; }
   .boot[data-on="true"] .dot   { animation: fn-in 180ms ease forwards; }
   .boot[data-on="true"] .dot:nth-of-type(1) { animation-delay: 520ms; }
   .boot[data-on="true"] .dot:nth-of-type(2) { animation-delay: 570ms; }
   .boot[data-on="true"] .dot:nth-of-type(3) { animation-delay: 620ms; }
-  .boot[data-on="true"] .chev  { animation: fn-in 240ms var(--fn-ease-out) 560ms forwards; }
+  .boot[data-on="true"] .glyph { animation: fn-glyph 660ms var(--fn-ease-out) both; }
+  .boot[data-on="true"] .g-watch { animation-delay: 640ms; }
+  .boot[data-on="true"] .g-build { animation-delay: 1240ms; }
+  .boot[data-on="true"] .chev  { animation: fn-in 240ms var(--fn-ease-out) 1840ms forwards; }
   .boot[data-on="true"] .cursor {
-    animation: fn-in 160ms ease 700ms forwards,
-               fn-blink 420ms linear 880ms 3 forwards;
+    animation: fn-in 160ms ease 1940ms forwards,
+               fn-blink 420ms linear 2120ms 3 forwards;
   }
 
   @keyframes fn-draw  { to { stroke-dashoffset: 0; } }
   @keyframes fn-in    { to { opacity: 1; } }
+  /* Entra y sale con un punto de desenfoque: sin él se ven dos dibujos
+     superpuestos durante el relevo en vez de uno volviéndose el otro.
+     Nunca desde scale(0): nada en el mundo real aparece de la nada. */
+  @keyframes fn-glyph {
+    0%   { opacity: 0; transform: scale(0.92); filter: blur(3px); }
+    18%  { opacity: 1; transform: scale(1);    filter: blur(0); }
+    72%  { opacity: 1; transform: scale(1);    filter: blur(0); }
+    100% { opacity: 0; transform: scale(1.06); filter: blur(3px); }
+  }
   /* Corte duro, no desvanecido: un cursor de terminal salta, no respira. */
   @keyframes fn-blink {
     0%,   49.9% { opacity: 1; }
@@ -520,6 +551,44 @@
     border-right: 5px solid transparent;
     border-bottom: 9px solid var(--fn-green-ink);
   }
+
+  /* Un pulso recorriendo el circuito, que es el argumento entero de la
+     sección: la rueda no se detiene. Va sobre el borde real del elemento
+     con offset-path: border-box, así que sigue las esquinas redondeadas y
+     no hay que medir nada ni duplicar el trazado en SVG.
+
+     El sentido importa. En escritorio border-box corre en el sentido de las
+     agujas del reloj, que es justo el recorrido: avanza por arriba, baja por
+     la derecha y vuelve por abajo. En móvil el circuito baja por la izquierda,
+     así que allá va en reversa.
+
+     Arranca con data-shown, que es lo que el observador de scroll ya pone
+     al entrar: antes de que la sección se vea, no hay nada girando. */
+  @supports (offset-path: border-box) {
+    .loop[data-shown="true"]::before {
+      content: "";
+      position: absolute;
+      width: 56px; height: 4px;
+      border-radius: 2px;
+      /* Más oscuro que la vía, no más claro: sobre papel el verde de marca
+         encima del verde del borde no se distingue, y la metáfora de luz
+         corriendo por un circuito solo funciona sobre fondo oscuro. */
+      background: linear-gradient(90deg,
+                    transparent 0%,
+                    var(--fn-ink-on-light) 50%,
+                    transparent 100%);
+      offset-path: border-box;
+      offset-rotate: auto;
+      offset-distance: 0%;
+      animation: fn-orbit 9s linear infinite;
+      animation-direction: reverse;      /* móvil: baja por la izquierda */
+      pointer-events: none;
+    }
+    @media (min-width: 760px) {
+      .loop[data-shown="true"]::before { animation-direction: normal; }
+    }
+  }
+  @keyframes fn-orbit { to { offset-distance: 100%; } }
 
   /* La etiqueta perfora la línea en vez de cruzarla. */
   .loop-back {
@@ -783,6 +852,12 @@
     .boot[data-on="true"] .dot,
     .boot[data-on="true"] .chev,
     .boot[data-on="true"] .cursor { opacity: 1; animation: none; }
+    /* Los dos oficios no se muestran: sin secuencia se apilarían sobre el
+       prompt, que es el estado final y lo único que debe quedar. */
+    .boot .glyph, .boot[data-on="true"] .glyph { opacity: 0; animation: none; }
+    /* El pulso del ciclo se detiene, pero el circuito sigue dibujado: la
+       forma es el argumento y no depende del movimiento. */
+    .loop[data-shown="true"]::before { animation: none; display: none; }
   }
 </style>
 <noscript><style>.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}.boot .frame{stroke-dashoffset:0}.boot .dot,.boot .chev,.boot .cursor{opacity:1}</style></noscript>
@@ -814,6 +889,16 @@
         <circle class="dot" cx="19" cy="18" r="3.4"></circle>
         <circle class="dot" cx="31" cy="18" r="3.4"></circle>
         <circle class="dot" cx="43" cy="18" r="3.4"></circle>
+        <g class="glyph g-watch">
+          <rect x="33" y="34" width="24" height="44" rx="11"></rect>
+          <rect x="63" y="34" width="24" height="44" rx="11"></rect>
+          <path d="M 57 52 L 63 52"></path>
+        </g>
+        <g class="glyph g-build">
+          <rect x="34" y="52" width="52" height="26" rx="3"></rect>
+          <path d="M 48 52 L 48 44 Q 48 40 52 40 L 68 40 Q 72 40 72 44 L 72 52"></path>
+          <path d="M 34 62 L 86 62"></path>
+        </g>
         <path class="chev" d="M 44 38 L 56 50 L 44 62"></path>
         <rect class="cursor" x="64" y="36" width="16" height="28" rx="2"></rect>
       </svg>
@@ -911,7 +996,7 @@
   <section id="metodo">
     <div class="wrap">
       <p class="kicker reveal">03 · Cómo trabajamos</p>
-      <h2 class="reveal" style="--d:60ms">Ni credenciales, ni caja negra.</h2>
+      <h2 class="reveal" style="--d:60ms">El diagnóstico no es el trabajo.</h2>
       <div class="stack">
         <article class="row reveal" style="--d:100ms">
           <span class="num">A</span>
@@ -920,7 +1005,8 @@
             <p class="dim">
               Llega una firma grande, entrega un diagnóstico impecable y la gerencia
               queda tranquila ante la junta. El respaldo es real. La raíz, a veces,
-              sigue exactamente donde estaba.
+              sigue exactamente donde estaba: te dieron la hora con tu propio reloj
+              y te dejaron en el mismo punto.
             </p>
           </div>
         </article>
