@@ -70,10 +70,17 @@ PLANTILLA = """<!DOCTYPE html><html><head><meta charset="utf-8">
   *{{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;}}
   html,body{{width:1200px;height:630px;overflow:hidden;font-family:'Montserrat',sans-serif;}}
   .c{{position:relative;width:1200px;height:630px;background:#0A0B0D;color:var(--bone);overflow:hidden;}}
-  .grid{{position:absolute;inset:0;width:100%;height:100%;z-index:0;}}
-  .rule{{position:absolute;top:0;left:0;right:0;height:6px;z-index:5;
+  /* La foto va al fondo, desaturada para que no le pelee al verde. */
+  .foto{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+        filter:grayscale(.45) contrast(1.1) brightness(1.02);z-index:0;}}
+  /* Velo en diagonal: opaco donde va el texto, transparente donde se ve la foto. */
+  .velo{{position:absolute;inset:0;z-index:1;background:
+        linear-gradient(100deg,#0A0B0D 0%,rgba(10,11,13,.96) 38%,
+                        rgba(10,11,13,.60) 62%,rgba(10,11,13,.18) 100%);}}
+  .grid{{position:absolute;inset:0;width:100%;height:100%;z-index:2;}}
+  .rule{{position:absolute;top:0;left:0;right:0;height:6px;z-index:6;
         background:linear-gradient(90deg,var(--green) 0%,var(--green2) 40%,transparent 76%);}}
-  .pad{{position:relative;z-index:2;height:100%;padding:56px 64px;display:flex;flex-direction:column;}}
+  .pad{{position:relative;z-index:3;height:100%;padding:56px 64px;display:flex;flex-direction:column;}}
   .wm{{font-weight:800;font-size:34px;letter-spacing:-1px;}}
   .wm i{{font-style:normal;color:var(--green);}}
   .kick{{margin-top:44px;display:flex;align-items:center;gap:16px;
@@ -81,10 +88,10 @@ PLANTILLA = """<!DOCTYPE html><html><head><meta charset="utf-8">
         text-transform:uppercase;color:var(--green);}}
   .kick::before{{content:"";width:34px;height:2px;background:var(--green);}}
   h1{{margin-top:22px;font-weight:900;font-size:{tam}px;line-height:1.04;
-      letter-spacing:-2px;max-width:17ch;}}
+      letter-spacing:-2px;max-width:{ancho}ch;}}
   h1 em{{font-style:normal;color:var(--green);}}
   .sub{{margin-top:22px;font-size:21px;font-weight:500;color:var(--dim);
-       line-height:1.45;max-width:62ch;}}
+       line-height:1.45;max-width:{ancho_sub}ch;}}
   .pie{{margin-top:auto;display:flex;align-items:center;justify-content:space-between;
        border-top:1px solid rgba(244,246,243,.14);padding-top:26px;}}
   .url{{font-family:var(--mono);font-size:18px;color:var(--dim);}}
@@ -93,6 +100,7 @@ PLANTILLA = """<!DOCTYPE html><html><head><meta charset="utf-8">
         padding:10px 20px;}}
 </style></head><body>
 <div class="c">
+  {foto}
   <svg class="grid" viewBox="0 0 1200 630" preserveAspectRatio="none">
     <defs><pattern id="d" width="40" height="40" patternUnits="userSpaceOnUse">
       <circle cx="2" cy="2" r="1.1" fill="rgba(38,229,124,.13)"/></pattern></defs>
@@ -113,13 +121,12 @@ PLANTILLA = """<!DOCTYPE html><html><head><meta charset="utf-8">
 """
 
 
-def tamano(titulo):
-    """Titulares largos bajan de tamaño para no desbordar la lámina."""
+def tamano(titulo, con_foto=False):
+    """Titulares largos bajan de tamaño para no desbordar la lámina.
+    Con foto el texto vive en menos ancho, así que baja un escalón más."""
     n = len(titulo)
-    if n <= 38:  return 76
-    if n <= 52:  return 66
-    if n <= 68:  return 58
-    return 50
+    base = 76 if n <= 38 else 66 if n <= 52 else 58 if n <= 68 else 50
+    return base - 6 if con_foto else base
 
 
 def generar(entrada, rehacer=False):
@@ -133,13 +140,20 @@ def generar(entrada, rehacer=False):
     if len(sub) > 150:
         sub = sub[:147].rsplit(" ", 1)[0] + "…"
 
+    foto = (entrada.get("imagen") or "").strip()
+    bloque_foto = ('<img class="foto" src="%s" alt="">\n  <div class="velo"></div>'
+                   % html.escape(foto)) if foto else ""
+
     with open(temporal, "w", encoding="utf-8") as f:
         f.write(PLANTILLA.format(
             cat=html.escape(entrada["categoria"]),
             titulo=resaltar(entrada["titulo"]),
             sub=html.escape(sub),
             pill=entrada["fecha"][:4],
-            tam=tamano(entrada["titulo"])))
+            tam=tamano(entrada["titulo"], bool(foto)),
+            ancho=15 if foto else 17,
+            ancho_sub=48 if foto else 62,
+            foto=bloque_foto))
 
     os.makedirs(os.path.dirname(destino), exist_ok=True)
     subprocess.run([CHROME, "--headless", "--disable-gpu", "--hide-scrollbars",

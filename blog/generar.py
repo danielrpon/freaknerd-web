@@ -121,24 +121,16 @@ PIE = """<footer class="wrap">
 
 
 def bloque_visual(e):
-    """Franja de marca del artículo.
+    """La portada, dentro del artículo.
 
-    La capa es lo constante y la foto lo opcional: así toda entrada tiene su
-    bloque aunque no haya imagen, y cuando se pega una URL en Notion la foto
-    entra detrás de la misma capa sin cambiar nada más."""
-    foto = (e.get("imagen") or "").strip()
-    img = ('<img src="%s" alt="" loading="lazy">' % html.escape(foto)) if foto else ""
+    Es el mismo archivo que sirve de tarjeta de compartir. Se muestra acá igual
+    que en Propiman: una sola pieza en vez de dos tratamientos parecidos."""
     return """  <div class="post-visual">
     <div class="wrap">
-      <figure class="visual"{sinfoto}>
-        {img}
-        <span class="visual-capa" aria-hidden="true"></span>
-        <span class="visual-marca" aria-hidden="true">freaknerd<i>_</i></span>
-        <span class="visual-cat" aria-hidden="true">{cat}</span>
-      </figure>
+      <img class="visual" src="/blog/{slug}/portada.png" alt=""
+           width="2400" height="1260" loading="lazy">
     </div>
-  </div>""".format(img=img, cat=html.escape(e["categoria"]),
-                   sinfoto="" if foto else ' data-sinfoto="true"')
+  </div>""".format(slug=e["slug"])
 
 
 def pagina_entrada(e):
