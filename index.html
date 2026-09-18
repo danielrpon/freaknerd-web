@@ -190,6 +190,24 @@
   @media (hover: hover) and (pointer: fine) {
     .topbar a.nav:hover { color: var(--fn-ink-on-dark); }
   }
+  /* Contacto es la acción de la barra: verde de la casa con contorno, y al
+     pasar el mouse se llena como el botón principal. El margen negativo
+     compensa el relleno para que el texto quede alineado con los demás. */
+  .topbar a.nav--cta {
+    color: var(--fn-green);
+    padding: var(--fn-space-2) var(--fn-space-3);
+    margin-block: calc(-1 * var(--fn-space-2));
+    border: 1px solid var(--fn-green);
+    border-radius: var(--fn-radius-sm);
+    transition: color var(--fn-dur-hover) ease,
+                background-color var(--fn-dur-hover) ease,
+                transform var(--fn-dur-press) var(--fn-ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .topbar a.nav--cta:hover { color: var(--fn-black); background: var(--fn-green); }
+  }
+  .topbar a.nav--cta:active { transform: scale(0.97); }
+  .topbar a.nav--cta:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 3px; }
   /* ---------- menú móvil ----------
      Antes la navegación simplemente desaparecía bajo 640px y el sitio se
      quedaba sin forma de moverse. */
@@ -248,6 +266,11 @@
       border-bottom: 1px solid var(--fn-rule-on-dark);
     }
     .topbar nav a.nav:last-child { border-bottom: 0; }
+    /* En el menú desplegable basta el color: el contorno rompe la lista. */
+    .topbar nav a.nav--cta {
+      padding: var(--fn-space-4) 0; margin-block: 0;
+      border: 0; border-radius: 0;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -875,7 +898,7 @@
     <a class="nav" href="#motores">Motores</a>
     <a class="nav" href="#contratar">Cómo se contrata</a>
     <a class="nav" href="/blog/">Blog</a>
-    <a class="nav" href="#contacto">Contacto</a>
+    <a class="nav nav--cta" href="#contacto">Contacto</a>
   </nav>
 </header>
 
@@ -1218,8 +1241,8 @@
       <p class="kicker reveal">06 · Contacto</p>
       <h2 class="reveal" style="--d:60ms">Cuéntanos qué se está rompiendo.</h2>
       <p class="lead dim reveal" style="--d:100ms; margin-top:1.75rem">
-        Si hay un problema que ya intentaron resolver dos veces, esa es la
-        conversación que sirve. La primera charla no se cobra.
+        Si hay un problema que lleva meses sin resolverse, de ese queremos
+        hablar. La primera charla no se cobra.
       </p>
       <a class="btn reveal" href="mailto:contacto@freaknerd.co?subject=Consultor%C3%ADa%20freaknerd" style="--d:140ms">
         Escríbenos
