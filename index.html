@@ -760,10 +760,27 @@
   .offer p { margin: 0; max-width: var(--fn-measure); }
   /* Dos salidas, una rápida y una pausada: el CTA no puede depender de
      que la persona tenga ganas de redactar un correo. */
+  /* Dos puertas de entrada seguidas: la segunda no repite el aire grande. */
+  .offer + .offer { margin-top: var(--fn-space-6); }
+  .offer-points {
+    display: grid; gap: var(--fn-space-6);
+    margin: var(--fn-space-8) 0 0; padding: 0; list-style: none;
+  }
+  @media (min-width: 760px) { .offer-points { grid-template-columns: repeat(3, 1fr); } }
+  .offer-points li {
+    padding-top: var(--fn-space-4);
+    border-top: 1px solid var(--fn-rule-on-dark);
+    color: var(--fn-ink-on-dark-mute);
+  }
+  .offer-points b { display: block; margin-bottom: var(--fn-space-2); color: var(--fn-ink-on-dark); }
   .offer-cta {
     display: flex; flex-wrap: wrap; align-items: center;
-    gap: var(--fn-space-6);
+    gap: var(--fn-space-4) var(--fn-space-6);
+    margin-top: var(--fn-space-8);
   }
+  /* El aire va en el contenedor: si cada botón trae el suyo, al partirse en
+     dos renglones en celular queda un hueco grande entre ellos. */
+  .offer-cta .btn { margin-top: 0; }
   /* Ícono dentro del botón: del tamaño de la letra, sin cambiar la altura. */
   .btn-ico { width: 1.15em; height: 1.15em; flex: none; }
   .btn--quiet {
@@ -1169,7 +1186,7 @@
             <li>Priorización</li>
             <li>Hoja de ruta</li>
             <li>Transformación digital</li>
-            <li>Adopción de IA</li>
+            <li>IA-abilities del equipo</li>
           </ul>
           <a class="motor-cta" target="_blank" rel="noopener"
              href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20F%C3%A1brica%20de%20proyectos">Consultar por fábrica de proyectos <span aria-hidden="true">&rarr;</span></a>
@@ -1225,7 +1242,7 @@
       </div>
 
       <div class="offer reveal" style="--d:220ms">
-        <p class="kicker">La puerta de entrada</p>
+        <p class="kicker">Puerta de entrada · Ideas</p>
         <h3>Un foro de ideación con tu propio equipo</h3>
         <p class="dim">
           Media jornada, la plataforma en pantalla y la gente de la operación
@@ -1238,6 +1255,32 @@
           <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20c%C3%B3mo%20funciona%20el%20foro%20de%20ideaci%C3%B3n"
              target="_blank" rel="noopener">Cómo funciona el foro</a>
           <a class="btn btn--quiet" href="mailto:contacto@freaknerd.co?subject=Foro%20de%20ideaci%C3%B3n">
+            Prefiero correo
+          </a>
+        </div>
+      </div>
+
+      <div class="offer reveal" style="--d:60ms">
+        <p class="kicker">Puerta de entrada · IA-abilities</p>
+        <h3>La IA no sabe lo que sabe tu equipo.</h3>
+        <p class="dim">
+          Ahí está la ventaja. Años de oficio, criterio y conocimiento del negocio
+          que ninguna herramienta trae de fábrica. Le enseñamos a tu gente a
+          ponerle IA encima a eso: a su trabajo de todos los días, no a un demo.
+        </p>
+        <ul class="offer-points">
+          <li><b>Primero la usamos nosotros.</b> Somos un equipo pequeño que
+            entrega como uno grande. No enseñamos nada que no hagamos a diario.</li>
+          <li><b>Sobre el trabajo real.</b> Partimos de lo que tu gente ya hace:
+            informes, cotizaciones, análisis, seguimiento. Cada persona sale con
+            su propio flujo funcionando.</li>
+          <li><b>Se queda cuando nos vamos.</b> Sin cajas negras: tu equipo
+            entiende cómo funciona, sabe ajustarlo y no depende de nosotros.</li>
+        </ul>
+        <div class="offer-cta">
+          <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20de%20IA-abilities%20para%20mi%20equipo"
+             target="_blank" rel="noopener">Hablemos de IA-abilities</a>
+          <a class="btn btn--quiet" href="mailto:contacto@freaknerd.co?subject=IA-abilities">
             Prefiero correo
           </a>
         </div>
