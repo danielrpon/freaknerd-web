@@ -140,7 +140,7 @@ CABEZA = """<!DOCTYPE html>
 """
 
 PIE = """<footer class="wrap">
-  <span><a href="/">freaknerd_</a></span>
+  <span>&copy; 2026 <a href="/">freaknerd_</a></span>
   <span class="foot-links">
     <a href="/blog/feed.xml">RSS</a>
     <a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a>
