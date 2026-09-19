@@ -474,12 +474,9 @@
   /* ---------- quiénes somos ---------- */
   .team { display: grid; gap: var(--fn-space-12); margin-top: var(--fn-space-12); }
   @media (min-width: 720px) { .team { grid-template-columns: repeat(2, 1fr); } }
-  /* Con tres consultores la tarjeta horizontal deja la columna de texto
-     demasiado angosta: a partir de aquí la foto se va arriba. */
-  @media (min-width: 1040px) {
-    .team { grid-template-columns: repeat(3, 1fr); gap: var(--fn-space-8); }
-    .team > .member { grid-template-columns: 1fr; gap: var(--fn-space-4); }
-  }
+  /* Con cuatro consultores la rejilla queda 2x2 y la tarjeta horizontal
+     (foto a la izquierda) conserva una columna de texto legible. */
+  @media (min-width: 1040px) { .team { gap: var(--fn-space-12) var(--fn-space-16); } }
   .member { display: grid; grid-template-columns: 96px 1fr; gap: var(--fn-space-6); align-items: start; }
   .member img {
     width: 96px; height: 96px;
@@ -1025,9 +1022,22 @@
             </p>
           </div>
         </article>
+        <article class="member reveal" style="--d:260ms">
+          <img src="assets/p-maria.jpg" alt="María Isabel Tangerife" width="96" height="96">
+          <div>
+            <h3>María Isabel Tangerife</h3>
+            <span class="role">Marcas / Categorías / Portafolio</span>
+            <p class="dim">
+              Lidera marcas, categorías y portafolios en belleza, moda, retail y
+              lujo. Ha trabajado en América Latina, Francia y Canadá: entornos
+              multiculturales y multilingües donde convierte oportunidades de
+              mercado en productos y estrategias que generan crecimiento.
+            </p>
+          </div>
+        </article>
       </div>
 
-      <p class="rule-line reveal" style="--d:260ms">
+      <p class="rule-line reveal" style="--d:300ms">
         Trabajamos con una regla: lo que dejamos sigue funcionando sin nosotros.
       </p>
     </div>
