@@ -514,6 +514,7 @@
     font-size: 0.8rem;
     letter-spacing: 0.02em;
     color: var(--fn-green-ink);
+    transform-origin: left center;   /* se hunde junto al margen del texto */
     transition: transform var(--fn-dur-press) var(--fn-ease-out);
   }
   .member .more[hidden] { display: none; }
@@ -928,6 +929,7 @@
   @media (prefers-reduced-motion: reduce) {
     .reveal { transform: none; transition-duration: 200ms; }
     .btn:active { transform: none; }
+    .member .more:active { transform: none; }
     .wa, .wa[data-shown="true"] { transform: none; }
     .wa[data-shown="true"]:active { transform: none; }
     .boot .frame, .boot[data-on="true"] .frame { stroke-dashoffset: 0; animation: none; }
@@ -1414,6 +1416,9 @@
         bio.setAttribute('data-open', open ? 'true' : 'false');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         btn.textContent = open ? 'Leer menos' : 'Leer más';
+        // Al cerrar, si el botón quedó por encima de la pantalla, volver a él
+        // para que el lector no pierda su lugar.
+        if (!open && btn.getBoundingClientRect().top < 0) btn.scrollIntoView({ block: 'nearest' });
       });
       bio.after(btn);
     });
