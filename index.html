@@ -496,6 +496,32 @@
     display: block;
   }
   .member p { margin: 0; font-size: 0.97rem; }
+  /* Biografías con un largo común: con JS se recortan a 6 líneas y, si el
+     texto no cabe, aparece «Leer más». Sin JS se ven completas. Abrir no se
+     anima: es un cambio de altura que se usa poco y debe sentirse inmediato. */
+  .js .member .bio:not([data-open="true"]) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    overflow: hidden;
+  }
+  .member .more {
+    margin-top: var(--fn-space-2);
+    padding: var(--fn-space-1) 0;
+    background: none; border: 0; cursor: pointer;
+    font-family: var(--fn-font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    color: var(--fn-green-ink);
+    transition: transform var(--fn-dur-press) var(--fn-ease-out);
+  }
+  .member .more[hidden] { display: none; }
+  .member .more:active { transform: scale(0.97); }
+  .member .more:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 3px; }
+  @media (hover: hover) and (pointer: fine) {
+    .member .more:hover { text-decoration: underline; text-underline-offset: 3px; }
+  }
   .rule-line {
     margin-top: var(--fn-space-12);
     padding-top: var(--fn-space-6);
@@ -990,7 +1016,7 @@
           <div>
             <h3>Daniel Restrepo</h3>
             <span class="role">Gerencia general / Analítica / Automatización</span>
-            <p class="dim">
+            <p class="dim bio">
               Fue gerente general de una compañía de fragancias, a cargo de la caja,
               el inventario y el equipo. Antes, marketing regional para media
               Latinoamérica en una multinacional de belleza. Convierte el análisis
@@ -999,35 +1025,24 @@
           </div>
         </article>
         <article class="member reveal" style="--d:180ms">
-          <img src="assets/p-andres.jpg" alt="Andrés Ardila" width="96" height="96">
+          <img src="assets/p-maria.jpg" alt="María Isabel Tangarife" width="96" height="96">
           <div>
-            <h3>Andrés Ardila</h3>
-            <span class="role">Operaciones / Procesos / Mejora continua</span>
-            <p class="dim">
-              Ingeniero biológico. Operaciones y transformación, ex director de
-              operaciones de una corporación de alimentos donde escaló la operación
-              seis veces en 41 meses.
+            <h3>María Isabel Tangarife</h3>
+            <span class="role">Marcas / Categorías / Portafolio</span>
+            <p class="dim bio">
+              Lidera marcas, categorías y portafolios en belleza, moda, retail y
+              lujo. Ha trabajado en América Latina, Francia y Canadá: entornos
+              multiculturales y multilingües donde convierte oportunidades de
+              mercado en productos y estrategias que generan crecimiento.
             </p>
           </div>
         </article>
         <article class="member reveal" style="--d:220ms">
-          <img src="assets/p-john.jpg" alt="John Restrepo" width="96" height="96">
-          <div>
-            <h3>John Restrepo</h3>
-            <span class="role">Dirección estratégica / Gobierno corporativo / Finanzas</span>
-            <p class="dim">
-              Dirección estratégica y gobierno corporativo. Viene del retail de lujo
-              y de la inversión: private equity, venture capital y estructuración de
-              family offices.
-            </p>
-          </div>
-        </article>
-        <article class="member reveal" style="--d:260ms">
           <img src="assets/p-nicolas.jpg" alt="Nicolás González Chavarriaga" width="96" height="96">
           <div>
             <h3>Nicolás González Chavarriaga</h3>
             <span class="role">Estrategia comercial / Fuerzas de ventas / Desarrollo de canales</span>
-            <p class="dim">
+            <p class="dim bio">
               Gerente comercial con trayectoria en consumo masivo, venta directa y
               negocios multicanal. Lideró la estrategia de venta directa de una
               multinacional de belleza para 12 mercados de Latinoamérica y formó
@@ -1039,16 +1054,27 @@
             </p>
           </div>
         </article>
-        <article class="member reveal" style="--d:300ms">
-          <img src="assets/p-maria.jpg" alt="María Isabel Tangarife" width="96" height="96">
+        <article class="member reveal" style="--d:260ms">
+          <img src="assets/p-andres.jpg" alt="Andrés Ardila" width="96" height="96">
           <div>
-            <h3>María Isabel Tangarife</h3>
-            <span class="role">Marcas / Categorías / Portafolio</span>
-            <p class="dim">
-              Lidera marcas, categorías y portafolios en belleza, moda, retail y
-              lujo. Ha trabajado en América Latina, Francia y Canadá: entornos
-              multiculturales y multilingües donde convierte oportunidades de
-              mercado en productos y estrategias que generan crecimiento.
+            <h3>Andrés Ardila</h3>
+            <span class="role">Operaciones / Procesos / Mejora continua</span>
+            <p class="dim bio">
+              Ingeniero biológico. Operaciones y transformación, ex director de
+              operaciones de una corporación de alimentos donde escaló la operación
+              seis veces en 41 meses.
+            </p>
+          </div>
+        </article>
+        <article class="member reveal" style="--d:300ms">
+          <img src="assets/p-john.jpg" alt="John Restrepo" width="96" height="96">
+          <div>
+            <h3>John Restrepo</h3>
+            <span class="role">Dirección estratégica / Gobierno corporativo / Finanzas</span>
+            <p class="dim bio">
+              Dirección estratégica y gobierno corporativo. Viene del retail de lujo
+              y de la inversión: private equity, venture capital y estructuración de
+              family offices.
             </p>
           </div>
         </article>
@@ -1368,6 +1394,45 @@
   </svg>
 </a>
 
+<script>
+  // «Leer más» en las biografías del equipo: el botón solo aparece si el
+  // texto recortado no cabe, y se recalcula al cambiar el ancho.
+  (function () {
+    document.documentElement.classList.add('js');
+    var bios = document.querySelectorAll('.member .bio');
+    bios.forEach(function (bio, i) {
+      bio.id = bio.id || 'bio-' + (i + 1);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'more';
+      btn.setAttribute('aria-controls', bio.id);
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = 'Leer más';
+      btn.hidden = true;
+      btn.addEventListener('click', function () {
+        var open = bio.getAttribute('data-open') !== 'true';
+        bio.setAttribute('data-open', open ? 'true' : 'false');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.textContent = open ? 'Leer menos' : 'Leer más';
+      });
+      bio.after(btn);
+    });
+    function measure() {
+      bios.forEach(function (bio) {
+        if (bio.getAttribute('data-open') === 'true') return;
+        // Media línea de margen: el recorte deja unos píxeles de sobra que
+        // no son texto oculto.
+        var half = parseFloat(getComputedStyle(bio).lineHeight) / 2 || 8;
+        bio.nextElementSibling.hidden = bio.scrollHeight - bio.clientHeight < half;
+      });
+    }
+    measure();
+    window.addEventListener('load', measure);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    var t;
+    window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(measure, 120); });
+  })();
+</script>
 <script>
   // Entrada por scroll: una sola vez, sin bloquear interacción.
   (function () {
