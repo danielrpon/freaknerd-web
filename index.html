@@ -474,8 +474,8 @@
   /* ---------- quiénes somos ---------- */
   .team { display: grid; gap: var(--fn-space-12); margin-top: var(--fn-space-12); }
   @media (min-width: 720px) { .team { grid-template-columns: repeat(2, 1fr); } }
-  /* Con cuatro consultores la rejilla queda 2x2 y la tarjeta horizontal
-     (foto a la izquierda) conserva una columna de texto legible. */
+  /* Rejilla de dos columnas: la tarjeta horizontal (foto a la izquierda)
+     conserva una columna de texto legible aunque el equipo crezca. */
   @media (min-width: 1040px) { .team { gap: var(--fn-space-12) var(--fn-space-16); } }
   .member { display: grid; grid-template-columns: 96px 1fr; gap: var(--fn-space-6); align-items: start; }
   .member img {
@@ -1023,6 +1023,23 @@
           </div>
         </article>
         <article class="member reveal" style="--d:260ms">
+          <img src="assets/p-nicolas.jpg" alt="Nicolás González Chavarriaga" width="96" height="96">
+          <div>
+            <h3>Nicolás González Chavarriaga</h3>
+            <span class="role">Estrategia comercial / Fuerzas de ventas / Desarrollo de canales</span>
+            <p class="dim">
+              Gerente comercial con trayectoria en consumo masivo, venta directa y
+              negocios multicanal. Lideró la estrategia de venta directa de una
+              multinacional de belleza para 12 mercados de Latinoamérica y formó
+              parte del comité directivo de una compañía de moda, con
+              responsabilidad sobre una estructura comercial de más de 200
+              personas. Diseña y transforma estrategias comerciales, fuerzas de
+              ventas, incentivos y canales para impulsar el crecimiento rentable y
+              sostenible de los negocios.
+            </p>
+          </div>
+        </article>
+        <article class="member reveal" style="--d:300ms">
           <img src="assets/p-maria.jpg" alt="María Isabel Tangarife" width="96" height="96">
           <div>
             <h3>María Isabel Tangarife</h3>
@@ -1037,7 +1054,7 @@
         </article>
       </div>
 
-      <p class="rule-line reveal" style="--d:300ms">
+      <p class="rule-line reveal" style="--d:340ms">
         Trabajamos con una regla: lo que dejamos sigue funcionando sin nosotros.
       </p>
     </div>
