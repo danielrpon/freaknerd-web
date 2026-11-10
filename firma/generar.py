@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Genera firma/index.html: las firmas de correo de freaknerd (manual de marca v1,
+Genera firma/index.html: las firmas de correo de freaknerd (manual de marca v2.1,
 sección 11.4). Se generan, no se editan a mano: cuatro bloques casi idénticos
 editados uno por uno terminan desalineados.
 
     python3 firma/generar.py
 
-11.4: 600 px máx. Nombre en Montserrat 900 16 px azul, cargo en mono 11 azul
-nota, datos de contacto COMO TEXTO, wordmark como imagen pequeña (120 px),
-filete tinte. Sin campo de puntos ni naranja. Los clientes de correo no cargan
+11.4: 600 px máx. Wordmark (120 px, imagen con tirador naranja), nombre en
+Montserrat 900 16 px pizarra, rol en mono 11 piedra oscura, filete crema 2,
+datos de contacto COMO TEXTO, íconos de redes en piedra oscura. Sin retícula ni foto. Los clientes de correo no cargan
 fuentes web: el nombre cae a Arial Black / Arial, que conserva el peso.
 """
 import os
@@ -17,7 +17,7 @@ import os
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = "https://freaknerd.co"
 
-AZUL, TEXTO2, NOTA, TINTE = "#09318D", "#4B5C8C", "#5A6B94", "#D8E0EE"
+AZUL, TEXTO2, NOTA, TINTE = "#2C312E", "#4A504C", "#4A504C", "#E9E3D7"   # pizarra, piedra oscura, piedra oscura, crema 2
 FONT = "Montserrat,'Arial Black',Arial,sans-serif"
 MONO = "'JetBrains Mono',Menlo,Consolas,'Courier New',monospace"
 
@@ -109,35 +109,35 @@ CABEZA = """<!DOCTYPE html>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#FCFFFF">
+<meta name="theme-color" content="#F4EFE6">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&family=JetBrains+Mono:wght@500&display=swap">
 <style>
   *{box-sizing:border-box}
-  body{margin:0;background:#FCFFFF;color:#09318D;
+  body{margin:0;background:#F4EFE6;color:#2C312E;
        font:500 16px/22px Montserrat,-apple-system,"Segoe UI",sans-serif;
        padding:44px 22px;}
   .page{max-width:760px;margin:0 auto;}
   h1{font-size:30px;line-height:33px;font-weight:900;margin:0 0 11px;letter-spacing:-.02em;}
-  .lead{color:#4B5C8C;margin:0 0 44px;}
+  .lead{color:#4A504C;margin:0 0 44px;}
   h2{font:500 12px/22px "JetBrains Mono",ui-monospace,Menlo,monospace;text-transform:uppercase;
-     letter-spacing:.14em;color:#4B5C8C;margin:0;}
-  .hint{color:#4B5C8C;font-size:14px;margin:0 0 11px;}
-  .box{background:#fff;border:1px dashed #D8E0EE;padding:22px;overflow-x:auto;}
+     letter-spacing:.14em;color:#4A504C;margin:0;}
+  .hint{color:#4A504C;font-size:14px;margin:0 0 11px;}
+  .box{background:#fff;border:1px dashed #656A66;padding:22px;overflow-x:auto;}
   .head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:44px 0 11px;}
   /* min-width fijo: sin él el botón cambia de tamaño al cambiar la etiqueta. */
   .copy{font:500 11px/1 "JetBrains Mono",ui-monospace,Menlo,monospace;letter-spacing:.14em;
-        text-transform:uppercase;color:#09318D;background:#FCFFFF;
-        border:2px solid #09318D;border-radius:0;height:44px;padding:0 16px;
+        text-transform:uppercase;color:#2C312E;background:#F4EFE6;
+        border:2px solid #2C312E;border-radius:0;height:44px;padding:0 16px;
         cursor:pointer;min-width:148px;white-space:nowrap;
         transition:transform 140ms cubic-bezier(.2,.8,.2,1);}
   .copy:active{transform:scale(.98);}
-  .copy:focus-visible{outline:2px solid #09318D;outline-offset:3px;}
-  .copy[data-ok="true"]{background:#09318D;color:#FCFFFF;}
-  .copy[data-ok="false"]{border-color:#C23A00;color:#C23A00;}
+  .copy:focus-visible{outline:2px solid #2C312E;outline-offset:3px;}
+  .copy[data-ok="true"]{background:#2C312E;color:#F4EFE6;}
+  .copy[data-ok="false"]{border-color:#B83A12;color:#B83A12;}
   @media (prefers-reduced-motion:reduce){.copy:active{transform:none;}}
-  ol{color:#4B5C8C;font-size:15px;padding-left:22px;}
-  ol b{color:#09318D;}
-  code{background:#D8E0EE;padding:2px 6px;font-size:14px;color:#09318D;}
+  ol{color:#4A504C;font-size:15px;padding-left:22px;}
+  ol b{color:#2C312E;}
+  code{background:#E9E3D7;padding:2px 6px;font-size:14px;color:#2C312E;}
 </style>
 </head>
 <body>
