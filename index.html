@@ -7,7 +7,7 @@
 <meta name="description" content="Consultoría que aborda un problema que ya duele, lo resuelve con tu equipo adentro y sale cuando el equipo puede sostenerlo solo. Cajas transparentes, no cajas negras.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://freaknerd.co/">
 
 <meta property="og:type" content="website">
@@ -22,11 +22,12 @@
 <meta property="og:image:alt" content="freaknerd — Estrategia que se vuelve estructura">
 <meta name="twitter:card" content="summary_large_image">
 
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="32x32">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/icon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta name="theme-color" content="#0A0B0D">
+<meta name="theme-color" content="#FCFFFF">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -48,978 +49,539 @@
 
 <link rel="stylesheet" href="tokens.css">
 <style>
+  /* freaknerd.co · identidad v1 (manual de marca 10-nov-2026).
+     Blanco y azul, módulo de 22 px, una celda seleccionada por vista. */
   *, *::before, *::after { box-sizing: border-box; }
 
-  /* Firma de la casa: el mismo filete degradado que abre cada post.
-     Va por encima de la barra pegajosa y del botón flotante. */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--fn-signature);
-    z-index: 30;
-    pointer-events: none;
-  }
-
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
   body {
     margin: 0;
-    background: var(--fn-surface-dark);
-    color: var(--fn-ink-on-dark);
-    font-family: var(--fn-font-body);
-    font-weight: var(--fn-weight-body-lt);
-    font-size: var(--fn-size-body);
-    line-height: var(--fn-leading-body);
+    background: var(--fn-blanco);
+    color: var(--fn-azul);
+    font-family: var(--fn-font);
+    font-weight: 500;
+    font-size: var(--fn-body-size);
+    line-height: var(--fn-body-lh);
     -webkit-font-smoothing: antialiased;
   }
 
   /* ---------- primitivas ---------- */
-  .wrap { max-width: var(--fn-max-width); margin-inline: auto; padding-inline: var(--fn-gutter); }
+  .wrap { width: min(var(--fn-container), calc(100% - 44px)); margin-inline: auto; }
 
-  .kicker {
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
+  .mono, .kicker {
+    font-family: var(--fn-mono);
     font-weight: 500;
+    font-size: var(--fn-mono-size);
+    line-height: var(--fn-mono-lh);
     letter-spacing: var(--fn-track-mono);
     text-transform: uppercase;
-    color: var(--fn-green);
-    margin: 0 0 var(--fn-space-6);
-    display: flex;
-    align-items: center;
-    gap: var(--fn-space-3);
   }
-  .kicker::after {
-    content: "";
-    height: 1px;
-    flex: 1;
-    background: currentColor;
-    opacity: 0.35;
-  }
-  .light .kicker { color: var(--fn-green-ink); }
+  .kicker { color: var(--fn-azul-texto2); margin: 0 0 var(--fn-u); max-width: none; }
 
-  h1, h2, h3 { font-weight: var(--fn-weight-display); margin: 0; }
-
+  h1, h2, h3 { margin: 0; font-weight: 900; color: var(--fn-azul); }
   h1 {
-    font-size: var(--fn-size-display);
-    line-height: var(--fn-leading-tight);
+    font-size: var(--fn-h1-size); line-height: var(--fn-h1-lh);
     letter-spacing: var(--fn-track-display);
   }
   h2 {
-    font-size: var(--fn-size-h2);
-    line-height: var(--fn-leading-snug);
+    font-size: var(--fn-h2-size); line-height: var(--fn-h2-lh);
     letter-spacing: var(--fn-track-h2);
-    max-width: 20ch;
+    max-width: 770px;              /* 9 columnas */
+    text-wrap: balance;
   }
-  h3 {
-    font-size: var(--fn-size-h3);
-    line-height: var(--fn-leading-snug);
-    letter-spacing: -0.01em;
-  }
+  h3 { font-size: 22px; line-height: 33px; letter-spacing: -0.02em; }
 
-  p { margin: 0 0 var(--fn-space-4); max-width: var(--fn-measure); }
-  .lead { font-size: var(--fn-size-lead); line-height: 1.45; font-weight: var(--fn-weight-body); }
+  p { margin: 0 0 var(--fn-u); max-width: 62ch; }
+  .lead { font-size: var(--fn-lead-size); line-height: var(--fn-lead-lh); max-width: 770px; margin-top: var(--fn-u); }
+  .dim { color: var(--fn-azul-texto2); }
 
-  .dim { color: var(--fn-ink-on-dark-mute); }
-  .light .dim { color: var(--fn-ink-on-light-mute); }
-
-  /* Prosa justificada de 760px para arriba.
-     Va siempre con partición de palabras: justificar sin partir abre ríos
-     de espacio en mitad del párrafo, y en español, con palabras largas,
-     es peor que en inglés. Depende del lang="es" del <html>.
-     En móvil no se aplica: a 30 caracteres por línea partiría casi todas.
-
-     Los .lead quedan fuera a propósito: a ese cuerpo, cada espacio estirado
-     se ve, y el párrafo de entrada terminaba más desordenado justificado
-     que en bandera. Justificar ordena el texto pequeño, no el grande. */
-  @media (min-width: 760px) {
-    .motor p, .step p, .row p, .offer p {
+  @media (min-width: 761px) {
+    .motor p, .step p, .row p {
       text-align: justify;
       -webkit-hyphens: auto;
               hyphens: auto;
     }
   }
 
-  section { padding-block: clamp(3.75rem, 7vw, 7rem); }
+  section { padding-block: 110px; border-top: 1px solid var(--fn-tinte); }
+  @media (max-width: 640px) { section { padding-block: 66px; } .step { padding-top: 55px; } }
 
-  .light {
-    background: var(--fn-surface-light);
-    color: var(--fn-ink-on-light);
-  }
+  :focus-visible { outline: 2px solid var(--fn-azul); outline-offset: 3px; }
 
-  /* ---------- wordmark ---------- */
-  .wordmark {
-    font-family: var(--fn-font-display);
-    font-weight: 900;
-    font-size: 1.25rem;
-    letter-spacing: -0.04em;
-    color: var(--fn-ink-on-dark);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: baseline;
+  /* ---------- wordmark (manual 2.1) ---------- */
+  .wm {
+    font: 900 30px/1 var(--fn-font);
+    letter-spacing: -0.035em;
+    display: inline-flex; align-items: baseline;
+    color: var(--fn-azul); text-decoration: none;
   }
-  .wordmark i {
-    color: var(--fn-green);
-    font-style: normal;
-    margin-left: 1px;
+  .wm i { display: inline-block; width: .2em; height: .2em; background: currentColor; margin-left: .06em; }
+
+  /* ---------- flecha «›» (manual 8) ---------- */
+  .chev { width: 12px; height: 16px; fill: currentColor; flex: none; }
+
+  /* ---------- botones (manual 8) ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 14px;
+    height: 44px; padding: 0 20px;
+    background: var(--fn-azul); color: var(--fn-blanco);
+    font: 900 15px/1 var(--fn-font);
+    text-decoration: none; border: 0; border-radius: 0; cursor: pointer;
+    transition: transform var(--fn-dur-press) var(--fn-ease);
+  }
+  .btn .chev { color: var(--fn-rosa); transition: transform var(--fn-dur-hover) var(--fn-ease); }
+  .btn:active { transform: scale(0.98); }
+  @media (hover: hover) and (pointer: fine) { .btn:hover .chev { transform: translateX(3px); } }
+  .btn--inv { background: var(--fn-blanco); color: var(--fn-azul); }
+  .btn--inv .chev { color: var(--fn-azul); }
+
+  .link2 {
+    font: 700 15px/22px var(--fn-font);
+    color: var(--fn-azul); text-decoration: none;
+    border-bottom: 2px solid var(--fn-rosa);
+    padding-bottom: 3px;
+  }
+  .link2:focus-visible { outline-offset: 6px; }
+
+  /* ---------- celda seleccionada (manual 7) ----------
+     Una por vista. Un solo renglón; el tirador cierra la frase. */
+  .sel {
+    display: inline-block; position: relative;
+    background: var(--fn-rosa);
+    padding: 0 .14em;
+    box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-azul);
+    white-space: nowrap;
+  }
+  .sel::after {
+    content: ""; position: absolute; right: -6px; bottom: -6px;
+    width: var(--fn-tirador); height: var(--fn-tirador);
+    background: var(--fn-azul);
+    box-shadow: 0 0 0 2px var(--fn-blanco);
   }
 
   /* ---------- barra superior ---------- */
-  .topbar {
+  .topbar-wrap {
     position: sticky; top: 0; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    padding-block: var(--fn-space-4);
-    background: color-mix(in srgb, var(--fn-surface-dark) 88%, transparent);
-    backdrop-filter: blur(12px);
+    background: var(--fn-blanco);
     border-bottom: 1px solid transparent;
     transition: border-color var(--fn-dur-hover) ease;
   }
-  .topbar[data-stuck="true"] { border-bottom-color: var(--fn-rule-on-dark); }
-  .topbar nav { display: flex; gap: var(--fn-space-6); }
+  .topbar-wrap[data-stuck="true"] { border-bottom-color: var(--fn-tinte); }
+  .topbar { display: flex; align-items: center; justify-content: space-between; height: 88px; position: relative; }
+  .topbar nav { display: flex; gap: var(--fn-u); align-items: center; }
   .topbar a.nav {
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    text-transform: uppercase;
-    color: var(--fn-ink-on-dark-mute);
-    text-decoration: none;
+    font-family: var(--fn-mono); font-weight: 500;
+    font-size: var(--fn-mono-size); line-height: var(--fn-mono-lh);
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+    color: var(--fn-azul-texto2); text-decoration: none;
     transition: color var(--fn-dur-hover) ease;
   }
-  @media (hover: hover) and (pointer: fine) {
-    .topbar a.nav:hover { color: var(--fn-ink-on-dark); }
-  }
-  /* Contacto es la acción de la barra: verde de la casa con contorno, y al
-     pasar el mouse se llena como el botón principal. El margen negativo
-     compensa el relleno para que el texto quede alineado con los demás. */
-  .topbar a.nav--cta {
-    color: var(--fn-green);
-    padding: var(--fn-space-2) var(--fn-space-3);
-    margin-block: calc(-1 * var(--fn-space-2));
-    border: 1px solid var(--fn-green);
-    border-radius: var(--fn-radius-sm);
-    transition: color var(--fn-dur-hover) ease,
-                background-color var(--fn-dur-hover) ease,
-                transform var(--fn-dur-press) var(--fn-ease-out);
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .topbar a.nav--cta:hover { color: var(--fn-black); background: var(--fn-green); }
-  }
-  .topbar a.nav--cta:active { transform: scale(0.97); }
-  .topbar a.nav--cta:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 3px; }
-  /* ---------- menú móvil ----------
-     Antes la navegación simplemente desaparecía bajo 640px y el sitio se
-     quedaba sin forma de moverse. */
-  .menu-btn {
-    display: none;
-    width: 44px; height: 44px;          /* objetivo táctil mínimo */
-    margin-right: -10px;
-    align-items: center; justify-content: center;
-    background: none; border: 0; padding: 0; cursor: pointer;
-  }
-  .menu-btn span {
-    display: block; position: relative;
-    width: 20px; height: 2px; background: var(--fn-ink-on-dark);
-    transition: background-color 60ms linear var(--fn-dur-press);
-  }
-  .menu-btn span::before,
-  .menu-btn span::after {
-    content: ""; position: absolute; left: 0;
-    width: 20px; height: 2px; background: var(--fn-ink-on-dark);
-    transition: transform var(--fn-dur-press) var(--fn-ease-out);
-  }
-  .menu-btn span::before { top: -6px; }
-  .menu-btn span::after  { top:  6px; }
-  /* Abierto: la línea de en medio se apaga y las otras dos cruzan. */
-  .topbar[data-menu="true"] .menu-btn span { background: transparent; }
-  .topbar[data-menu="true"] .menu-btn span::before { transform: translateY(6px) rotate(45deg); }
-  .topbar[data-menu="true"] .menu-btn span::after  { transform: translateY(-6px) rotate(-45deg); }
-  .menu-btn:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) { .topbar a.nav:hover { color: var(--fn-azul); } }
+  .topbar a.nav--cta { color: var(--fn-azul); display: inline-flex; gap: 8px; align-items: center; }
 
-  @media (max-width: 640px) {
+  .menu-btn {
+    display: none; height: 44px; min-width: 44px; padding: 0;
+    align-items: center; justify-content: flex-end;
+    background: none; border: 0; cursor: pointer;
+    font-family: var(--fn-mono); font-weight: 500; font-size: var(--fn-mono-sm);
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-azul);
+  }
+  @media (max-width: 900px) {
     .menu-btn { display: flex; }
-    .topbar { position: relative; }
     .topbar nav {
-      position: absolute; top: 100%; left: 0; right: 0;
-      flex-direction: column; gap: 0;
-      padding: var(--fn-space-2) var(--fn-gutter) var(--fn-space-6);
-      /* Opaco, no translúcido: con el titular gigante detrás, cualquier
-         transparencia se come la legibilidad del menú. */
-      background: var(--fn-surface-dark);
-      border-bottom: 1px solid var(--fn-rule-on-dark);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
-      opacity: 0; visibility: hidden;
-      transform: translateY(-8px);
-      transition: opacity var(--fn-dur-hover) var(--fn-ease-out),
-                  transform var(--fn-dur-hover) var(--fn-ease-out),
+      position: absolute; top: 100%; left: -22px; right: -22px;
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 0 22px 22px;
+      background: var(--fn-blanco);
+      border-bottom: 1px solid var(--fn-tinte);
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: opacity var(--fn-dur-hover) var(--fn-ease),
+                  transform var(--fn-dur-hover) var(--fn-ease),
                   visibility 0s linear var(--fn-dur-hover);
     }
-    .topbar[data-menu="true"] nav {
+    .topbar-wrap[data-menu="true"] nav {
       opacity: 1; visibility: visible; transform: none;
-      transition: opacity var(--fn-dur-hover) var(--fn-ease-out),
-                  transform var(--fn-dur-hover) var(--fn-ease-out),
-                  visibility 0s;
+      transition: opacity var(--fn-dur-hover) var(--fn-ease),
+                  transform var(--fn-dur-hover) var(--fn-ease), visibility 0s;
     }
-    .topbar nav a.nav {
-      padding: var(--fn-space-4) 0;
-      border-bottom: 1px solid var(--fn-rule-on-dark);
-    }
-    .topbar nav a.nav:last-child { border-bottom: 0; }
-    /* En el menú desplegable basta el color: el contorno rompe la lista. */
-    .topbar nav a.nav--cta {
-      padding: var(--fn-space-4) 0; margin-block: 0;
-      border: 0; border-radius: 0;
-    }
+    .topbar nav a.nav { display: flex; align-items: center; min-height: 44px; border-top: 1px solid var(--fn-tinte); }
+    .topbar nav a.nav:first-child { border-top: 0; }
   }
+  @media (max-width: 640px) {
+    .wm { font-size: 24px; }
+    .topbar { height: 66px; }
+    html { scroll-padding-top: 66px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .topbar nav { transition-duration: 1ms; } }
 
-  @media (prefers-reduced-motion: reduce) {
-    .topbar nav, .menu-btn span, .menu-btn span::before, .menu-btn span::after {
-      transition-duration: 1ms;
-    }
-  }
+  /* ---------- hero (referencias/web y movil) ---------- */
+  .hero { border-top: 0; padding-block: 0 110px; }
+  .hero-in { position: relative; padding-top: 110px; }
+  .hero-text { position: relative; z-index: 1; width: 594px; max-width: 100%; }
+  .hero h1 { margin-top: 0; }
+  .hero .lead { margin: var(--fn-u) 0 0; width: 594px; max-width: 100%; color: var(--fn-azul-texto2); }
+  .cta { display: flex; flex-wrap: wrap; gap: var(--fn-u); align-items: center; margin-top: 44px; }
 
-  /* ---------- hero ---------- */
-  .hero {
-    position: relative;
-    padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(3rem, 6vw, 5rem);
-    overflow: hidden;
+  .campo { position: absolute; top: 0; bottom: 22px; right: 0; width: 418px; }
+  .lienzo { position: absolute; left: 0; right: 0; top: 0; bottom: 44px; }
+  .lienzo canvas { position: absolute; left: -6px; top: -6px; }
+  .leg {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    display: flex; justify-content: space-between;
+    font-family: var(--fn-mono); font-weight: 500; font-size: var(--fn-mono-sm); line-height: 22px;
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-azul-nota);
   }
-  .hero::before {
-    content: "";
-    position: absolute; inset: 0;
-    background-image: var(--fn-dotgrid);
-    background-size: var(--fn-dotgrid-size);
-    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 78% 18%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 78%);
-    mask-image: radial-gradient(ellipse 85% 75% at 78% 18%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 78%);
-    pointer-events: none;
-  }
-  .hero > * { position: relative; }
-  .hero h1 { max-width: 15ch; }
-  .hero .lead { margin-top: var(--fn-space-8); max-width: 54ch; color: var(--fn-ink-on-dark-mute); }
-  .hero .lead strong { color: var(--fn-ink-on-dark-bold); font-weight: var(--fn-weight-body); }
+  .leg .v { display: none; }
 
-  .accent { color: var(--fn-green); }
-  .light .accent { color: var(--fn-green-ink); }
-
-  /* ---------- marca de arranque ----------
-     El logo es una terminal y el guion bajo es un cursor, así que la marca
-     pide parpadeo. Pero un cursor que late para siempre le compite al titular,
-     que es el único trabajo del hero. Entonces: enciende una vez y se calla.
-     Dibuja el marco, aparece el prompt, el cursor parpadea tres veces y queda
-     fijo. Nada vuelve a moverse. */
-  .boot {
-    display: block;
-    width: clamp(64px, 8vw, 104px);
-    height: auto;
-    margin-bottom: var(--fn-space-8);
-    overflow: visible;
+  @media (max-width: 820px) {
+    .hero-in { padding-top: 66px; }
+    .campo { position: relative; top: auto; right: auto; bottom: auto; width: 100%; margin-top: 66px; }
+    .lienzo { position: relative; height: 264px; bottom: auto; }
+    .leg { position: static; margin-top: 22px; }
+    .leg .h { display: none; }
+    .leg .v { display: inline; }
+    .hero { padding-bottom: 66px; }
   }
-  /* Estado de reposo. La secuencia NO arranca sola: espera a data-on, que
-     el script pone cuando la página se está viendo de verdad. Atarla a la
-     carga la hacía terminar en pestañas de fondo o al volver con "atrás". */
-  .boot .frame {
-    fill: none;
-    stroke: var(--fn-green);
-    stroke-width: 4;
-    stroke-dasharray: 400;
-    stroke-dashoffset: 400;
+  @media (max-width: 640px) {
+    .hero-in { padding-top: 44px; }
+    .cta { margin-top: 22px; }
+    .cta .btn { width: 100%; justify-content: space-between; }
+    .campo { margin-top: 44px; }
   }
-  .boot .dot  { fill: var(--fn-green); opacity: 0; }
-  .boot .chev {
-    fill: none; stroke: var(--fn-ink-on-dark); stroke-width: 7;
-    stroke-linecap: round; stroke-linejoin: round; opacity: 0;
-  }
-  .boot .cursor { fill: var(--fn-green); opacity: 0; }
-
-  /* Antes del prompt pasan dos oficios: los binoculares son vigilancia y la
-     caja de herramientas es la fábrica de proyectos. Se relevan uno al otro
-     y desembocan en el >|, que sigue siendo el estado final y el único que
-     queda en pantalla. Así la marca del hero nombra los motores en vez de
-     ser un adorno de terminal.
-
-     Son glifos, no íconos de catálogo: mismo grosor de trazo y mismas puntas
-     redondeadas que el chevron, para que se lean como la misma mano. */
-  .boot .glyph {
-    fill: none;
-    stroke: var(--fn-ink-on-dark);
-    stroke-width: 5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    opacity: 0;
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  .boot[data-on="true"] .frame { animation: fn-draw 520ms var(--fn-ease-out) 80ms forwards; }
-  .boot[data-on="true"] .dot   { animation: fn-in 180ms ease forwards; }
-  .boot[data-on="true"] .dot:nth-of-type(1) { animation-delay: 520ms; }
-  .boot[data-on="true"] .dot:nth-of-type(2) { animation-delay: 570ms; }
-  .boot[data-on="true"] .dot:nth-of-type(3) { animation-delay: 620ms; }
-  .boot[data-on="true"] .glyph { animation: fn-glyph 660ms var(--fn-ease-out) both; }
-  .boot[data-on="true"] .g-watch { animation-delay: 640ms; }
-  .boot[data-on="true"] .g-build { animation-delay: 1240ms; }
-  .boot[data-on="true"] .chev  { animation: fn-in 240ms var(--fn-ease-out) 1840ms forwards; }
-  .boot[data-on="true"] .cursor {
-    animation: fn-in 160ms ease 1940ms forwards,
-               fn-blink 420ms linear 2120ms 3 forwards;
-  }
-
-  @keyframes fn-draw  { to { stroke-dashoffset: 0; } }
-  @keyframes fn-in    { to { opacity: 1; } }
-  /* Entra y sale con un punto de desenfoque: sin él se ven dos dibujos
-     superpuestos durante el relevo en vez de uno volviéndose el otro.
-     Nunca desde scale(0): nada en el mundo real aparece de la nada. */
-  @keyframes fn-glyph {
-    0%   { opacity: 0; transform: scale(0.92); filter: blur(3px); }
-    18%  { opacity: 1; transform: scale(1);    filter: blur(0); }
-    72%  { opacity: 1; transform: scale(1);    filter: blur(0); }
-    100% { opacity: 0; transform: scale(1.06); filter: blur(3px); }
-  }
-  /* Corte duro, no desvanecido: un cursor de terminal salta, no respira. */
-  @keyframes fn-blink {
-    0%,   49.9% { opacity: 1; }
-    50%,  99.9% { opacity: 0; }
-    100%        { opacity: 1; }
-  }
-
-  /* ---------- botón ---------- */
-  .btn {
-    display: inline-flex; align-items: center; gap: var(--fn-space-3);
-    margin-top: var(--fn-space-8);
-    padding: var(--fn-space-3) var(--fn-space-6);
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    text-transform: uppercase;
-    color: var(--fn-black);
-    background: var(--fn-green);
-    border: 0; border-radius: var(--fn-radius-sm);
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform var(--fn-dur-press) var(--fn-ease-out),
-                background-color var(--fn-dur-hover) ease;
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .btn:hover { background: var(--fn-green-lite); }
-  }
-  .btn:active { transform: scale(0.97); }
-  .btn:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 3px; }
-
-  /* ---------- muro de clientes ----------
-     Banda oscura entre dos secciones: los logos vienen en blanco sobre
-     transparente y en claro habría que aplanarlos con un filtro.
-     Va un tono por encima del negro base y con filetes arriba y abajo
-     para que se lea como banda, no como "otra sección negra". */
-  .clients {
-    background: var(--fn-surface-dark-2);
-    border-block: 1px solid var(--fn-rule-on-dark);
-  }
-
-  /* Solo clientes directos (cinco). Flex centrado en vez de rejilla: a tres
-     columnas quedaba 3+2 y la fila corta se iba a la izquierda; centrada se
-     lee como intención. En escritorio caben los cinco en una sola fila. */
-  .logowall {
-    list-style: none; margin: var(--fn-space-12) 0 0; padding: 0;
-    display: flex; flex-wrap: wrap; justify-content: center;
-    align-items: center;
-    gap: var(--fn-space-8) var(--fn-space-6);
-  }
-  .logowall li { flex: 0 0 calc((100% - 2 * var(--fn-space-6)) / 3); }
-  @media (min-width: 760px) {
-    .logowall { flex-wrap: nowrap; justify-content: space-between; gap: var(--fn-space-8); }
-    .logowall li { flex: 0 1 auto; }
-  }
-  .logowall li { display: grid; place-items: center; }
-  /* Cada marca trae su propio peso óptico: la altura se ajusta por logo,
-     no por una sola regla que deja unos gigantes y otros invisibles. */
-  .logowall img {
-    display: block;
-    width: auto; height: auto;
-    max-height: var(--h, 44px);
-    max-width: var(--w, 148px);
-    opacity: 0.85;
-  }
-
-  /* Experiencia en proyectos: marcas donde el equipo trabajó como consultor
-     de otra firma. Va en texto y sin logos a propósito: no son clientes de
-     Freaknerd y un logo sugiere una relación (y un aval) que no existe. */
-  .past {
-    margin-top: var(--fn-space-12);
-    padding-top: var(--fn-space-8);
-    border-top: 1px solid var(--fn-rule-on-dark);
-  }
-  .past .kicker { color: var(--fn-ink-on-dark-mute); }
-  .past ul {
-    list-style: none; margin: 0; padding: 0;
-    display: flex; flex-wrap: wrap; gap: var(--fn-space-2) var(--fn-space-6);
-    font-size: 1.125rem; font-weight: 600; color: var(--fn-ink-on-dark);
-  }
-  .past p { margin: var(--fn-space-4) 0 0; font-size: 0.875rem; max-width: 60ch; }
-
-  /* ---------- las tres consultorías ---------- */
-  .stack { display: grid; gap: var(--fn-space-4); margin-top: var(--fn-space-12); }
-  .row {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--fn-space-6);
-    align-items: start;
-    padding: var(--fn-space-6) 0;
-    border-top: 1px solid var(--fn-rule-on-dark);
-  }
-  .light .row { border-top-color: var(--fn-rule-on-light); }
-  .row .num {
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    color: var(--fn-ink-on-dark-mute);
-    padding-top: 0.45em;
-    min-width: 3ch;
-  }
-  .light .row .num { color: var(--fn-ink-on-light-mute); }
-  .row h3 { margin-bottom: var(--fn-space-2); }
-  .row p { margin: 0; }
-
-  .row--mine { border-top-color: var(--fn-green); }
-  .row--mine .num { color: var(--fn-green); }
-  .light .row--mine { border-top-color: var(--fn-green-ink); }
-  .light .row--mine .num { color: var(--fn-green-ink); }
 
   /* ---------- quiénes somos ---------- */
-  .team { display: grid; gap: var(--fn-space-12); margin-top: var(--fn-space-12); }
-  @media (min-width: 720px) { .team { grid-template-columns: repeat(2, 1fr); } }
-  /* Rejilla de dos columnas: la tarjeta horizontal (foto a la izquierda)
-     conserva una columna de texto legible aunque el equipo crezca. */
-  @media (min-width: 1040px) { .team { gap: var(--fn-space-12) var(--fn-space-16); } }
-  .member { display: grid; grid-template-columns: 96px 1fr; gap: var(--fn-space-6); align-items: start; }
+  .team { display: grid; gap: 66px 44px; margin-top: 66px; }
+  @media (min-width: 761px) { .team { grid-template-columns: repeat(2, 1fr); } }
+  .member {
+    display: grid; grid-template-columns: 132px 1fr; column-gap: var(--fn-u);
+    grid-template-areas: "img who" "img bio" "img more";
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
+  }
   .member img {
-    width: 96px; height: 96px;
-    border-radius: var(--fn-radius-md);
-    object-fit: cover;
-    display: block;
-    filter: grayscale(1) contrast(1.05);
-    border: 1px solid var(--fn-rule-on-light);
+    grid-area: img; display: block;
+    width: 132px; height: 132px; object-fit: cover;
+    border: 1px solid var(--fn-tinte);
   }
-  .member h3 { margin-bottom: var(--fn-space-2); }
+  .member .who { grid-area: who; margin-bottom: 11px; }
+  .member h3 { font-size: 18px; line-height: 22px; letter-spacing: -0.02em; margin-bottom: 0; }
   .member .role {
-    font-family: var(--fn-font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.02em;
-    color: var(--fn-green-ink);
-    margin-bottom: var(--fn-space-3);
-    display: block;
+    display: block; margin-top: 0;
+    font-family: var(--fn-mono); font-weight: 500; font-size: var(--fn-mono-sm); line-height: 22px;
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-azul-nota);
   }
-  .member p { margin: 0; font-size: 0.97rem; }
-  /* Biografías con un largo común: con JS se recortan a 6 líneas y, si el
-     texto no cabe, aparece «Leer más». Sin JS se ven completas. Abrir no se
-     anima: es un cambio de altura que se usa poco y debe sentirse inmediato. */
+  .member .bio { grid-area: bio; margin: 0; font-weight: 400; max-width: none; }
+  /* Biografías con un largo común: con JS se recortan a 6 líneas y, si no
+     caben, aparece «Leer más». Sin JS se ven completas. */
   .js .member .bio:not([data-open="true"]) {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 6;
-    line-clamp: 6;
-    overflow: hidden;
+    display: -webkit-box; -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6; line-clamp: 6; overflow: hidden;
   }
   .member .more {
-    margin-top: var(--fn-space-2);
-    padding: var(--fn-space-1) 0;
+    grid-area: more; justify-self: start;
+    min-height: 22px; margin-top: 0; padding: 0;
     background: none; border: 0; cursor: pointer;
-    font-family: var(--fn-font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.02em;
-    color: var(--fn-green-ink);
-    transform-origin: left center;   /* se hunde junto al margen del texto */
-    transition: transform var(--fn-dur-press) var(--fn-ease-out);
+    font: 700 14px/22px var(--fn-font); color: var(--fn-azul);
+    border-bottom: 2px solid var(--fn-rosa);
   }
   .member .more[hidden] { display: none; }
-  .member .more:active { transform: scale(0.97); }
-  .member .more:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 3px; }
-  @media (hover: hover) and (pointer: fine) {
-    .member .more:hover { text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 640px) {
+    .member { grid-template-columns: 88px 1fr; grid-template-areas: "img who" "bio bio" "more more"; grid-template-rows: auto; row-gap: 0; }
+    .member img { width: 88px; height: 88px; }
+    .member .who { align-self: center; margin-bottom: 0; }
+    .member .bio { margin-top: 22px; }
+    .member .more { margin-top: 11px; }
   }
   .rule-line {
-    margin-top: var(--fn-space-12);
-    padding-top: var(--fn-space-6);
-    border-top: 2px solid var(--fn-green-ink);
-    font-family: var(--fn-font-display);
-    font-weight: 900;
-    font-size: var(--fn-size-h3);
-    letter-spacing: -0.01em;
+    margin: 66px 0 0; padding-top: 22px;
+    border-top: 2px solid var(--fn-azul);
+    font-weight: 900; font-size: 22px; line-height: 33px; letter-spacing: -0.02em;
     max-width: 34ch;
   }
 
-  /* ---------- diagrama del ciclo ----------
-     Un circuito cerrado, no una fila de pasos: la forma ES el argumento.
-     El trazo grueso es el camino de trabajo; el fino, el retorno.
-     Móvil: baja por la izquierda y vuelve por la derecha.
-     >=760px: avanza por arriba y vuelve por abajo. */
-  .loop {
-    --loop-pad: var(--fn-space-6);
-    position: relative;
-    margin-top: var(--fn-space-12);
-    padding: var(--loop-pad) var(--fn-space-6);
-    border: 1px solid var(--fn-green-ink);
-    border-left-width: 2px;
-    border-radius: var(--fn-radius-md);
+  /* ---------- clientes ---------- */
+  .logowall {
+    list-style: none; margin: 66px 0 0; padding: 0;
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+    gap: 44px 22px;
   }
+  .logowall li { flex: 0 0 calc((100% - 44px) / 3); display: grid; place-items: center; }
+  @media (min-width: 761px) {
+    .logowall { flex-wrap: nowrap; justify-content: space-between; gap: 44px; }
+    .logowall li { flex: 0 1 auto; }
+  }
+  /* Cada marca trae su propio peso óptico: la altura se ajusta por logo. */
+  .logowall img {
+    display: block; width: auto; height: auto;
+    max-height: var(--h, 44px); max-width: var(--w, 148px);
+  }
+  .past { margin-top: 66px; padding-top: 44px; border-top: 1px solid var(--fn-tinte); }
+  .past p.kicker { margin-bottom: 11px; max-width: none; }
+  .past ul {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0 22px;
+    font-weight: 700; font-size: 18px; line-height: 33px; color: var(--fn-azul);
+  }
+  .past p { margin: 11px 0 0; font-size: 14px; line-height: 22px; max-width: 60ch; }
 
-  .loop-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--fn-space-8); }
+  /* ---------- método: tres formas de entregar ---------- */
+  .stack { margin-top: 66px; }
+  .row {
+    display: grid; grid-template-columns: 44px 1fr; gap: var(--fn-u); align-items: start;
+    padding: 22px 0 22px; border-top: 1px solid var(--fn-tinte);
+  }
+  .row .num {
+    font-family: var(--fn-mono); font-weight: 500; font-size: var(--fn-mono-sm); line-height: 33px;
+    letter-spacing: var(--fn-track-mono); color: var(--fn-azul-nota);
+  }
+  .row h3 { margin-bottom: 11px; }
+  .row p { margin: 0; font-weight: 400; max-width: 770px; }
+  .row--mine { border-top: 2px solid var(--fn-azul); }
+  .row--mine .num { color: var(--fn-azul); }
 
+  /* ---------- ciclo: conectores en codo (manual 8) ---------- */
+  .loop { position: relative; margin-top: 66px; padding-bottom: 88px; --h: 132px; --sel: var(--fn-sel-borde); }
+  .loop-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 44px; }
   .node { position: relative; }
-  .node-n {
-    display: block;
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    color: var(--fn-green-ink);
-    margin-bottom: var(--fn-space-2);
+  .node a {
+    position: relative; display: block; height: var(--h);
+    padding: 22px; text-decoration: none; color: var(--fn-azul);
+    box-shadow: inset 0 0 0 1px var(--fn-tinte);
+    transition: background-color var(--fn-dur-hover) ease;
   }
-  .node-verb {
-    display: block;
-    font-family: var(--fn-font-display);
-    font-weight: var(--fn-weight-display);
-    font-size: clamp(1.35rem, 1rem + 1.4vw, 2rem);
-    line-height: var(--fn-leading-tight);
-    letter-spacing: var(--fn-track-h2);
+  .node-n { display: block; color: var(--fn-azul-nota); font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px; letter-spacing: var(--fn-track-mono); }
+  .node-verb { display: block; font-weight: 900; font-size: 28px; line-height: 44px; letter-spacing: -0.02em; margin-top: 0; }
+  .node-out { display: block; color: var(--fn-azul-texto2); font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px; letter-spacing: var(--fn-track-mono); text-transform: uppercase; }
+  .node a[aria-current="true"] { background: var(--fn-rosa); box-shadow: inset 0 0 0 var(--sel) var(--fn-azul); }
+  .node a[aria-current="true"] .node-n { color: var(--fn-azul); }
+  .node a[aria-current="true"]::after {
+    content: ""; position: absolute; right: -6px; bottom: -6px;
+    width: var(--fn-tirador); height: var(--fn-tirador);
+    background: var(--fn-azul); box-shadow: 0 0 0 2px var(--fn-blanco);
   }
-  .node-out {
-    display: block;
-    margin-top: var(--fn-space-3);
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--fn-ink-on-light-mute);
+  /* Flecha entre etapas: línea horizontal de 2 px con punta abierta de 8 px. */
+  .node:not(:last-child)::before {
+    content: ""; position: absolute; left: 100%; top: calc(var(--h) / 2 - 1px);
+    width: 44px; height: 2px; background: var(--fn-azul);
   }
-
-  /* Punta de flecha entre estaciones, montada sobre el trazo de trabajo. */
   .node:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    left: calc((var(--loop-pad) + 6px) * -1);
-    top: calc(100% + (var(--fn-space-8) / 2) - 5px);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 9px solid var(--fn-green-ink);
+    content: ""; position: absolute; left: calc(100% + 44px - 8px); top: calc(var(--h) / 2 - 6px);
+    width: 8px; height: 12px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 12'%3E%3Cpath d='M1 1L6 6L1 11' fill='none' stroke='%2309318D' stroke-width='2'/%3E%3C/svg%3E") no-repeat;
   }
-
-  /* Punta del retorno: reentra al circuito. */
-  .loop::after {
-    content: "";
-    position: absolute;
-    right: -6px; top: 32%;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 9px solid var(--fn-green-ink);
+  /* Retorno: sale por abajo de la etapa 4, cruza y entra por abajo de la 1. */
+  .loop-ret {
+    position: absolute; top: var(--h); height: 44px;
+    left: calc((100% - 132px) / 8); right: calc((100% - 132px) / 8);
+    border: 2px solid var(--fn-azul); border-top: 0;
   }
-
-  /* Un pulso recorriendo el circuito, que es el argumento entero de la
-     sección: la rueda no se detiene. Va sobre el borde real del elemento
-     con offset-path: border-box, así que sigue las esquinas redondeadas y
-     no hay que medir nada ni duplicar el trazado en SVG.
-
-     El sentido importa. En escritorio border-box corre en el sentido de las
-     agujas del reloj, que es justo el recorrido: avanza por arriba, baja por
-     la derecha y vuelve por abajo. En móvil el circuito baja por la izquierda,
-     así que allá va en reversa.
-
-     Arranca con data-shown, que es lo que el observador de scroll ya pone
-     al entrar: antes de que la sección se vea, no hay nada girando. */
-  @supports (offset-path: border-box) {
-    .loop[data-shown="true"]::before {
-      content: "";
-      position: absolute;
-      width: 56px; height: 4px;
-      border-radius: 2px;
-      /* Más oscuro que la vía, no más claro: sobre papel el verde de marca
-         encima del verde del borde no se distingue, y la metáfora de luz
-         corriendo por un circuito solo funciona sobre fondo oscuro. */
-      background: linear-gradient(90deg,
-                    transparent 0%,
-                    var(--fn-ink-on-light) 50%,
-                    transparent 100%);
-      offset-path: border-box;
-      offset-rotate: auto;
-      offset-distance: 0%;
-      animation: fn-orbit 9s linear infinite;
-      animation-direction: reverse;      /* móvil: baja por la izquierda */
-      pointer-events: none;
-    }
-    @media (min-width: 760px) {
-      .loop[data-shown="true"]::before { animation-direction: normal; }
-    }
+  .loop-ret::before {
+    content: ""; position: absolute; left: -2px; top: -8px; width: 12px; height: 8px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 7L6 1L11 7' fill='none' stroke='%2309318D' stroke-width='2'/%3E%3C/svg%3E") no-repeat;
   }
-  @keyframes fn-orbit { to { offset-distance: 100%; } }
-
-  /* La etiqueta perfora la línea en vez de cruzarla. */
   .loop-back {
-    position: absolute;
-    right: -1px; top: 50%;
-    transform: translate(50%, -50%) rotate(180deg);
-    writing-mode: vertical-rl;
-    background: var(--fn-surface-light);
-    padding-block: var(--fn-space-3);
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    text-transform: uppercase;
-    color: var(--fn-green-ink);
+    position: absolute; left: 50%; top: calc(var(--h) + 44px); transform: translate(-50%, -50%);
+    background: var(--fn-blanco); padding: 0 11px;
+    font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px;
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-azul);
     white-space: nowrap;
   }
-
-  @media (min-width: 760px) {
-    .loop {
-      border-left-width: 1px;
-      border-top-width: 2px;
-      padding-bottom: var(--fn-space-8);
-    }
-    .loop-steps { grid-template-columns: repeat(4, 1fr); }
-
+  @media (max-width: 820px) {
+    .loop { --h: 110px; padding-bottom: 0; padding-right: 66px; }
+    .loop-steps { grid-template-columns: 1fr; gap: 44px 0; }
+    .node:not(:last-child)::before { left: 33px; top: 100%; width: 2px; height: 44px; }
     .node:not(:last-child)::after {
-      left: calc(100% + (var(--fn-space-8) / 2) - 4px);
-      top: calc((var(--loop-pad) + 6px) * -1);
-      border-left: 9px solid var(--fn-green-ink);
-      border-right: 0;
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
+      left: 29px; top: calc(100% + 44px - 8px); width: 12px; height: 8px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1L6 7L11 1' fill='none' stroke='%2309318D' stroke-width='2'/%3E%3C/svg%3E");
     }
-
-    .loop::after {
-      right: auto; top: auto;
-      left: 24%; bottom: -6px;
-      border-left: 0;
-      border-right: 9px solid var(--fn-green-ink);
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
+    /* Retorno: corchete por la derecha, de la etapa 4 a la 1. */
+    .loop-ret {
+      top: calc(var(--h) / 2); bottom: auto; right: 0; left: calc(100% - 66px);
+      height: calc(3 * (var(--h) + 44px)); width: 44px;
+      border: 2px solid var(--fn-azul); border-left: 0;
     }
-
+    .loop-ret::before { left: -8px; top: -2px; width: 8px; height: 12px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 12'%3E%3Cpath d='M7 1L2 6L7 11' fill='none' stroke='%2309318D' stroke-width='2'/%3E%3C/svg%3E"); }
     .loop-back {
-      right: auto; top: auto;
-      left: 50%; bottom: -1px;
-      transform: translate(-50%, 50%);
-      writing-mode: horizontal-tb;
-      padding-block: 0;
-      padding-inline: var(--fn-space-4);
+      left: auto; right: 0; top: calc(var(--h) / 2 + 1.5 * (var(--h) + 44px));
+      transform: translate(0, -50%) rotate(180deg);
+      writing-mode: vertical-rl; padding: 11px 0; width: 22px; text-align: center;
     }
   }
 
-  /* ---------- motores ----------
-     Cuatro motores en 2x2, no en fila de cuatro: a cuatro columnas cada
-     tarjeta baja de 270px y el párrafo se parte en tiras de tres palabras.
-     El 2x2 además rima con el ciclo, que también son cuatro. */
-  .motors { display: grid; gap: var(--fn-space-8); margin-top: var(--fn-space-12); }
-  @media (min-width: 760px) { .motors { grid-template-columns: repeat(2, 1fr); gap: var(--fn-space-12); } }
-  .motor { border-top: 2px solid var(--fn-green-ink); padding-top: var(--fn-space-6); }
-  /* Ata cada motor a su paso del ciclo: sin esto, cuatro tarjetas seguidas
-     se leen como una lista suelta y no como las piezas de una rueda. */
-  .motor-tag {
-    display: block;
-    margin-bottom: var(--fn-space-3);
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    text-transform: uppercase;
-    color: var(--fn-green-ink);
+  /* ---------- motores ---------- */
+  .motors { display: grid; gap: 66px; margin-top: 66px; }
+  @media (min-width: 761px) { .motors { grid-template-columns: repeat(2, 1fr); gap: 66px 44px; } }
+  .motor { border-top: 2px solid var(--fn-azul); padding-top: 22px; }
+  .motor-tag { display: block; margin-bottom: 11px; color: var(--fn-azul-nota); font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px; letter-spacing: var(--fn-track-mono); text-transform: uppercase; }
+  .motor h3 { margin-bottom: 11px; }
+  .motor p { margin-bottom: 22px; font-weight: 400; }
+  .motor ul { margin: 0; padding: 0; list-style: none; }
+  .motor li {
+    display: flex; align-items: center; min-height: 44px;
+    border-bottom: 1px solid var(--fn-tinte);
+    font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px;
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-azul-texto2);
   }
-  .motor h3 { margin-bottom: var(--fn-space-4); }
-  .motor p { margin-bottom: var(--fn-space-4); }
-  .motor ul {
-    margin: 0; padding: 0; list-style: none;
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--fn-ink-on-light-mute);
-  }
-  .motor li { padding: var(--fn-space-2) 0; border-bottom: 1px solid var(--fn-rule-on-light); }
-  /* Una salida por motor, con el asunto ya escrito: quien se reconoce en uno
-     no debería tener que bajar hasta el final y redactar de cero.
-     Enlace de texto y no botón: cuatro botones aquí le competirían al CTA
-     del foro, que es lo que de verdad queremos que se compre primero. */
   .motor-cta {
-    display: inline-flex; align-items: center; gap: var(--fn-space-2);
-    margin-top: var(--fn-space-4);
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    text-transform: uppercase;
-    color: var(--fn-green-ink);
-    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
+    font: 700 15px/22px var(--fn-font); color: var(--fn-azul); text-decoration: none;
+    border-bottom: 2px solid var(--fn-rosa); padding-bottom: 3px;
   }
-  /* Solo se mueve la flecha, y solo con puntero fino. */
-  .motor-cta span { transition: transform var(--fn-dur-hover) var(--fn-ease-out); }
-  @media (prefers-reduced-motion: reduce) {
-    .motor-cta span { transition: none; }
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .motor-cta:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .motor-cta:hover span { transform: translateX(3px); }
-  }
-  .motor-cta:focus-visible { outline: 2px solid var(--fn-green-ink); outline-offset: 3px; }
+  .motor-cta .chev { width: 9px; height: 12px; transition: transform var(--fn-dur-hover) var(--fn-ease); }
+  @media (hover: hover) and (pointer: fine) { .motor-cta:hover .chev { transform: translateX(3px); } }
 
-  /* ---------- contratación ---------- */
-  .steps { counter-reset: s; display: grid; gap: var(--fn-space-8); margin-top: var(--fn-space-12); }
-  @media (min-width: 760px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-  .step { position: relative; padding-top: var(--fn-space-8); border-top: 1px solid var(--fn-rule-on-dark); }
+  /* ---------- cómo se contrata ---------- */
+  .steps { counter-reset: s; display: grid; gap: 44px; margin-top: 66px; }
+  @media (min-width: 761px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+  .step { position: relative; padding-top: 66px; border-top: 1px solid var(--fn-tinte); }
   .step::before {
-    counter-increment: s;
-    content: "0" counter(s);
-    position: absolute; top: var(--fn-space-3); left: 0;
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    color: var(--fn-green);
+    counter-increment: s; content: "0" counter(s);
+    position: absolute; top: 22px; left: 0;
+    font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px;
+    letter-spacing: var(--fn-track-mono); color: var(--fn-azul-nota);
   }
-  .step h3 { margin-bottom: var(--fn-space-3); }
-  .step p { margin: 0; }
+  .step h3 { margin-bottom: 11px; }
+  .step p { margin: 0; font-weight: 400; }
 
-  /* ---------- puerta de entrada: el foro de ideación ----------
-     Único panel elevado del sitio: es lo que se puede comprar hoy sin
-     una reunión previa, y necesita separarse de la prosa que lo rodea.
-     Lleva el filete de la casa arriba, el mismo de las piezas de redes.
+  /* Puertas de entrada: tarjetas con filete tinte (manual 11.6). */
+  .offer { margin-top: 66px; padding: 33px; border: 1px solid var(--fn-tinte); }
+  @media (min-width: 761px) { .offer { padding: 44px; } }
+  .offer + .offer { margin-top: 22px; }
+  .offer .kicker { margin-bottom: 11px; }
+  .offer h3 { margin: 0 0 11px; }
+  .offer p { margin: 0; max-width: 62ch; font-weight: 400; }
+  .offer-points { display: grid; gap: 22px; margin: 33px 0 0; padding: 0; list-style: none; }
+  @media (min-width: 761px) { .offer-points { grid-template-columns: repeat(3, 1fr); } }
+  .offer-points li { padding-top: 22px; border-top: 1px solid var(--fn-tinte); color: var(--fn-azul-texto2); font-weight: 400; }
+  .offer-points b { display: block; margin-bottom: 11px; color: var(--fn-azul); font-weight: 900; }
+  .offer-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 33px; }
+  @media (max-width: 640px) { .offer-cta .btn { width: 100%; justify-content: space-between; } }
 
-     Esquinas rectas a propósito: con radio, el filete de 2px se cortaba
-     en seco contra la curva en vez de seguirla. Además el resto del sitio
-     solo redondea lo pequeño (botones y chips), nunca los bloques. */
-  .offer {
-    position: relative;
-    margin-top: var(--fn-space-12);
-    padding: var(--fn-space-8);
-    background: var(--fn-surface-dark-2);
-    border: 1px solid var(--fn-rule-on-dark);
-  }
-  @media (min-width: 760px) { .offer { padding: var(--fn-space-12); } }
-  .offer::before {
-    content: "";
-    position: absolute; inset: 0 0 auto 0; height: 2px;
-    background: var(--fn-signature);
-  }
-  .offer h3 { margin: var(--fn-space-3) 0 var(--fn-space-4); }
-  .offer p { margin: 0; max-width: var(--fn-measure); }
-  /* Dos salidas, una rápida y una pausada: el CTA no puede depender de
-     que la persona tenga ganas de redactar un correo. */
-  /* Dos puertas de entrada seguidas: la segunda no repite el aire grande. */
-  .offer + .offer { margin-top: var(--fn-space-6); }
-  .offer-points {
-    display: grid; gap: var(--fn-space-6);
-    margin: var(--fn-space-8) 0 0; padding: 0; list-style: none;
-  }
-  @media (min-width: 760px) { .offer-points { grid-template-columns: repeat(3, 1fr); } }
-  .offer-points li {
-    padding-top: var(--fn-space-4);
-    border-top: 1px solid var(--fn-rule-on-dark);
-    color: var(--fn-ink-on-dark-mute);
-  }
-  .offer-points b { display: block; margin-bottom: var(--fn-space-2); color: var(--fn-ink-on-dark); }
-  .offer-cta {
-    display: flex; flex-wrap: wrap; align-items: center;
-    gap: var(--fn-space-4) var(--fn-space-6);
-    margin-top: var(--fn-space-8);
-  }
-  /* El aire va en el contenedor: si cada botón trae el suyo, al partirse en
-     dos renglones en celular queda un hueco grande entre ellos. */
-  .offer-cta .btn { margin-top: 0; }
-  /* Ícono dentro del botón: del tamaño de la letra, sin cambiar la altura. */
-  .btn-ico { width: 1.15em; height: 1.15em; flex: none; }
-  .btn--quiet {
-    background: transparent;
-    color: var(--fn-ink-on-dark);
-    border: 1px solid var(--fn-rule-on-dark);
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .btn--quiet:hover { background: transparent; border-color: var(--fn-green); color: var(--fn-green); }
-  }
-
-  /* ---------- sectores ---------- */
-  /* Sectores: en una sola línea no caben (piden ~1.500px y el contenedor
-     llega a ~1.050px), así que van en rejilla pareja: 4×2 en escritorio,
-     2 columnas en tableta. En celular fluyen y cada fila se estira hasta
-     el borde, para que no quede hueco al final de ninguna. */
-  .sectors {
-    display: flex; flex-wrap: wrap; gap: var(--fn-space-2);
-    margin-top: var(--fn-space-8); padding: 0; list-style: none;
-  }
-  .sectors li { flex: 1 1 auto; }
-  @media (min-width: 600px) {
-    .sectors { display: grid; grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (min-width: 1120px) {
-    .sectors { grid-template-columns: repeat(4, 1fr); }
-  }
+  /* Sectores: rejilla pareja con íconos de trazo 2 px y esquinas rectas. */
+  .sectors { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+  .sectors-wrap { margin-top: 66px; }
+  @media (min-width: 600px) { .sectors { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .sectors { grid-template-columns: repeat(4, 1fr); } }
   .sectors li {
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: var(--fn-space-2) var(--fn-space-4);
-    border: 1px solid var(--fn-rule-on-dark);
-    border-radius: var(--fn-radius-sm);
-    color: var(--fn-ink-on-dark-mute);
-    display: inline-flex; align-items: center; gap: var(--fn-space-2);
+    display: flex; align-items: center; gap: 11px; min-height: 44px; padding: 0 16px;
+    border: 1px solid var(--fn-tinte);
+    font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px;
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-azul);
   }
-  /* Ícono de línea por sector, en el verde de la casa: acompaña, no compite. */
   .sectors svg {
-    width: 1.25em; height: 1.25em; flex: none;
-    fill: none; stroke: var(--fn-green);
-    stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+    width: 22px; height: 22px; flex: none;
+    fill: none; stroke: var(--fn-azul); stroke-width: 2;
+    stroke-linecap: square; stroke-linejoin: miter;
   }
+  .sectors rect { rx: 0; }
 
-  /* ---------- cierre ---------- */
-  .close { text-align: left; }
-  .close h2 { max-width: 16ch; }
+  /* ---------- contacto: cierre en azul (manual 11.1), sin naranja ---------- */
+  .close { background: var(--fn-azul); color: var(--fn-blanco); border-top: 0; }
+  .close .kicker { color: var(--fn-blanco); }
+  .close h2 { color: var(--fn-blanco); max-width: 16ch; }
+  .close .lead { color: var(--fn-blanco); }
+  .close .link2 { color: var(--fn-blanco); }
+  .close :focus-visible { outline-color: var(--fn-blanco); }
+  .close .offer-cta { margin-top: 44px; gap: 22px 33px; }
 
   footer {
-    border-top: 1px solid var(--fn-rule-on-dark);
-    padding-block: var(--fn-space-8);
-    display: flex; flex-wrap: wrap; gap: var(--fn-space-4);
-    align-items: center; justify-content: space-between;
-    font-family: var(--fn-font-mono);
-    font-size: var(--fn-size-mono);
-    letter-spacing: var(--fn-track-mono);
-    text-transform: uppercase;
-    color: var(--fn-ink-on-dark-mute);
+    padding-block: 33px;
+    display: flex; flex-wrap: wrap; gap: 22px; align-items: center; justify-content: space-between;
+    font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px;
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-azul-nota);
   }
-  footer a { color: inherit; text-decoration: none; transition: color var(--fn-dur-hover) ease; }
-  .foot-links { display: flex; flex-wrap: wrap; gap: var(--fn-space-6); }
-  @media (hover: hover) and (pointer: fine) { footer a:hover { color: var(--fn-green); } }
+  footer .wm { font-size: 22px; text-transform: none; letter-spacing: -0.035em; }
+  footer a { color: inherit; text-decoration: none; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 22px; }
+  @media (hover: hover) and (pointer: fine) { footer a:hover { color: var(--fn-azul); } }
 
-  /* ---------- WhatsApp flotante ----------
-     Verde de marca, no el verde de WhatsApp (#25D366): están a un tono
-     de distancia, así que el oficial leería como un error de color,
-     no como otra marca. El glifo ya carga el reconocimiento.
-     No aparece sobre el hero: ahí ya hay un CTA y competirían. */
+  /* ---------- WhatsApp flotante: cuadrado azul, sin verde ---------- */
   .wa {
-    position: fixed;
-    right: clamp(1rem, 3vw, 2rem);
-    bottom: calc(clamp(1rem, 3vw, 2rem) + env(safe-area-inset-bottom, 0px));
-    z-index: 20;
-    width: 56px; height: 56px;
-    display: grid; place-items: center;
-    border-radius: 50%;
-    background: var(--fn-green);
-    color: var(--fn-black);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.42);
-    /* Anclado a su esquina: entra desde donde vive. */
+    position: fixed; right: 22px; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); z-index: 20;
+    width: 44px; height: 44px; display: grid; place-items: center;
+    background: var(--fn-azul); color: var(--fn-blanco);
+    box-shadow: 0 0 0 2px var(--fn-blanco);
     transform-origin: 100% 100%;
-    opacity: 0;
-    transform: scale(0.9);
-    visibility: hidden;
-    transition: opacity 220ms var(--fn-ease-out),
-                transform 220ms var(--fn-ease-out),
-                background-color var(--fn-dur-hover) ease,
-                visibility 0s linear 220ms;
+    opacity: 0; transform: scale(0.9); visibility: hidden;
+    transition: opacity 220ms var(--fn-ease), transform 220ms var(--fn-ease), visibility 0s linear 220ms;
   }
   .wa[data-shown="true"] {
-    opacity: 1;
-    transform: none;
-    visibility: visible;
-    transition: opacity 220ms var(--fn-ease-out),
-                transform 220ms var(--fn-ease-out),
-                background-color var(--fn-dur-hover) ease,
-                visibility 0s;
+    opacity: 1; transform: none; visibility: visible;
+    transition: opacity 220ms var(--fn-ease), transform 220ms var(--fn-ease), visibility 0s;
   }
-  .wa svg { width: 27px; height: 27px; display: block; }
-  @media (hover: hover) and (pointer: fine) {
-    .wa:hover { background: var(--fn-green-lite); }
-  }
-  .wa[data-shown="true"]:active {
-    transform: scale(0.94);
-    transition-duration: var(--fn-dur-press);
-  }
-  .wa:focus-visible { outline: 2px solid var(--fn-green); outline-offset: 4px; }
+  .wa svg { width: 24px; height: 24px; display: block; }
+  .wa[data-shown="true"]:active { transform: scale(0.94); transition-duration: var(--fn-dur-press); }
+  .wa:focus-visible { outline: 2px solid var(--fn-azul); outline-offset: 4px; }
 
-  /* ---------- entrada por scroll ----------
-     Se ve una sola vez por sesión: puede respirar (420ms).
-     Stagger corto para que no se sienta lento. */
+  /* ---------- entrada por scroll ---------- */
   .reveal {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity var(--fn-dur-reveal) var(--fn-ease-out),
-                transform var(--fn-dur-reveal) var(--fn-ease-out);
+    opacity: 0; transform: translateY(10px);
+    transition: opacity var(--fn-dur-reveal) var(--fn-ease), transform var(--fn-dur-reveal) var(--fn-ease);
     transition-delay: var(--d, 0ms);
   }
   .reveal[data-shown="true"] { opacity: 1; transform: none; }
 
   @media (prefers-reduced-motion: reduce) {
     .reveal { transform: none; transition-duration: 200ms; }
-    .btn:active { transform: none; }
-    .member .more:active { transform: none; }
+    .btn:active, .wa[data-shown="true"]:active { transform: none; }
     .wa, .wa[data-shown="true"] { transform: none; }
-    .wa[data-shown="true"]:active { transform: none; }
-    .boot .frame, .boot[data-on="true"] .frame { stroke-dashoffset: 0; animation: none; }
-    .boot .dot, .boot .chev, .boot .cursor,
-    .boot[data-on="true"] .dot,
-    .boot[data-on="true"] .chev,
-    .boot[data-on="true"] .cursor { opacity: 1; animation: none; }
-    /* Los dos oficios no se muestran: sin secuencia se apilarían sobre el
-       prompt, que es el estado final y lo único que debe quedar. */
-    .boot .glyph, .boot[data-on="true"] .glyph { opacity: 0; animation: none; }
-    /* El pulso del ciclo se detiene, pero el circuito sigue dibujado: la
-       forma es el argumento y no depende del movimiento. */
-    .loop[data-shown="true"]::before { animation: none; display: none; }
+    .btn .chev, .motor-cta .chev { transition: none; }
   }
 </style>
-<noscript><style>.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}.boot .frame{stroke-dashoffset:0}.boot .dot,.boot .chev,.boot .cursor{opacity:1}</style></noscript>
+<noscript><style>.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}</style></noscript>
 </head>
 <body>
 
-<header class="wrap topbar" id="topbar">
-  <a class="wordmark" href="#top">freaknerd<i>_</i></a>
-  <button class="menu-btn" type="button" aria-label="Abrir el menú"
-          aria-expanded="false" aria-controls="menu"><span></span></button>
-  <nav id="menu">
-    <a class="nav" href="#equipo">Quiénes somos</a>
-    <a class="nav" href="#clientes">Clientes</a>
-    <a class="nav" href="#metodo">Método</a>
-    <a class="nav" href="#motores">Motores</a>
-    <a class="nav" href="#contratar">Cómo se contrata</a>
-    <a class="nav" href="/blog/">Blog</a>
-    <a class="nav nav--cta" href="#contacto">Contacto</a>
-  </nav>
-</header>
+<div class="topbar-wrap" id="topbar">
+  <header class="wrap topbar">
+    <a class="wm" href="#top" aria-label="freaknerd, inicio">freaknerd<i></i></a>
+    <button class="menu-btn" type="button" aria-label="Abrir el menú"
+            aria-expanded="false" aria-controls="menu">Menú</button>
+    <nav id="menu">
+      <a class="nav" href="#equipo">Quiénes somos</a>
+      <a class="nav" href="#clientes">Clientes</a>
+      <a class="nav" href="#metodo">Método</a>
+      <a class="nav" href="#motores">Motores</a>
+      <a class="nav" href="#contratar">Cómo se contrata</a>
+      <a class="nav" href="/blog/">Blog</a>
+      <a class="nav nav--cta" href="#contacto">Contacto <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+    </nav>
+  </header>
+</div>
 
 <main id="top">
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap">
-      <svg class="boot" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
-        <rect class="frame" x="3" y="3" width="114" height="94" rx="14"></rect>
-        <circle class="dot" cx="19" cy="18" r="3.4"></circle>
-        <circle class="dot" cx="31" cy="18" r="3.4"></circle>
-        <circle class="dot" cx="43" cy="18" r="3.4"></circle>
-        <g class="glyph g-watch">
-          <circle cx="40" cy="62" r="14"></circle>
-          <circle cx="80" cy="62" r="14"></circle>
-          <path d="M 57 62 L 63 62"></path>
-          <path d="M 57 45 Q 41 33 30 53"></path>
-          <path d="M 63 45 Q 79 33 90 53"></path>
-        </g>
-        <g class="glyph g-build">
-          <rect x="34" y="52" width="52" height="26" rx="6"></rect>
-          <path d="M 48 52 L 48 44 Q 48 40 52 40 L 68 40 Q 72 40 72 44 L 72 52"></path>
-          <path d="M 34 62 L 86 62"></path>
-        </g>
-        <path class="chev" d="M 44 38 L 56 50 L 44 62"></path>
-        <rect class="cursor" x="64" y="36" width="16" height="28" rx="2"></rect>
-      </svg>
-      <p class="kicker reveal">Consultoría · Medellín</p>
-      <h1 class="reveal" style="--d:60ms">Estrategia que se vuelve <span class="accent">estructura</span>.</h1>
-      <p class="lead reveal" style="--d:120ms">
-        Casi toda consultoría termina en un informe. Nosotros abordamos un problema
-        que ya te está doliendo, lo resolvemos con <strong>tu equipo adentro</strong>, y
-        salimos cuando ese equipo puede sostenerlo solo.
-      </p>
-      <a class="btn reveal" href="#contacto" style="--d:180ms">Hablemos del problema</a>
+    <div class="wrap hero-in">
+      <div class="hero-text">
+        <p class="kicker reveal">Consultoría de estrategia · Medellín</p>
+        <h1 class="reveal" style="--d:60ms">Estrategia que se vuelve <span class="sel">estructura</span></h1>
+        <p class="lead reveal" style="--d:120ms">
+          Empezamos por lo que se está rompiendo, lo ordenamos con tu equipo y te lo dejamos funcionando.
+        </p>
+        <div class="cta reveal" style="--d:180ms">
+          <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20los%20contacto%20desde%20la%20web%20de%20freaknerd."
+             target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+          <a class="link2" href="#metodo">Cómo trabajamos</a>
+        </div>
+      </div>
+      <div class="campo" aria-hidden="true">
+        <div class="lienzo"><canvas id="campo"></canvas></div>
+        <div class="leg"><span class="h">← Así llega</span><span class="h">Así queda →</span><span class="v">↑ Así llega</span><span class="v">Así queda ↓</span></div>
+      </div>
     </div>
   </section>
 
   <!-- QUIÉNES SOMOS -->
-  <section id="equipo" class="light">
+  <section id="equipo">
     <div class="wrap">
       <p class="kicker reveal">01 · Quiénes somos</p>
       <h2 class="reveal" style="--d:60ms">Un equipo que ya estuvo del otro lado del escritorio.</h2>
-      <p class="lead dim reveal" style="--d:100ms; margin-top:1.75rem">
+      <p class="lead dim reveal" style="--d:100ms">
         Venimos de consumo masivo: multinacionales, multilatinas, empresas
         nacionales y familiares, con modelos comerciales complejos. No estuvimos solo tomando decisiones
         desde la gerencia: operamos el día a día y resolvimos los problemas de
@@ -1028,95 +590,105 @@
 
       <div class="team">
         <article class="member reveal" style="--d:140ms">
-          <img src="assets/p-daniel.jpg?v=2026-09-27" alt="Daniel Restrepo" width="96" height="96">
-          <div>
+          <img src="assets/p-daniel.jpg?v=2026-09-27" alt="Daniel Restrepo" width="132" height="132">
+          <div class="who">
             <h3>Daniel Restrepo</h3>
             <span class="role">Madurez digital / Analítica / Automatización con IA</span>
-            <p class="dim bio">
-              Fue gerente general de una compañía de fragancias, a cargo de la caja,
-              el inventario y el equipo. Antes, marketing regional para media
-              Latinoamérica en una multinacional de belleza. Convierte el análisis
-              en herramientas que el equipo sigue usando.
-            </p>
           </div>
+          <p class="bio">
+            Fue gerente general de una compañía de fragancias, a cargo de la caja,
+            el inventario y el equipo. Antes, marketing regional para media
+            Latinoamérica en una multinacional de belleza. Convierte el análisis
+            en herramientas que el equipo sigue usando.
+          </p>
         </article>
         <article class="member reveal" style="--d:180ms">
-          <img src="assets/p-maria.jpg" alt="María Isabel Tangarife" width="96" height="96">
-          <div>
+          <img src="assets/p-maria.jpg" alt="María Isabel Tangarife" width="132" height="132">
+          <div class="who">
             <h3>María Isabel Tangarife</h3>
             <span class="role">Marcas / Categorías / Portafolio</span>
-            <p class="dim bio">
-              Lidera marcas, categorías y portafolios en belleza, moda, retail y
-              lujo. Ha trabajado en América Latina, Francia y Canadá: entornos
-              multiculturales y multilingües donde convierte oportunidades de
-              mercado en productos y estrategias que generan crecimiento.
-            </p>
           </div>
+          <p class="bio">
+            Lidera marcas, categorías y portafolios en belleza, moda, retail y
+            lujo. Ha trabajado en América Latina, Francia y Canadá: entornos
+            multiculturales y multilingües donde convierte oportunidades de
+            mercado en productos y estrategias que generan crecimiento.
+          </p>
         </article>
         <article class="member reveal" style="--d:220ms">
-          <img src="assets/p-nicolas.jpg" alt="Nicolás González Chavarriaga" width="96" height="96">
-          <div>
+          <img src="assets/p-nicolas.jpg" alt="Nicolás González Chavarriaga" width="132" height="132">
+          <div class="who">
             <h3>Nicolás González Chavarriaga</h3>
             <span class="role">Estrategia comercial / Fuerzas de ventas / Desarrollo de canales</span>
-            <p class="dim bio">
-              Gerente comercial con trayectoria en consumo masivo, venta directa y
-              negocios multicanal. Lideró la estrategia de venta directa de una
-              multinacional de belleza para 12 mercados de Latinoamérica y formó
-              parte del comité directivo de una compañía de moda, con
-              responsabilidad sobre una estructura comercial de más de 200
-              personas. Diseña y transforma estrategias comerciales, fuerzas de
-              ventas, incentivos y canales para impulsar el crecimiento rentable y
-              sostenible de los negocios.
-            </p>
           </div>
+          <p class="bio">
+            Gerente comercial con trayectoria en consumo masivo, venta directa y
+            negocios multicanal. Lideró la estrategia de venta directa de una
+            multinacional de belleza para 12 mercados de Latinoamérica y formó
+            parte del comité directivo de una compañía de moda, con
+            responsabilidad sobre una estructura comercial de más de 200
+            personas. Diseña y transforma estrategias comerciales, fuerzas de
+            ventas, incentivos y canales para impulsar el crecimiento rentable y
+            sostenible de los negocios.
+          </p>
         </article>
         <article class="member reveal" style="--d:260ms">
-          <img src="assets/p-andres.jpg" alt="Andrés Ardila" width="96" height="96">
-          <div>
-            <h3>Andrés Ardila</h3>
-            <span class="role">Operaciones / Procesos / Mejora continua</span>
-            <p class="dim bio">
-              Ingeniero biológico. Operaciones y transformación, ex director de
-              operaciones de una corporación de alimentos donde escaló la operación
-              seis veces en 41 meses.
-            </p>
+          <img src="assets/p-mathias.jpg" alt="Mathias Rommel" width="132" height="132">
+          <div class="who">
+            <h3>Mathias Rommel</h3>
+            <span class="role">Estrategia comercial / Venta directa / Social commerce</span>
           </div>
+          <p class="bio">
+            Más de 12 años en una multinacional de belleza, entre roles regionales para seis mercados de Latinoamérica y locales en Argentina, con portafolios multimarca y multicategoría. Lideró la transformación digital de la venta directa hacia el social commerce. Une la visión estratégica con el conocimiento del día a día.
+          </p>
         </article>
         <article class="member reveal" style="--d:300ms">
-          <img src="assets/p-john.jpg" alt="John Restrepo" width="96" height="96">
-          <div>
+          <img src="assets/p-andres.jpg" alt="Andrés Ardila" width="132" height="132">
+          <div class="who">
+            <h3>Andrés Ardila</h3>
+            <span class="role">Operaciones / Procesos / Mejora continua</span>
+          </div>
+          <p class="bio">
+            Ingeniero biológico. Operaciones y transformación, ex director de
+            operaciones de una corporación de alimentos donde escaló la operación
+            seis veces en 41 meses.
+          </p>
+        </article>
+        <article class="member reveal" style="--d:340ms">
+          <img src="assets/p-john.jpg" alt="John Restrepo" width="132" height="132">
+          <div class="who">
             <h3>John Restrepo</h3>
             <span class="role">Dirección estratégica / Gobierno corporativo / Finanzas</span>
-            <p class="dim bio">
-              Dirección estratégica y gobierno corporativo. Viene del retail de lujo
-              y de la inversión: private equity, venture capital y estructuración de
-              family offices.
-            </p>
           </div>
+          <p class="bio">
+            Dirección estratégica y gobierno corporativo. Viene del retail de lujo
+            y de la inversión: private equity, venture capital y estructuración de
+            family offices.
+          </p>
         </article>
       </div>
 
-      <p class="rule-line reveal" style="--d:340ms">
+      <p class="rule-line reveal" style="--d:380ms">
         Trabajamos con una regla: lo que dejamos sigue funcionando sin nosotros.
       </p>
     </div>
   </section>
 
   <!-- CLIENTES -->
-  <section id="clientes" class="clients">
+  <section id="clientes">
     <div class="wrap">
       <p class="kicker reveal">02 · Nuestros clientes</p>
       <h2 class="reveal" style="--d:60ms">Industrias que no se parecen en nada.</h2>
-      <p class="lead dim reveal" style="--d:100ms; margin-top:1.75rem">
+      <p class="lead dim reveal" style="--d:100ms">
         Pagos, belleza, alimentos, aseo industrial, manufactura, impermeabilización,
         formación corporativa. El problema nunca es el mismo. La forma de abordarlo, sí.
       </p>
       <ul class="logowall reveal" style="--d:140ms">
-        <li><img src="assets/logos/l-puntos.png" alt="Puntos Colombia" width="367" height="135" loading="lazy"></li>
-        <li><img src="assets/logos/l-actionclean.png" alt="Action Clean" width="232" height="131" loading="lazy"></li>
-        <li><img src="assets/logos/l-alinutri.png" alt="Ali Nutri" width="140" height="129" loading="lazy" style="--h:46px"></li>
-        <li><img src="assets/logos/l-estrella.png" alt="Grupo Estrella" width="399" height="368" loading="lazy" style="--h:56px; --w:70px"></li>
-        <li><img src="assets/logos/l-impercap.png" alt="Impercap" width="375" height="376" loading="lazy" style="--h:54px; --w:64px"></li>
+        <li><img src="assets/logos/azul/l-puntos.png" alt="Puntos Colombia" width="367" height="135" loading="lazy"></li>
+        <li><img src="assets/logos/azul/l-actionclean.png" alt="Action Clean" width="232" height="131" loading="lazy"></li>
+        <li><img src="assets/logos/azul/l-alinutri.png" alt="Ali Nutri" width="140" height="129" loading="lazy" style="--h:46px"></li>
+        <li><img src="assets/logos/azul/l-estrella.png" alt="Grupo Estrella" width="399" height="368" loading="lazy" style="--h:56px; --w:70px"></li>
+        <li><img src="assets/logos/azul/l-impercap.png" alt="Impercap" width="375" height="376" loading="lazy" style="--h:54px; --w:64px"></li>
       </ul>
       <div class="past reveal" style="--d:180ms">
         <p class="kicker">Experiencia de nuestros consultores en proyectos con</p>
@@ -1127,7 +699,7 @@
           <li>Sartenes Victoria</li>
         </ul>
         <p class="dim">
-          Proyectos en los que participaron desde otras empresas y consultoras.
+          Proyectos en los que participaron en sus cargos anteriores.
           No son clientes directos de Freaknerd.
         </p>
       </div>
@@ -1143,12 +715,12 @@
         <article class="row reveal" style="--d:100ms">
           <span class="num">A</span>
           <div>
-            <h3 class="dim">La que se compra por credenciales</h3>
+            <h3 class="dim">El diagnóstico que se queda en informe</h3>
             <p class="dim">
-              Llega una firma grande, entrega un diagnóstico impecable y la gerencia
-              queda tranquila ante la junta. El respaldo es real. La raíz, a veces,
-              sigue exactamente donde estaba: te dieron la hora con tu propio reloj
-              y te dejaron en el mismo punto.
+              Se entrega un diagnóstico impecable y la gerencia queda tranquila
+              ante la junta. El respaldo es real. La raíz, a veces, sigue
+              exactamente donde estaba: te dieron la hora con tu propio reloj y
+              te dejaron en el mismo punto.
             </p>
           </div>
         </article>
@@ -1157,8 +729,8 @@
           <div>
             <h3 class="dim">La caja negra</h3>
             <p class="dim">
-              Alguien entra a la mina y resuelve de verdad. Pero diseña desde su propia
-              mirada, entrega la solución y se va. El equipo que va a operarla no la
+              La solución resuelve de verdad, pero se diseña desde una sola
+              mirada, se entrega y quien la armó se va. El equipo que va a operarla no la
               construyó: nadie la entiende y nadie la controla. De ahí salen dos finales
               y los dos son malos. O la solución se muere poco después que el contrato,
               o sobrevive y cada ajuste hay que pagárselo a quien la armó. Contrataste
@@ -1183,42 +755,51 @@
   </section>
 
   <!-- CICLO + MOTORES -->
-  <section id="motores" class="light">
+  <section id="motores">
     <div class="wrap">
       <p class="kicker reveal">04 · El ciclo</p>
       <h2 class="reveal" style="--d:60ms">Ver, encontrar, crear, mejorar. Y otra vez.</h2>
-      <p class="lead dim reveal" style="--d:100ms; margin-top:1.5rem">
+      <p class="lead dim reveal" style="--d:100ms">
         Casi nadie falla por falta de ideas. Falla porque lo que se ve no llega a
         decisión, y lo que se decide no llega a ejecutarse.
       </p>
       <div class="loop reveal" style="--d:140ms">
         <ol class="loop-steps">
           <li class="node">
-            <span class="node-n">01</span>
-            <span class="node-verb">Ver</span>
-            <span class="node-out">Observaciones</span>
+            <a href="#motor-1" aria-current="true">
+              <span class="node-n">01</span>
+              <span class="node-verb">Ver</span>
+              <span class="node-out">Observaciones</span>
+            </a>
           </li>
           <li class="node">
-            <span class="node-n">02</span>
-            <span class="node-verb">Encontrar</span>
-            <span class="node-out">Oportunidades</span>
+            <a href="#motor-2">
+              <span class="node-n">02</span>
+              <span class="node-verb">Encontrar</span>
+              <span class="node-out">Oportunidades</span>
+            </a>
           </li>
           <li class="node">
-            <span class="node-n">03</span>
-            <span class="node-verb">Crear</span>
-            <span class="node-out">Proyectos</span>
+            <a href="#motor-3">
+              <span class="node-n">03</span>
+              <span class="node-verb">Crear</span>
+              <span class="node-out">Proyectos</span>
+            </a>
           </li>
           <li class="node">
-            <span class="node-n">04</span>
-            <span class="node-verb">Mejorar</span>
-            <span class="node-out">Resultados</span>
+            <a href="#motor-4">
+              <span class="node-n">04</span>
+              <span class="node-verb">Mejorar</span>
+              <span class="node-out">Resultados</span>
+            </a>
           </li>
         </ol>
+        <span class="loop-ret" aria-hidden="true"></span>
         <span class="loop-back" aria-hidden="true">Y otra vez</span>
       </div>
 
       <div class="motors">
-        <article class="motor reveal" style="--d:100ms">
+        <article class="motor reveal" id="motor-1" style="--d:100ms">
           <span class="motor-tag">Motor 01 · Ver</span>
           <h3>Vigilancia estratégica</h3>
           <p class="dim">
@@ -1233,9 +814,9 @@
             <li>Normativa</li>
           </ul>
           <a class="motor-cta" target="_blank" rel="noopener"
-             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Vigilancia%20estrat%C3%A9gica">Consultar por vigilancia <span aria-hidden="true">&rarr;</span></a>
+             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Vigilancia%20estrat%C3%A9gica">Consultar por vigilancia <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
         </article>
-        <article class="motor reveal" style="--d:140ms">
+        <article class="motor reveal" id="motor-2" style="--d:140ms">
           <span class="motor-tag">Motor 02 · Encontrar</span>
           <h3>Motor de valor</h3>
           <p class="dim">
@@ -1250,9 +831,9 @@
             <li>Confiabilidad del dato</li>
           </ul>
           <a class="motor-cta" target="_blank" rel="noopener"
-             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Motor%20de%20valor">Consultar por motor de valor <span aria-hidden="true">&rarr;</span></a>
+             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Motor%20de%20valor">Consultar por motor de valor <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
         </article>
-        <article class="motor reveal" style="--d:180ms">
+        <article class="motor reveal" id="motor-3" style="--d:180ms">
           <span class="motor-tag">Motor 03 · Crear</span>
           <h3>Fábrica de proyectos</h3>
           <p class="dim">
@@ -1267,9 +848,9 @@
             <li>IA-abilities del equipo</li>
           </ul>
           <a class="motor-cta" target="_blank" rel="noopener"
-             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20F%C3%A1brica%20de%20proyectos">Consultar por fábrica de proyectos <span aria-hidden="true">&rarr;</span></a>
+             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20F%C3%A1brica%20de%20proyectos">Consultar por fábrica de proyectos <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
         </article>
-        <article class="motor reveal" style="--d:220ms">
+        <article class="motor reveal" id="motor-4" style="--d:220ms">
           <span class="motor-tag">Motor 04 · Mejorar</span>
           <h3>Mejora continua</h3>
           <p class="dim">
@@ -1284,7 +865,7 @@
             <li>Seguimiento de resultados</li>
           </ul>
           <a class="motor-cta" target="_blank" rel="noopener"
-             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Mejora%20continua">Consultar por mejora continua <span aria-hidden="true">&rarr;</span></a>
+             href="https://wa.me/573117191394?text=Hola%2C%20quiero%20hablar%20de%20Mejora%20continua">Consultar por mejora continua <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
         </article>
       </div>
     </div>
@@ -1331,10 +912,8 @@
         </p>
         <div class="offer-cta">
           <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20c%C3%B3mo%20funciona%20el%20foro%20de%20ideaci%C3%B3n"
-             target="_blank" rel="noopener">Cómo funciona el foro</a>
-          <a class="btn btn--quiet" href="mailto:contacto@freaknerd.co?subject=Foro%20de%20ideaci%C3%B3n">
-            Prefiero correo
-          </a>
+             target="_blank" rel="noopener">Cómo funciona el foro <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+          <a class="link2" href="mailto:contacto@freaknerd.co?subject=Foro%20de%20ideaci%C3%B3n">Prefiero correo</a>
         </div>
       </div>
 
@@ -1357,24 +936,24 @@
         </ul>
         <div class="offer-cta">
           <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20de%20IA-abilities%20para%20mi%20equipo"
-             target="_blank" rel="noopener">Hablemos de IA-abilities</a>
-          <a class="btn btn--quiet" href="mailto:contacto@freaknerd.co?subject=IA-abilities">
-            Prefiero correo
-          </a>
+             target="_blank" rel="noopener">Hablemos de IA-abilities <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+          <a class="link2" href="mailto:contacto@freaknerd.co?subject=IA-abilities">Prefiero correo</a>
         </div>
       </div>
 
-      <p class="kicker reveal" style="margin-top:3.25rem">Sectores</p>
-      <ul class="sectors reveal" style="--d:60ms">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/></svg>Manufactura de proceso</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>Alimentos</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="10" width="14" height="12" rx="2"/><path d="M9 10V7h6v3"/><rect x="10" y="2" width="4" height="5" rx="1"/><path d="M9 15h6"/></svg>Fragancias y belleza</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M14 6a6 6 0 0 1 6 6v3"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><rect x="2" y="15" width="20" height="4" rx="1"/></svg>Construcción</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="2"/><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg>Medios</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>Software B2B</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>Propiedad horizontal</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/><path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/><path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></svg>Ambiental y residuos</li>
-      </ul>
+      <div class="sectors-wrap">
+        <p class="kicker reveal">Sectores</p>
+        <ul class="sectors reveal" style="--d:60ms">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/></svg>Manufactura de proceso</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>Alimentos</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="10" width="14" height="12" rx="2"/><path d="M9 10V7h6v3"/><rect x="10" y="2" width="4" height="5" rx="1"/><path d="M9 15h6"/></svg>Fragancias y belleza</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M14 6a6 6 0 0 1 6 6v3"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><rect x="2" y="15" width="20" height="4" rx="1"/></svg>Construcción</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="2"/><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg>Medios</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>Software B2B</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>Propiedad horizontal</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/><path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/><path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></svg>Ambiental y residuos</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -1383,27 +962,21 @@
     <div class="wrap">
       <p class="kicker reveal">06 · Contacto</p>
       <h2 class="reveal" style="--d:60ms">Cuéntanos qué se está rompiendo.</h2>
-      <p class="lead dim reveal" style="--d:100ms; margin-top:1.75rem">
+      <p class="lead reveal" style="--d:100ms">
         Si hay un problema que lleva meses sin resolverse, de ese queremos
         hablar. La primera charla no se cobra.
       </p>
       <div class="offer-cta reveal" style="--d:140ms">
-        <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20los%20contacto%20desde%20la%20web%20de%20freaknerd."
-           target="_blank" rel="noopener noreferrer">
-          <svg class="btn-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 016.988 2.896 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          WhatsApp
-        </a>
-        <a class="btn btn--quiet" href="mailto:contacto@freaknerd.co?subject=Consultor%C3%ADa%20freaknerd">
-          <svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          Correo
-        </a>
+        <a class="btn btn--inv" href="https://wa.me/573117191394?text=Hola%2C%20los%20contacto%20desde%20la%20web%20de%20freaknerd."
+           target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+        <a class="link2" href="mailto:contacto@freaknerd.co?subject=Consultor%C3%ADa%20freaknerd">Escríbenos por correo</a>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="wrap">
-  <span>&copy; 2026 freaknerd_</span>
+  <span>&copy; 2026 <a class="wm" href="#top" aria-label="freaknerd">freaknerd<i></i></a></span>
   <span class="foot-links">
     <a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a>
     <a href="mailto:contacto@freaknerd.co">contacto@freaknerd.co</a>
@@ -1439,8 +1012,6 @@
         bio.setAttribute('data-open', open ? 'true' : 'false');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         btn.textContent = open ? 'Leer menos' : 'Leer más';
-        // Al cerrar, si el botón quedó por encima de la pantalla, volver a él
-        // para que el lector no pierda su lugar.
         if (!open && btn.getBoundingClientRect().top < 0) btn.scrollIntoView({ block: 'nearest' });
       });
       bio.after(btn);
@@ -1448,9 +1019,7 @@
     function measure() {
       bios.forEach(function (bio) {
         if (bio.getAttribute('data-open') === 'true') return;
-        // Media línea de margen: el recorte deja unos píxeles de sobra que
-        // no son texto oculto.
-        var half = parseFloat(getComputedStyle(bio).lineHeight) / 2 || 8;
+        var half = parseFloat(getComputedStyle(bio).lineHeight) / 2 || 11;
         bio.nextElementSibling.hidden = bio.scrollHeight - bio.clientHeight < half;
       });
     }
@@ -1462,8 +1031,112 @@
   })();
 </script>
 <script>
-  // Entrada por scroll: una sola vez, sin bloquear interacción.
+  // Campo de puntos del hero (manual 6): retícula de 22 px, de disperso a
+  // ordenado de izquierda a derecha (de arriba abajo en móvil). Al cargar, los
+  // puntos llegan a su lugar una sola vez, 800 ms, sin bucle. Con
+  // prefers-reduced-motion se muestra ya dibujado.
   (function () {
+    var cv = document.getElementById('campo');
+    if (!cv) return;
+    var G = 22, PAD = 6;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var puntos = [], W = 0, H = 0, vertical = false, raf = 0;
+
+    function prng(seed) { var s = seed; return function () { return (s = (s * 16807) % 2147483647) / 2147483647; }; }
+
+    // cubic-bezier(.2,.8,.2,1)
+    function bez(t) {
+      var x1 = .2, y1 = .8, x2 = .2, y2 = 1, u = t;
+      function cx(a) { return 3 * x1 * a * (1 - a) * (1 - a) + 3 * x2 * a * a * (1 - a) + a * a * a; }
+      function cy(a) { return 3 * y1 * a * (1 - a) * (1 - a) + 3 * y2 * a * a * (1 - a) + a * a * a; }
+      for (var i = 0; i < 8; i++) {
+        var d = (cx(u) - t) / Math.max(1e-4, (cx(u + 1e-4) - cx(u)) / 1e-4);
+        u = Math.min(1, Math.max(0, u - d));
+      }
+      return cy(u);
+    }
+
+    function medir() {
+      var box = cv.parentNode;
+      vertical = window.matchMedia('(max-width: 820px)').matches;
+      var w = box.clientWidth, h = box.clientHeight;
+      W = Math.floor(w / G) * G; H = Math.floor(h / G) * G;
+      var ox = (w - W) / 2;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.style.width = (w + PAD * 2) + 'px'; cv.style.height = (h + PAD * 2) + 'px';
+      cv.width = Math.round((w + PAD * 2) * dpr); cv.height = Math.round((h + PAD * 2) * dpr);
+      cv._k = { dpr: dpr, ox: ox };
+      // La misma siembra siempre: el campo no cambia entre cargas.
+      var r = prng(vertical ? 7 : 11), r2 = prng(97);
+      puntos = [];
+      for (var gx = 0; gx <= W; gx += G) for (var gy = 0; gy <= H; gy += G) {
+        var t = vertical ? gy / (H * .85) : gx / (W * .85);
+        t = Math.min(1, Math.max(0, t));
+        var e = t * t * (3 - 2 * t), j = (1 - e) * 14;
+        var sx = (r2() - .5) * 2 * 90, sy = (r2() - .5) * 2 * 90;   // de dónde llega
+        if (r() > 0.2 + 0.8 * e) continue;
+        puntos.push({
+          x: gx + (r() - .5) * 2 * j, y: gy + (r() - .5) * 2 * j,
+          sx: sx, sy: sy, a: 0.15 + 0.7 * e, rad: 1.2 + 1.1 * e
+        });
+      }
+    }
+
+    function dibujar(p) {
+      var k = cv._k, ctx = cv.getContext('2d');
+      ctx.setTransform(k.dpr, 0, 0, k.dpr, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      ctx.fillStyle = '#09318D';
+      for (var i = 0; i < puntos.length; i++) {
+        var d = puntos[i], f = 1 - p;
+        ctx.globalAlpha = d.a * Math.min(1, p * 2.5);
+        ctx.beginPath();
+        ctx.arc(PAD + k.ox + d.x + d.sx * f, PAD + d.y + d.sy * f, d.rad, 0, 7);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function animar() {
+      var t0 = null, DUR = 800;
+      cancelAnimationFrame(raf);
+      function paso(ts) {
+        if (t0 === null) t0 = ts;
+        var t = Math.min(1, (ts - t0) / DUR);
+        dibujar(bez(t));
+        if (t < 1) raf = requestAnimationFrame(paso);
+      }
+      dibujar(0);
+      raf = requestAnimationFrame(paso);
+      // Si el navegador no entrega cuadros (pestaña en segundo plano), el
+      // campo igual debe quedar dibujado.
+      clearTimeout(animar._t);
+      animar._t = setTimeout(function () { cancelAnimationFrame(raf); dibujar(1); }, DUR + 500);
+    }
+
+    function iniciar(conMovimiento) {
+      medir();
+      if (conMovimiento && !reduce) animar(); else dibujar(1);
+    }
+
+    iniciar(false);
+    // La animación espera a que la página se esté viendo de verdad.
+    function cuandoSeVea() {
+      if (document.visibilityState === 'visible') { requestAnimationFrame(function () { iniciar(true); }); return; }
+      document.addEventListener('visibilitychange', function alVerse() {
+        if (document.visibilityState !== 'visible') return;
+        document.removeEventListener('visibilitychange', alVerse);
+        requestAnimationFrame(function () { iniciar(true); });
+      });
+    }
+    window.addEventListener('pageshow', cuandoSeVea);
+    var tr;
+    window.addEventListener('resize', function () { clearTimeout(tr); tr = setTimeout(function () { cancelAnimationFrame(raf); iniciar(false); }, 150); });
+  })();
+</script>
+<script>
+  (function () {
+    // Entrada por scroll: una sola vez, sin bloquear interacción.
     var items = document.querySelectorAll('.reveal');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1508,53 +1181,42 @@
     sentinel.observe(probe);
 
     // Menú móvil.
-    var barra = document.getElementById('topbar');
-    var boton = barra && barra.querySelector('.menu-btn');
+    var boton = bar && bar.querySelector('.menu-btn');
     if (boton) {
       var abrir = function (abierto) {
-        barra.setAttribute('data-menu', String(abierto));
+        bar.setAttribute('data-menu', String(abierto));
         boton.setAttribute('aria-expanded', String(abierto));
         boton.setAttribute('aria-label', abierto ? 'Cerrar el menú' : 'Abrir el menú');
+        boton.textContent = abierto ? 'Cerrar' : 'Menú';
       };
       boton.addEventListener('click', function () {
-        abrir(barra.getAttribute('data-menu') !== 'true');
+        abrir(bar.getAttribute('data-menu') !== 'true');
       });
-      // Al tocar un enlace el menú estorba: se cierra solo.
-      barra.querySelectorAll('nav a').forEach(function (a) {
+      bar.querySelectorAll('nav a').forEach(function (a) {
         a.addEventListener('click', function () { abrir(false); });
       });
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && barra.getAttribute('data-menu') === 'true') {
+        if (e.key === 'Escape' && bar.getAttribute('data-menu') === 'true') {
           abrir(false); boton.focus();
         }
       });
-      // Si la ventana crece hasta el escritorio, el panel no debe quedar colgado.
       window.addEventListener('resize', function () {
-        if (window.innerWidth > 640) abrir(false);
+        if (window.innerWidth > 900) abrir(false);
       });
     }
 
-    // La marca enciende cuando la página se está viendo, no cuando carga.
-    // pageshow cubre la carga normal y el regreso desde el caché de atrás.
-    var boot = document.querySelector('.boot');
-    function encender() {
-      if (!boot) return;
-      boot.removeAttribute('data-on');
-      void boot.getBoundingClientRect();   // fuerza reinicio de las animaciones
-      boot.setAttribute('data-on', 'true');
+    // Ciclo: la etapa activa es la celda seleccionada; se mueve con el puntero
+    // o el teclado y lleva al motor de esa etapa.
+    var nodos = document.querySelectorAll('.loop .node a');
+    function elegir(a) {
+      nodos.forEach(function (n) { n.removeAttribute('aria-current'); });
+      a.setAttribute('aria-current', 'true');
     }
-    function encenderCuandoSeVea() {
-      if (document.visibilityState === 'visible') {
-        requestAnimationFrame(encender);
-        return;
-      }
-      document.addEventListener('visibilitychange', function alVerse() {
-        if (document.visibilityState !== 'visible') return;
-        document.removeEventListener('visibilitychange', alVerse);
-        requestAnimationFrame(encender);
-      });
-    }
-    window.addEventListener('pageshow', encenderCuandoSeVea);
+    nodos.forEach(function (a) {
+      a.addEventListener('mouseenter', function () { elegir(a); });
+      a.addEventListener('focus', function () { elegir(a); });
+      a.addEventListener('click', function () { elegir(a); });
+    });
 
     // WhatsApp: aparece cuando el hero sale de cuadro, no antes.
     var wa = document.querySelector('.wa');
