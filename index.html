@@ -480,6 +480,27 @@
   .offer .kicker { margin-bottom: 11px; }
   .offer h3 { margin: 0 0 11px; }
   .offer p { margin: 0; max-width: 62ch; font-weight: 400; }
+
+  /* Matriz de ejemplo del mapa de dolores (manual 11.2). Una sola celda
+     seleccionada (Hacer ya) y un solo naranja: la señal de atención. */
+  .mapa { display: grid; gap: 33px; }
+  @media (min-width: 900px) { .mapa { grid-template-columns: 1fr 440px; gap: 44px; align-items: start; } }
+  .mtx { position: relative; margin: 0; }
+  .mtx-g { position: relative; height: 264px; border-left: 2px solid var(--fn-azul); border-bottom: 2px solid var(--fn-azul);
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+  .mtx-q { position: relative; padding: 0 11px; box-shadow: inset 0 0 0 1px var(--fn-tinte); }
+  .mtx-q b { display: block; font-weight: 900; font-size: 12px; line-height: 33px; letter-spacing: .04em; text-transform: uppercase; }
+  .mtx-q.sel-q { background: var(--fn-rosa); box-shadow: inset 0 0 0 3px var(--fn-azul); }
+  .mtx-q.sel-q::after { content: ""; position: absolute; right: -6px; bottom: -6px; width: var(--fn-tirador); height: var(--fn-tirador);
+    background: var(--fn-azul); box-shadow: 0 0 0 2px var(--fn-blanco); z-index: 2; }
+  .mtx-d { position: absolute; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 50%;
+    background: var(--fn-azul); color: var(--fn-blanco); font: 500 10px/24px var(--fn-mono); text-align: center; z-index: 3; }
+  .mtx-d.at { background: var(--fn-blanco); color: var(--fn-azul); box-shadow: 0 0 0 3px var(--fn-naranja); }
+  .mtx-ax { display: flex; justify-content: space-between; margin-top: 6px; color: var(--fn-azul-nota);
+    font-family: var(--fn-mono); font-size: 11px; line-height: 22px; letter-spacing: .14em; text-transform: uppercase; }
+  .mtx-at { display: flex; gap: 8px; align-items: center; margin-top: 11px; color: var(--fn-naranja-texto);
+    font-family: var(--fn-mono); font-size: 11px; line-height: 22px; letter-spacing: .1em; text-transform: uppercase; }
+  .mtx-at::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--fn-naranja); }
   .offer-points { display: grid; gap: 22px; margin: 33px 0 0; padding: 0; list-style: none; }
   @media (min-width: 761px) { .offer-points { grid-template-columns: repeat(3, 1fr); } }
   .offer-points li { padding-top: 22px; border-top: 1px solid var(--fn-tinte); color: var(--fn-azul-texto2); font-weight: 400; }
@@ -928,6 +949,8 @@
       </div>
 
       <div class="offer reveal" style="--d:220ms">
+        <div class="mapa">
+          <div>
         <p class="kicker">Puerta de entrada · Mapa de dolores</p>
         <h3>Un mapa de dolores con tu propio equipo</h3>
         <p class="dim">
@@ -940,6 +963,25 @@
           <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20c%C3%B3mo%20funciona%20el%20mapa%20de%20dolores"
              target="_blank" rel="noopener">Cómo funciona el mapa <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
           <a class="link2" href="mailto:contacto@freaknerd.co?subject=Mapa%20de%20dolores">Prefiero correo</a>
+        </div>
+          </div>
+          <figure class="mtx" aria-label="Ejemplo ilustrativo de matriz de impacto y esfuerzo">
+            <div class="mtx-g">
+              <div class="mtx-q sel-q"><b>Hacer ya</b></div>
+              <div class="mtx-q"><b>Planear</b></div>
+              <div class="mtx-q"><b>Tarea menor</b></div>
+              <div class="mtx-q"><b>Postergar</b></div>
+              <span class="mtx-d" style="left:20%;top:26%">01</span>
+              <span class="mtx-d" style="left:32%;top:38%">02</span>
+              <span class="mtx-d" style="left:68%;top:30%">03</span>
+              <span class="mtx-d" style="left:84%;top:41%">04</span>
+              <span class="mtx-d" style="left:15%;top:75%">05</span>
+              <span class="mtx-d at" style="left:92%;top:65%">06</span>
+            </div>
+            <div class="mtx-ax"><span>↑ Impacto</span><span>Esfuerzo →</span></div>
+            <figcaption class="mtx-at">06 · Atención: alto esfuerzo, poco retorno</figcaption>
+            <div class="mtx-ax"><span>Ejemplo ilustrativo</span></div>
+          </figure>
         </div>
       </div>
 
@@ -1103,8 +1145,14 @@
         if (r() > 0.2 + 0.8 * e) continue;
         puntos.push({
           x: gx + (r() - .5) * 2 * j, y: gy + (r() - .5) * 2 * j,
-          sx: sx, sy: sy, a: 0.15 + 0.7 * e, rad: 1.2 + 1.1 * e
+          sx: sx, sy: sy, a: 0.15 + 0.7 * e, rad: 1.2 + 1.1 * e, e: e
         });
+      }
+      // Manual 3.3: hasta dos puntos «vivos» en naranja, solo en la zona ordenada.
+      var orden = puntos.filter(function (d) { return d.e > 0.97; });
+      if (orden.length > 10) {
+        orden[Math.floor(orden.length * 0.31)].vivo = true;
+        orden[Math.floor(orden.length * 0.78)].vivo = true;
       }
     }
 
@@ -1115,9 +1163,10 @@
       ctx.fillStyle = '#09318D';
       for (var i = 0; i < puntos.length; i++) {
         var d = puntos[i], f = 1 - p;
-        ctx.globalAlpha = d.a * Math.min(1, p * 2.5);
+        ctx.globalAlpha = d.vivo ? Math.min(1, p * 2.5) : d.a * Math.min(1, p * 2.5);
+        ctx.fillStyle = d.vivo ? '#FF4200' : '#09318D';
         ctx.beginPath();
-        ctx.arc(PAD + k.ox + d.x + d.sx * f, PAD + d.y + d.sy * f, d.rad, 0, 7);
+        ctx.arc(PAD + k.ox + d.x + d.sx * f, PAD + d.y + d.sy * f, d.vivo ? 3 : d.rad, 0, 7);
         ctx.fill();
       }
       ctx.globalAlpha = 1;
