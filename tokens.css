@@ -1,32 +1,26 @@
 /* ============================================================
-   Freaknerd · tokens de marca v1.0 (10-nov-2026)
-   Fuente: Manual de marca Freaknerd v1, sección 12.
-   Blanco + azul, rosa selección, un naranja de atención. Módulo de 22 px.
-   Reemplaza la identidad negro + verde del 29-jul-2026.
+   Freaknerd · tokens de marca v2.1 (10-nov-2026)
+   Fuente: Manual de marca Freaknerd v2, sección 12.
+   Dos ambientes: piedra para mirar, crema para leer. Naranja = selección.
+   Módulo de 22 px. Reemplaza la v1 (blanco/azul/rosa), retirada.
    ============================================================ */
 
-:root {
-  /* --- Color (manual 3.1) --- */
-  --fn-blanco:      #FCFFFF;   /* fondo, aire */
-  --fn-azul:        #09318D;   /* texto, logo, puntos, botones, bordes */
-  --fn-azul-texto2: #4B5C8C;   /* texto secundario (6,5:1) */
-  --fn-azul-nota:   #5A6B94;   /* notas y etiquetas en mono (5,3:1) */
-  --fn-azul-medio:  #6F87BD;   /* series secundarias; solo no-texto */
-  --fn-tinte:       #D8E0EE;   /* filetes y rellenos suaves; nunca texto */
-  --fn-rosa:        #EED2E2;   /* «rosa selección»: relleno detrás de azul */
-  --fn-rosa-print:  #E8C4D8;   /* igual, en papel */
-  --fn-naranja:       #FF4200; /* atención, solo no-texto */
-  --fn-naranja-texto: #C23A00; /* atención con palabra (5,4:1) */
+:root{
+  --fn-piedra:#656A66; --fn-piedra-osc:#4A504C; --fn-pizarra:#2C312E;
+  --fn-crema:#F4EFE6; --fn-crema-2:#E9E3D7;
+  --fn-naranja:#FF4A1C; --fn-naranja-texto:#B83A12; --fn-naranja-tinte:#FBD9CC;
+  --fn-azul:#2E4FA6; --fn-azul-claro:#D3DCF0;
+  --fn-reticula-en-piedra:rgba(244,239,230,.20); --fn-reticula-en-crema:rgba(101,106,102,.12);
+  --fn-u:22px; --fn-celda-post:132px; --fn-celda-web:88px;
+  --fn-font:"Montserrat",-apple-system,"Segoe UI",sans-serif; --fn-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --fn-sel-borde:4px; --fn-tirador:11px; --fn-ease:cubic-bezier(.2,.8,.2,1);
 
-  /* --- Retícula (manual 5): todo se mide en unidades de 22 px --- */
-  --fn-u: 22px;
-  --fn-container: 1034px;      /* 47 u; 12 columnas de 66 con intervalo de 22 */
+  /* --- Extensiones del sitio (no están en la sección 12) --- */
+  --fn-filete: rgba(101,106,102,.28);   /* filetes y bordes de tarjeta sobre crema */
+  --fn-container: 1034px;               /* 47 u; 12 columnas de 66 con intervalo de 22 */
   --fn-col: 66px;
   --fn-gap: 22px;
 
-  /* --- Tipografía (manual 4) --- */
-  --fn-font: "Montserrat", -apple-system, "Segoe UI", sans-serif;
-  --fn-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
   /* alias de la versión anterior: certificados/ y otras piezas los usan */
   --fn-font-display: var(--fn-font);
   --fn-font-body:    var(--fn-font);
@@ -43,15 +37,10 @@
   --fn-body-size: 16px; --fn-body-lh: 22px;
   --fn-mono-size: 12px; --fn-mono-sm: 11px; --fn-mono-lh: 22px;
 
-  /* --- Celda seleccionada (manual 7) --- */
-  --fn-sel-borde: 4px;      /* 3 px en móvil */
-  --fn-tirador: 11px;
-
   /* --- Movimiento --- */
-  --fn-ease: cubic-bezier(.2, .8, .2, 1);
   --fn-dur-press:  140ms;
   --fn-dur-hover:  180ms;
-  --fn-dur-reveal: 420ms;
+  --fn-dur-reveal: 360ms;
   --fn-dur-campo:  800ms;   /* campo de puntos: una sola vez, sin bucle */
 }
 
@@ -60,6 +49,5 @@
     --fn-h1-size: 40px;  --fn-h1-lh: 44px;
     --fn-h2-size: 30px;  --fn-h2-lh: 33px;
     --fn-lead-size: 16px; --fn-lead-lh: 22px;
-    --fn-sel-borde: 3px;
   }
 }
