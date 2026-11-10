@@ -132,9 +132,9 @@
     background: var(--fn-pizarra); color: var(--fn-crema);
     font: 900 15px/1 var(--fn-font);
     text-decoration: none; border: 0; border-radius: 0; cursor: pointer;
-    transition: transform var(--fn-dur-press) var(--fn-ease);
+    transition: transform var(--fn-dur-press) cubic-bezier(.23,1,.32,1);
   }
-  .btn .chev { color: var(--fn-naranja); transition: transform var(--fn-dur-hover) var(--fn-ease); }
+  .btn .chev { color: var(--fn-naranja); transition: transform var(--fn-dur-hover) cubic-bezier(.23,1,.32,1); }
   .btn:active { transform: scale(0.98); }
   @media (hover: hover) and (pointer: fine) { .btn:hover .chev { transform: translateX(3px); } }
   .btn--inv { background: var(--fn-crema); color: var(--fn-pizarra); }
@@ -407,6 +407,8 @@
     box-shadow: inset 0 0 0 1px var(--fn-filete);
     transition: background-color 120ms ease, box-shadow 120ms ease;
   }
+  /* Al navegar con teclado la etapa cambia en seco: nada de animación en acciones de teclado. */
+  .node a:focus-visible { transition: none; }
   .node-n { display: block; color: var(--fn-piedra-osc); font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px; letter-spacing: var(--fn-track-mono); }
   .node-verb { display: block; font-weight: 900; font-size: 28px; line-height: 44px; letter-spacing: -0.02em; margin-top: 0; }
   .node-out { display: block; color: var(--fn-piedra-osc); font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px; letter-spacing: var(--fn-track-mono); text-transform: uppercase; }

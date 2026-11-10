@@ -29,6 +29,15 @@
         ],
         "createdAt": "2026-11-10T18:00:57.043Z",
         "reason": "Las secciones llevan filete superior y el aire está en el .wrap interno (padding-block de 66-88 px); verificado en capturas de escritorio y 390 px el 10-nov-2026"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-10T20:20:56.573Z",
+        "reason": "Manual de marca v2 aprobado por Daniel el 10-nov-2026 (user confirmed): ambiente crema #F4EFE6 para leer es decisión de marca"
       }
     ]
   }
