@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F4EFE6">
 <title>Alejandro Adrián Ortega Mejía · Certificado IA-abilities · Freaknerd</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Alejandro Adrián Ortega Mejía participó en IA-abilities · Marketing Personal, un programa de ocho horas de Freaknerd para trabajar con inteligencia artificial.">
@@ -23,124 +25,134 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
+/* Página del certificado · manual de marca Freaknerd v2.1 · ambiente crema · módulo 22 px */
 :root{
-  --bg:var(--fn-black,#0A0B0D); --bg2:var(--fn-surface-dark-2,#101317);
-  --ink:var(--fn-bone,#F4F6F3); --mute:var(--fn-ink-on-dark-mute,#8A928C);
-  --green:var(--fn-green,#26E57C); --green-lite:var(--fn-green-lite,#7CF4B0);
-  --rule:var(--fn-rule-on-dark,rgba(244,246,243,.12));
-  --display:var(--fn-font-display,"Montserrat",sans-serif); --mono:var(--fn-font-mono,"JetBrains Mono",monospace);
-  --ease:cubic-bezier(.16,1,.3,1);
+  --piedra:#656A66; --piedra-osc:#4A504C; --pizarra:#2C312E; --crema:#F4EFE6; --crema-2:#E9E3D7;
+  --naranja:#FF4A1C; --naranja-texto:#B83A12; --tinte:#FBD9CC; --azul:#2E4FA6;
+  --filete:rgba(101,106,102,.28); --u:22px;
+  --fn-font:"Montserrat",-apple-system,"Segoe UI",sans-serif;
+  --fn-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --fn-ease:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-html{background:var(--bg);color-scheme:dark;scrollbar-color:#2A3330 var(--bg);}
-body{min-height:100vh;font-family:var(--display);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;
-  background-image:radial-gradient(circle,rgba(38,229,124,.16) 1px,transparent 1.4px);background-size:22px 22px;background-attachment:fixed;}
-::selection{background:var(--green);color:var(--bg);}
-a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px;}
-:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:6px;}
-.wrap{max-width:1120px;margin:0 auto;padding:28px clamp(20px,4vw,48px) 64px;}
+html{background:var(--crema);color-scheme:light;overflow-x:hidden;}
+body{min-height:100vh;font-family:var(--fn-font);font-weight:500;font-size:16px;line-height:22px;color:var(--pizarra);background:var(--crema);-webkit-font-smoothing:antialiased;}
+::selection{background:var(--tinte);color:var(--pizarra);}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--pizarra);outline-offset:3px;}
+.mono{font-family:var(--fn-mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:12px;line-height:22px;}
+.mono.s{font-size:11px;}
+.wm{font:900 30px/1 var(--fn-font);letter-spacing:-.035em;display:inline-flex;align-items:baseline;color:var(--pizarra);text-decoration:none;}
+.wm i{display:inline-block;width:.2em;height:.2em;background:var(--naranja);margin-left:.06em;}
+.chev{width:12px;height:16px;fill:var(--naranja);flex:none;}
+.wrap{max-width:1078px;margin:0 auto;padding:0 22px;}
 
-/* cabecera */
-.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:22px;border-bottom:1px solid var(--rule);}
-.marca{font-weight:900;font-size:22px;letter-spacing:-.02em;text-decoration:none;}
-.marca i{font-style:normal;color:var(--green);}
-.sello{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--mute);}
-.sello svg{width:16px;height:16px;color:var(--green);}
+.top{display:flex;align-items:center;justify-content:space-between;gap:22px;height:88px;padding-top:22px;}
+.ok{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;color:var(--pizarra);}
+.ok svg{width:14px;height:14px;flex:none;}
 
-/* cuerpo */
-.cuerpo{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start;margin-top:clamp(32px,6vw,64px);}
-h1{font-weight:900;font-size:clamp(2.1rem,5.2vw,3.6rem);line-height:1.02;letter-spacing:-.035em;text-wrap:balance;}
-.lead{margin-top:16px;font-size:clamp(1rem,1.6vw,1.12rem);color:#C9D0CB;max-width:46ch;text-wrap:pretty;}
-.lead b{color:var(--ink);font-weight:700;}
-.cert{margin-top:clamp(24px,4vw,40px);border-radius:10px;overflow:hidden;background:#fff;
-  box-shadow:0 30px 60px -24px rgba(0,0,0,.75),0 0 0 1px rgba(244,246,243,.08);}
+.cuerpo{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:44px;align-items:start;margin-top:44px;}
+.kick{color:var(--piedra-osc);}
+h1{margin-top:22px;font-weight:900;font-size:66px;line-height:66px;letter-spacing:-.035em;}
+h1 .pl{display:block;text-wrap:balance;}
+.sel{display:inline-block;position:relative;background:var(--tinte);padding:0 .14em;border:4px solid var(--naranja);white-space:nowrap;line-height:1.02;}
+.sel::after{content:"";position:absolute;right:-9px;bottom:-9px;width:11px;height:11px;background:var(--naranja);outline:2px solid var(--crema);}
+.lead{margin-top:33px;font-size:18px;line-height:33px;color:var(--pizarra);max-width:52ch;text-wrap:pretty;}
+.lead b{font-weight:700;}
+.cert{margin-top:33px;border:1px solid var(--filete);background:var(--crema);}
 .cert img{display:block;width:100%;height:auto;}
 
-/* columna lateral */
-.lado{position:sticky;top:28px;display:flex;flex-direction:column;gap:28px;}
-dl{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;padding:20px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);font-size:14.5px;}
-dt{color:var(--mute);}
-dd{font-weight:500;}
-dd.num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:.02em;}
-.acciones{display:flex;flex-direction:column;gap:10px;}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 18px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;
-  border:1px solid var(--rule);background:transparent;color:var(--ink);font-family:inherit;transition:background .25s var(--ease),border-color .25s var(--ease),transform .2s var(--ease);}
-.btn svg{width:18px;height:18px;flex:none;}
-.btn:hover{border-color:rgba(244,246,243,.32);background:rgba(244,246,243,.04);}
-.btn:active{transform:translateY(1px);}
-.btn.pri{background:var(--green);border-color:var(--green);color:#06120B;}
-.btn.pri:hover{background:var(--green-lite);border-color:var(--green-lite);}
-.fila{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.fila .btn{font-size:14px;font-weight:500;min-height:46px;}
+.lado{display:flex;flex-direction:column;gap:33px;}
+dl{display:grid;grid-template-columns:auto 1fr;border-top:2px solid var(--pizarra);}
+dl dt,dl dd{min-height:44px;display:flex;align-items:center;border-bottom:1px solid var(--filete);}
+dt{color:var(--piedra-osc);padding-right:22px;}
+dd{justify-content:flex-end;text-align:right;font-weight:700;font-size:14px;line-height:22px;}
+dd.num{font-family:var(--fn-mono);font-weight:500;font-size:13px;letter-spacing:.04em;}
+.acciones{display:flex;flex-direction:column;gap:22px;align-items:stretch;}
+.btn{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:44px;padding:0 20px;background:var(--pizarra);color:var(--crema);font:900 15px/22px var(--fn-font);text-decoration:none;border:0;border-radius:0;cursor:pointer;transition:background .12s ease,transform .14s var(--fn-ease);}
+.btn:active{transform:scale(.98);}
+.btn:hover{background:var(--piedra-osc);}
+.enl{display:inline-flex;width:fit-content;font:700 15px/22px var(--fn-font);color:var(--pizarra);text-decoration:none;border-bottom:2px solid var(--naranja);padding-bottom:2px;}
+.desc{display:flex;gap:22px;flex-wrap:wrap;}
+.desc .enl{font-weight:500;}
 
-/* publicar */
-.publicar h2{font-weight:900;font-size:1.25rem;letter-spacing:-.02em;}
-.publicar ol{margin-top:12px;padding-left:1.2em;color:#C9D0CB;font-size:14.5px;display:grid;gap:6px;}
-.publicar ol li::marker{color:var(--green);font-family:var(--mono);font-size:13px;}
-.texto{margin-top:16px;position:relative;background:var(--bg2);border:1px solid var(--rule);border-radius:10px;padding:16px 16px 60px;font-size:14.5px;color:#DCE2DE;white-space:pre-line;}
-.copiar{position:absolute;right:10px;bottom:10px;min-height:40px;font-size:13.5px;font-weight:500;padding:0 14px;}
-.copiar[data-ok]{border-color:var(--green);color:var(--green);}
+.publicar h2{font-weight:900;font-size:22px;line-height:22px;letter-spacing:-.02em;}
+.publicar ol{margin-top:22px;list-style:none;counter-reset:p;display:grid;gap:11px;color:var(--pizarra);font-size:14px;line-height:22px;}
+.publicar ol li{counter-increment:p;display:grid;grid-template-columns:33px 1fr;}
+.publicar ol li::before{content:"0" counter(p);font-family:var(--fn-mono);font-size:11px;color:var(--piedra-osc);}
+.publicar b{font-weight:700;}
+.texto{margin-top:22px;position:relative;border:1px solid var(--filete);background:var(--crema-2);padding:22px 22px 66px;font-size:14px;line-height:22px;color:var(--pizarra);white-space:pre-line;}
+.copiar{position:absolute;right:11px;bottom:11px;min-height:44px;padding:0 20px;font-size:14px;gap:10px;justify-content:center;}
+.copiar[data-ok]{background:var(--crema);color:var(--pizarra);box-shadow:inset 0 0 0 2px var(--pizarra);}
 
-.pie{margin-top:clamp(48px,8vw,88px);padding-top:22px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--mute);}
-.pie em{font-style:italic;color:#C9D0CB;}
+.campo{margin-top:66px;}
+.campo svg{display:block;width:100%;height:110px;overflow:visible;}
+.campo .ley{display:flex;justify-content:space-between;color:var(--piedra-osc);margin-top:22px;}
+
+.pie{margin-top:22px;border-top:2px solid var(--pizarra);padding:22px 0 44px;display:flex;justify-content:space-between;align-items:center;gap:0 22px;flex-wrap:wrap;color:var(--pizarra);font-size:14px;}
+.pie a{font-weight:700;}
 
 @media (max-width:860px){
-  .cuerpo{grid-template-columns:1fr;}
-  .lado{position:static;}
+  .cuerpo{grid-template-columns:minmax(0,1fr);gap:33px;margin-top:22px;}
+  .top{height:66px;padding-top:0;}
+  .ok{letter-spacing:.06em;}
+  h1{font-size:33px;line-height:33px;margin-top:11px;}
+  .lead{font-size:16px;line-height:22px;margin-top:22px;}
+  .cert{margin-top:22px;}
 }
-@media (prefers-reduced-motion:no-preference){
-  .cert{animation:entra .9s var(--ease) both;}
-  @keyframes entra{from{opacity:0;transform:translateY(14px);filter:blur(6px);}to{opacity:1;transform:none;filter:none;}}
+.fv{display:none;font-weight:inherit;}
+@media (max-width:480px){
+  .l-lg{display:none;}
+  .ok{text-transform:uppercase;}
+  .fl{display:none;} .fv{display:inline;}
+  .ley{gap:22px;}
+  .campo{margin-top:44px;} .campo svg{height:132px;}
 }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="marca" href="https://freaknerd.co/" aria-label="Freaknerd, ir al inicio">freaknerd<i>_</i></a>
-    <span class="sello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5C8 19.3 5 15.5 5 11V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Certificado verificado</span>
+    <a class="wm" href="https://freaknerd.co/" aria-label="Freaknerd, ir al inicio">freaknerd<i></i></a>
+    <span class="mono s ok"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 7.5l3.5 3.5L12 3.5"/></svg><span class="l-lg">Certificado </span>verificado</span>
   </header>
 
   <main class="cuerpo">
     <section>
-      <h1>Alejandro Adrián Ortega Mejía</h1>
-      <p class="lead">Participó en <b>IA-abilities · Marketing Personal</b>, ocho horas para trabajar con inteligencia artificial: entender qué es, preguntarle bien, construir su propia <i>skill</i> y automatizar con su primer agente.</p>
-      <figure class="cert"><img src="certificado.png" width="1754" height="1240" alt="Certificado de IA-abilities de Alejandro Adrián Ortega Mejía, número IAA-MP-2026-008"></figure>
+      <div class="mono kick">Certificado de participación</div>
+      <h1><span class="pl">Alejandro Adrián</span><span class="sel">Ortega Mejía</span></h1>
+      <p class="lead">Participó en <b>IA-abilities · Marketing Personal</b>, ocho horas para trabajar con inteligencia artificial: entender qué es, preguntarle bien, construir su propia <i style="font-style:normal;font-weight:700">skill</i> y automatizar con su primer agente.</p>
+      <figure class="cert"><img src="certificado.png" width="2000" height="1415" alt="Certificado de IA-abilities de Alejandro Adrián Ortega Mejía, número IAA-MP-2026-008"></figure>
     </section>
 
     <aside class="lado">
       <dl>
-        <dt>Programa</dt><dd>IA-abilities · Marketing Personal</dd>
-        <dt>Emitido por</dt><dd>Freaknerd</dd>
-        <dt>Con</dt><dd>Grupo Formas Íntimas</dd>
-        <dt>Fechas</dt><dd>27 oct – 5 nov 2026 · 8 horas</dd>
-        <dt>Número</dt><dd class="num">IAA-MP-2026-008</dd>
+        <dt class="mono s">Programa</dt><dd>IA-abilities · Marketing Personal</dd>
+        <dt class="mono s">Emitido por</dt><dd>Freaknerd</dd>
+        <dt class="mono s">Con</dt><dd>Grupo Formas Íntimas</dd>
+        <dt class="mono s">Fechas</dt><dd>27 oct – 5 nov 2026 · 8 horas</dd>
+        <dt class="mono s">Número</dt><dd class="num">IAA-MP-2026-008</dd>
       </dl>
 
       <div class="acciones">
-        <a class="btn pri" href="https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&amp;name=IA-abilities%20%C2%B7%20Marketing%20Personal&amp;organizationId=146930652&amp;issueYear=2026&amp;issueMonth=11&amp;certUrl=https%3A%2F%2Ffreaknerd.co%2Fcertificados%2Fwd64xp4w%2F&amp;certId=IAA-MP-2026-008" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9.75h4v11H3v-11zm7 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11z"/></svg>
-          Agregar a mi perfil de LinkedIn</a>
-        <a class="btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffreaknerd.co%2Fcertificados%2Fwd64xp4w%2F" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>
-          Compartir en mi feed de LinkedIn</a>
-        <div class="fila">
-          <a class="btn" href="certificado.pdf" download="Certificado IA-abilities - Alejandro Adrián Ortega Mejía.pdf">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>PDF</a>
-          <a class="btn" href="certificado.png" download="Certificado IA-abilities - Alejandro Adrián Ortega Mejía.png">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Imagen</a>
+        <a class="btn" href="https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&amp;name=IA-abilities%20%C2%B7%20Marketing%20Personal&amp;organizationId=146930652&amp;issueYear=2026&amp;issueMonth=11&amp;certUrl=https%3A%2F%2Ffreaknerd.co%2Fcertificados%2Fwd64xp4w%2F&amp;certId=IAA-MP-2026-008" target="_blank" rel="noopener">Agregar a mi perfil de LinkedIn
+          <svg class="chev" viewBox="0 0 14 18" aria-hidden="true"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+        <a class="enl" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffreaknerd.co%2Fcertificados%2Fwd64xp4w%2F" target="_blank" rel="noopener">Compartir en mi feed de LinkedIn</a>
+        <div class="desc">
+          <a class="enl" href="certificado.pdf" download="Certificado IA-abilities - Alejandro Adrián Ortega Mejía.pdf">Descargar PDF</a>
+          <a class="enl" href="certificado.png" download="Certificado IA-abilities - Alejandro Adrián Ortega Mejía.png">Descargar imagen</a>
         </div>
       </div>
 
       <section class="publicar">
         <h2>Para publicarlo</h2>
         <ol>
-          <li>«Agregar a mi perfil» deja el certificado en su sección <b>Licencias y certificaciones</b>, con todo ya lleno. Solo da «Guardar».</li>
-          <li>Al guardar, LinkedIn le ofrece publicarlo con una ilustración suya. Dé <b>«Omitir»</b>: así su publicación muestra el certificado.</li>
-          <li>Vuelva aquí, use <b>«Compartir en mi feed de LinkedIn»</b> y pegue este texto (ajústelo a su voz):</li>
+          <li><span>«Agregar a mi perfil» deja el certificado en su sección <b>Licencias y certificaciones</b>, con todo ya lleno. Solo da «Guardar».</span></li>
+          <li><span>Al guardar, LinkedIn le ofrece publicarlo con una ilustración suya. Dé <b>«Omitir»</b>: así su publicación muestra el certificado.</span></li>
+          <li><span>Vuelva aquí, use <b>«Compartir en mi feed de LinkedIn»</b> y pegue este texto (ajústelo a su voz):</span></li>
         </ol>
         <div class="texto" id="texto">Terminé IA-abilities, un programa de ocho horas para trabajar con inteligencia artificial: entender qué es, preguntarle bien, construir mi propia skill y automatizar con mi primer agente.
 
@@ -151,8 +163,13 @@ Gracias a Juan Gonzalo Tamayo y a Daniel Restrepo Núñez, de Freaknerd, por el 
     </aside>
   </main>
 
+  <div class="campo">
+    <svg id="campo" aria-hidden="true"></svg>
+    <div class="ley mono s"><span><b class="fl">←</b><b class="fv">↑</b> Así llega</span><span>Así queda <b class="fl">→</b><b class="fv">↓</b></span></div>
+  </div>
+
   <footer class="pie">
-    <span><em>Estrategia que se vuelve estructura.</em></span>
+    <span>Estrategia que se vuelve estructura.</span>
     <span>Esta página verifica el certificado IAA-MP-2026-008 · <a href="https://freaknerd.co/">freaknerd.co</a></span>
   </footer>
 </div>
@@ -161,10 +178,20 @@ Gracias a Juan Gonzalo Tamayo y a Daniel Restrepo Núñez, de Freaknerd, por el 
   var b=document.getElementById('copiar'), t=document.getElementById('texto');
   b.addEventListener('click',function(){
     var s=t.childNodes[0].nodeValue.trim();
-    var ok=function(){b.textContent='Copiado';b.setAttribute('data-ok','');setTimeout(function(){b.textContent='Copiar texto';b.removeAttribute('data-ok');},2200);};
+    var ok=function(){b.textContent='✓ Copiado';b.setAttribute('data-ok','');setTimeout(function(){b.textContent='Copiar texto';b.removeAttribute('data-ok');},2200);};
     if(navigator.clipboard){navigator.clipboard.writeText(s).then(ok,function(){b.textContent='Selecciónalo y cópialo';});}
     else{var r=document.createRange();r.selectNodeContents(t);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent='Texto seleccionado';}
   });
+  /* campo de puntos: vértices de la retícula de 88 px; sueltos a la izquierda, ordenados a la derecha; estático */
+  var svg=document.getElementById('campo'),W=svg.parentNode.clientWidth,V=W<480,H=V?132:88,G=V?66:88,s=20261110;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  var r=function(){s=(s*16807)%2147483647;return s/2147483647;},out='';
+  for(var gx=0;gx<=W;gx+=G)for(var gy=0;gy<=H;gy+=G){
+    var q=V?(gy===0?1:0):Math.min(1,Math.max(0,1-gx/(W*.7))),e=q*q*(3-2*q),j=e*.9*G;
+    out+='<circle cx="'+(gx+(r()*2-1)*j).toFixed(1)+'" cy="'+(gy+(r()*2-1)*j).toFixed(1)+'" r="1.5" fill="#656A66"/>';
+    if(e>.15&&r()<e)out+='<circle cx="'+(gx+r()*G).toFixed(1)+'" cy="'+(gy+r()*G).toFixed(1)+'" r="1.2" fill="#656A66" fill-opacity=".45"/>';
+  }
+  svg.innerHTML=out;
 })();
 </script>
 </body>
