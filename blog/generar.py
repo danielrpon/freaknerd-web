@@ -127,7 +127,7 @@ CABEZA = """<!DOCTYPE html>
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#FCFFFF">
+<meta name="theme-color" content="#F4EFE6">
 <link rel="alternate" type="application/rss+xml" title="freaknerd" href="/blog/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -144,13 +144,15 @@ CABEZA = """<!DOCTYPE html>
 </div>
 """
 
-PIE = """<footer>
+PIE = """<footer class="pie">
+  <div class="pie-in">
   <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd">freaknerd<i></i></a></span>
   <span class="foot-links">
     <a href="/blog/feed.xml">RSS</a>
     <a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a>
     <a href="mailto:contacto@freaknerd.co">contacto@freaknerd.co</a>
   </span>
+  </div>
 </footer>
 </body>
 </html>
@@ -208,6 +210,8 @@ def pagina_entrada(e):
 
   <section class="post-cta">
     <div class="wrap">
+      <div class="reticula" aria-hidden="true"></div>
+      <div class="celdas" aria-hidden="true"><span class="fn" style="--s:88px"><b>fn</b></span><span class="cell-next"></span></div>
       <h2>¿Esto le está pasando a tu operación?</h2>
       <p class="lead">La primera charla no se cobra.</p>
       <a class="btn" href="/#contacto">Hablemos del problema <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>

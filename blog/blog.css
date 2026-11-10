@@ -1,8 +1,8 @@
 /* ============================================================
-   Blog de freaknerd.co · identidad v1 (manual de marca 10-nov-2026)
+   Blog de freaknerd.co · identidad v2 (manual de marca v2.1, 10-nov-2026)
    Hereda todo de tokens.css. Aquí solo va lo propio del blog.
-   Blanco y azul, módulo de 22 px. Sin celda seleccionada aquí:
-   la entrada es lectura, no tablero.
+   Crema para leer, piedra al cerrar. Módulo de 22 px. Sin celda seleccionada
+   en el texto: la entrada es lectura, no tablero.
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -11,8 +11,8 @@ html { scroll-padding-top: 88px; }
 
 body {
   margin: 0;
-  background: var(--fn-blanco);
-  color: var(--fn-azul);
+  background: var(--fn-crema);
+  color: var(--fn-pizarra);
   font-family: var(--fn-font);
   font-weight: 500;
   font-size: var(--fn-body-size);
@@ -22,16 +22,16 @@ body {
 
 .wrap { width: min(760px, calc(100% - 44px)); margin-inline: auto; }
 
-h1, h2, h3 { font-weight: 900; margin: 0; color: var(--fn-azul); }
+h1, h2, h3 { font-weight: 900; margin: 0; color: var(--fn-pizarra); }
 p { margin: 0 0 var(--fn-u); }
-.dim { color: var(--fn-azul-texto2); }
-:focus-visible { outline: 2px solid var(--fn-azul); outline-offset: 3px; }
+.dim { color: var(--fn-piedra-osc); }
+:focus-visible { outline: 2px solid var(--fn-pizarra); outline-offset: 3px; }
 
 .kicker {
   font-family: var(--fn-mono); font-weight: 500;
   font-size: var(--fn-mono-size); line-height: var(--fn-mono-lh);
   letter-spacing: var(--fn-track-mono); text-transform: uppercase;
-  color: var(--fn-azul-texto2);
+  color: var(--fn-piedra-osc);
   margin: 0 0 var(--fn-u);
 }
 
@@ -40,12 +40,12 @@ p { margin: 0 0 var(--fn-u); }
   font: 900 30px/1 var(--fn-font);
   letter-spacing: -0.035em;
   display: inline-flex; align-items: baseline;
-  color: var(--fn-azul); text-decoration: none;
+  color: var(--fn-pizarra); text-decoration: none;
 }
-.wm i { display: inline-block; width: .2em; height: .2em; background: currentColor; margin-left: .06em; }
+.wm i { display: inline-block; width: .2em; height: .2em; background: var(--fn-naranja); margin-left: .06em; }
 
 /* ---------- barra ---------- */
-.topbar-wrap { border-bottom: 1px solid var(--fn-tinte); }
+.topbar-wrap { border-bottom: 1px solid var(--fn-filete); }
 .topbar {
   display: flex; align-items: center; justify-content: space-between;
   height: 88px; width: min(var(--fn-container), calc(100% - 44px)); margin-inline: auto;
@@ -55,11 +55,11 @@ p { margin: 0 0 var(--fn-u); }
   font-family: var(--fn-mono); font-weight: 500;
   font-size: var(--fn-mono-size); line-height: var(--fn-mono-lh);
   letter-spacing: var(--fn-track-mono); text-transform: uppercase;
-  color: var(--fn-azul-texto2); text-decoration: none;
+  color: var(--fn-piedra-osc); text-decoration: none;
   transition: color var(--fn-dur-hover) ease;
 }
-@media (hover: hover) and (pointer: fine) { .topbar a.nav:hover { color: var(--fn-azul); } }
-.topbar a.nav--cta { color: var(--fn-azul); }
+@media (hover: hover) and (pointer: fine) { .topbar a.nav:hover { color: var(--fn-pizarra); } }
+.topbar a.nav--cta { color: var(--fn-pizarra); }
 @media (max-width: 640px) { .topbar { height: 66px; } .wm { font-size: 24px; } }
 
 /* ---------- cabecera de la entrada ---------- */
@@ -78,9 +78,9 @@ p { margin: 0 0 var(--fn-u); }
   font-family: var(--fn-mono); font-weight: 500;
   font-size: var(--fn-mono-sm); line-height: var(--fn-mono-lh);
   letter-spacing: var(--fn-track-mono); text-transform: uppercase;
-  color: var(--fn-azul-nota);
+  color: var(--fn-piedra-osc);
   margin: 44px 0 0; padding-top: 22px;
-  border-top: 2px solid var(--fn-azul);
+  border-top: 2px solid var(--fn-pizarra);
 }
 @media (max-width: 640px) { .post-head { padding-block: 66px 44px; } }
 
@@ -88,7 +88,7 @@ p { margin: 0 0 var(--fn-u); }
 .post-visual { padding-bottom: 66px; }
 .visual {
   display: block; width: 100%; height: auto;
-  border: 1px solid var(--fn-tinte);
+  border: 1px solid var(--fn-filete);
 }
 .post-visual .wrap { width: min(var(--fn-container), calc(100% - 44px)); }
 
@@ -98,7 +98,7 @@ p { margin: 0 0 var(--fn-u); }
 .post-body h2 {
   font-size: 28px; line-height: 33px; letter-spacing: var(--fn-track-h2);
   margin: 66px 0 22px; padding-top: 22px;
-  border-top: 2px solid var(--fn-azul);
+  border-top: 2px solid var(--fn-pizarra);
   text-wrap: balance;
 }
 .post-body .wrap > *:first-child { margin-top: 0; }
@@ -106,21 +106,21 @@ p { margin: 0 0 var(--fn-u); }
 .post-body p { font-size: 17px; line-height: 33px; margin-bottom: 22px; font-weight: 400; }
 .post-body strong { font-weight: 900; }
 .post-body em { font-style: italic; }
-.post-body a { color: var(--fn-azul); font-weight: 700; text-decoration: underline; text-decoration-color: var(--fn-rosa); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.post-body a { color: var(--fn-pizarra); font-weight: 700; text-decoration: underline; text-decoration-color: var(--fn-naranja); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .post-body ul { margin: 0 0 22px; padding-left: 22px; }
 .post-body li { margin-bottom: 11px; line-height: 33px; font-weight: 400; font-size: 17px; }
 .post-body table { width: 100%; border-collapse: collapse; margin: 44px 0; font-size: 15px; }
 .post-body th, .post-body td {
   text-align: left; vertical-align: top;
   padding: 11px 22px 11px 0;
-  border-bottom: 1px solid var(--fn-tinte);
+  border-bottom: 1px solid var(--fn-filete);
   line-height: 22px; font-weight: 500;
 }
 .post-body th {
   font-family: var(--fn-mono); font-size: var(--fn-mono-sm);
   letter-spacing: var(--fn-track-mono); text-transform: uppercase;
-  color: var(--fn-azul-nota);
-  border-bottom: 2px solid var(--fn-azul);
+  color: var(--fn-piedra-osc);
+  border-bottom: 2px solid var(--fn-pizarra);
   font-weight: 500;
 }
 .post-body tr:last-child td { border-bottom: 0; }
@@ -130,36 +130,63 @@ p { margin: 0 0 var(--fn-u); }
 }
 .post-body blockquote {
   margin: 44px 0; padding-left: 22px;
-  border-left: 4px solid var(--fn-azul);
+  border-left: 4px solid var(--fn-pizarra);
 }
 .post-body blockquote p { font-size: var(--fn-lead-size); line-height: var(--fn-lead-lh); margin: 0; font-weight: 700; }
 
-/* ---------- cierre: azul, sin naranja ---------- */
-.post-cta { padding-block: 110px; background: var(--fn-azul); color: var(--fn-blanco); }
-.post-cta h2 { font-size: 30px; line-height: 33px; letter-spacing: var(--fn-track-h2); max-width: 20ch; color: var(--fn-blanco); }
+/* ---------- cierre: ambiente piedra con retícula visible ---------- */
+.fn {
+  position: relative; flex: none; display: grid; place-items: center;
+  width: var(--s, 88px); height: var(--s, 88px); background: var(--fn-naranja);
+}
+.fn b {
+  display: block; font: 900 calc(var(--s, 88px) * .54)/1 var(--fn-font);
+  letter-spacing: -.05em; color: var(--fn-crema);
+  transform: translateY(calc(var(--s, 88px) * -.03));
+}
+.fn::after {
+  content: ""; position: absolute;
+  right: calc(var(--s, 88px) * -.06); bottom: calc(var(--s, 88px) * -.06);
+  width: calc(var(--s, 88px) * .11); height: calc(var(--s, 88px) * .11);
+  background: var(--fn-crema); outline: calc(var(--s, 88px) * .025) solid var(--fn-piedra);
+}
+.cell-next { width: 88px; height: 88px; border: 2px solid var(--fn-naranja); flex: none; }
+.post-cta { position: relative; overflow: hidden; padding-block: 88px; background: var(--fn-piedra); color: var(--fn-crema); }
+.post-cta .wrap { position: relative; }
+.post-cta .reticula {
+  position: absolute; top: -88px; bottom: -88px; left: -50vw; right: -50vw; pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--fn-reticula-en-piedra) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--fn-reticula-en-piedra) 1px, transparent 1px);
+  background-size: var(--fn-celda-web) var(--fn-celda-web);
+  background-position: 50vw 0;
+}
+.post-cta .celdas { display: flex; margin-bottom: var(--fn-u); position: relative; }
+.post-cta h2, .post-cta .lead, .post-cta .btn, .post-cta .volver { position: relative; }
+.post-cta h2 { font-size: 30px; line-height: 33px; letter-spacing: var(--fn-track-h2); max-width: 20ch; color: var(--fn-crema); }
 @media (min-width: 761px) { .post-cta h2 { font-size: 44px; line-height: 44px; } }
-.post-cta .lead { margin-top: 22px; font-size: var(--fn-lead-size); line-height: var(--fn-lead-lh); color: var(--fn-blanco); }
-.post-cta :focus-visible { outline-color: var(--fn-blanco); }
+.post-cta .lead { margin-top: 22px; font-size: var(--fn-lead-size); line-height: var(--fn-lead-lh); color: var(--fn-crema); }
+.post-cta :focus-visible { outline-color: var(--fn-crema); }
 .volver { margin: 44px 0 0; }
 .volver a {
   font-family: var(--fn-mono); font-weight: 500;
   font-size: var(--fn-mono-size); line-height: var(--fn-mono-lh);
   letter-spacing: var(--fn-track-mono); text-transform: uppercase;
-  color: var(--fn-blanco); text-decoration: none;
-  border-bottom: 2px solid var(--fn-rosa); padding-bottom: 3px;
+  color: var(--fn-crema); text-decoration: none;
+  border-bottom: 2px solid var(--fn-naranja); padding-bottom: 3px;
 }
-@media (max-width: 640px) { .post-cta { padding-block: 66px; } }
+@media (max-width: 640px) { .post-cta { padding-block: 66px; } .post-cta .reticula { top: -66px; bottom: -66px; } }
 
 /* ---------- botón (manual 8) ---------- */
 .btn {
   display: inline-flex; align-items: center; gap: 14px;
   height: 44px; padding: 0 20px; margin-top: 33px;
-  background: var(--fn-blanco); color: var(--fn-azul);
+  background: var(--fn-crema); color: var(--fn-pizarra);
   font: 900 15px/1 var(--fn-font);
   text-decoration: none; border: 0; border-radius: 0;
   transition: transform var(--fn-dur-press) var(--fn-ease);
 }
-.btn .chev { width: 12px; height: 16px; fill: var(--fn-azul); flex: none; }
+.btn .chev { width: 12px; height: 16px; fill: var(--fn-naranja); flex: none; }
 .btn:active { transform: scale(0.98); }
 
 /* ---------- índice ---------- */
@@ -175,36 +202,38 @@ p { margin: 0 0 var(--fn-u); }
 }
 @media (max-width: 640px) { .blog-index section { padding-block: 66px; } }
 .cards { list-style: none; margin: 88px 0 0; padding: 0; display: grid; gap: 0; }
-.card { border-top: 1px solid var(--fn-tinte); }
-.card:first-child { border-top: 2px solid var(--fn-azul); }
-.card:last-child { border-bottom: 1px solid var(--fn-tinte); }
+.card { border-top: 1px solid var(--fn-filete); }
+.card:first-child { border-top: 2px solid var(--fn-pizarra); }
+.card:last-child { border-bottom: 1px solid var(--fn-filete); }
 .card a {
   display: grid; gap: 22px;
   padding: 44px 0;
   text-decoration: none; color: inherit;
 }
 @media (min-width: 761px) { .card a { grid-template-columns: 264px 1fr; gap: 44px; align-items: start; } }
-.thumb { display: block; width: 100%; height: auto; border: 1px solid var(--fn-tinte); }
+.thumb { display: block; width: 100%; height: auto; border: 1px solid var(--fn-filete); }
 .card h2 { font-size: 28px; line-height: 33px; letter-spacing: var(--fn-track-h2); margin-bottom: 11px; text-wrap: balance; }
 .card .kicker { margin-bottom: 11px; }
 .card p { margin-bottom: 0; }
 .card .mas {
   display: inline-block; margin-top: 22px;
-  font: 700 15px/22px var(--fn-font); color: var(--fn-azul);
-  border-bottom: 2px solid var(--fn-rosa); padding-bottom: 3px;
+  font: 700 15px/22px var(--fn-font); color: var(--fn-pizarra);
+  border-bottom: 2px solid var(--fn-naranja); padding-bottom: 3px;
 }
 
-/* ---------- pie ---------- */
-footer {
+/* ---------- pie: sigue en piedra, a continuación del cierre ---------- */
+.pie { background: var(--fn-piedra); color: var(--fn-crema); border-top: 1px solid var(--fn-reticula-en-piedra); }
+.pie-in {
   width: min(var(--fn-container), calc(100% - 44px)); margin-inline: auto;
   padding-block: 33px;
   display: flex; flex-wrap: wrap; gap: 22px; align-items: center; justify-content: space-between;
   font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px;
-  letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-azul-nota);
+  letter-spacing: var(--fn-track-mono); text-transform: uppercase;
 }
-footer .wm { font-size: 22px; text-transform: none; }
-footer a { color: inherit; text-decoration: none; }
-@media (hover: hover) and (pointer: fine) { footer a:hover { color: var(--fn-azul); } }
+.pie .wm { font-size: 22px; text-transform: none; color: var(--fn-crema); }
+.pie a { color: inherit; text-decoration: none; }
+.pie :focus-visible { outline-color: var(--fn-crema); }
+@media (hover: hover) and (pointer: fine) { .pie .foot-links a:hover { box-shadow: 0 2px 0 var(--fn-naranja); } }
 .foot-links { display: flex; flex-wrap: wrap; gap: 22px; }
 
 @media (prefers-reduced-motion: reduce) { .btn:active { transform: none; } }
