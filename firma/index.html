@@ -5,45 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Firmas de correo · freaknerd</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#FCFFFF">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-  body{margin:0;background:#F4F6F3;color:#14171A;
-       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-       padding:40px 20px;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#FCFFFF;color:#09318D;
+       font:500 16px/22px Montserrat,-apple-system,"Segoe UI",sans-serif;
+       padding:44px 22px;}
   .page{max-width:760px;margin:0 auto;}
-  h1{font-size:24px;margin:0 0 6px;letter-spacing:-.02em;}
-  .lead{color:#5A6469;margin:0 0 36px;}
-  h2{font-size:15px;text-transform:uppercase;letter-spacing:.12em;color:#0F9E56;
-     margin:40px 0 14px;font-family:ui-monospace,Menlo,monospace;font-weight:600;}
-  .hint{color:#5A6469;font-size:14px;margin:-8px 0 14px;}
-  .box{background:#fff;border:1px dashed #C7CEC9;border-radius:8px;padding:26px;}
-
-  .head{display:flex;align-items:baseline;justify-content:space-between;
-        gap:16px;margin:40px 0 14px;}
-  .head h2{margin:0;}
-  /* min-width fijo: sin él el botón cambia de tamaño al cambiar la etiqueta
-     y el encabezado da un salto. */
-  .copy{font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;
-        text-transform:uppercase;color:#14171A;background:#fff;
-        border:1px solid #C7CEC9;border-radius:6px;padding:10px 14px;
-        cursor:pointer;min-width:132px;white-space:nowrap;
-        transition:background-color 180ms ease,border-color 180ms ease,
-                   color 180ms ease,transform 140ms cubic-bezier(.23,1,.32,1);}
-  @media (hover:hover) and (pointer:fine){
-    .copy:hover{border-color:#0A7040;color:#0A7040;}
-  }
-  .copy:active{transform:scale(.97);}
-  .copy:focus-visible{outline:2px solid #0A7040;outline-offset:3px;}
-  /* Verde oscuro, no el de marca: blanco sobre #0F9E56 da 3,4:1 y no pasa
-     el mínimo de contraste; sobre #0A7040 da 6,2:1. */
-  .copy[data-ok="true"]{background:#0A7040;border-color:#0A7040;color:#fff;}
-  .copy[data-ok="false"]{border-color:#B4451F;color:#B4451F;}
-  @media (prefers-reduced-motion:reduce){
-    .copy{transition-duration:120ms;}
-    .copy:active{transform:none;}
-  }
-  ol{color:#5A6469;font-size:15px;padding-left:20px;}
-  ol b{color:#14171A;}
-  code{background:#EAEDE8;padding:2px 6px;border-radius:4px;font-size:14px;}
+  h1{font-size:30px;line-height:33px;font-weight:900;margin:0 0 11px;letter-spacing:-.02em;}
+  .lead{color:#4B5C8C;margin:0 0 44px;}
+  h2{font:500 12px/22px "JetBrains Mono",ui-monospace,Menlo,monospace;text-transform:uppercase;
+     letter-spacing:.14em;color:#4B5C8C;margin:0;}
+  .hint{color:#4B5C8C;font-size:14px;margin:0 0 11px;}
+  .box{background:#fff;border:1px dashed #D8E0EE;padding:22px;overflow-x:auto;}
+  .head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:44px 0 11px;}
+  /* min-width fijo: sin él el botón cambia de tamaño al cambiar la etiqueta. */
+  .copy{font:500 11px/1 "JetBrains Mono",ui-monospace,Menlo,monospace;letter-spacing:.14em;
+        text-transform:uppercase;color:#09318D;background:#FCFFFF;
+        border:2px solid #09318D;border-radius:0;height:44px;padding:0 16px;
+        cursor:pointer;min-width:148px;white-space:nowrap;
+        transition:transform 140ms cubic-bezier(.2,.8,.2,1);}
+  .copy:active{transform:scale(.98);}
+  .copy:focus-visible{outline:2px solid #09318D;outline-offset:3px;}
+  .copy[data-ok="true"]{background:#09318D;color:#FCFFFF;}
+  .copy[data-ok="false"]{border-color:#C23A00;color:#C23A00;}
+  @media (prefers-reduced-motion:reduce){.copy:active{transform:none;}}
+  ol{color:#4B5C8C;font-size:15px;padding-left:22px;}
+  ol b{color:#09318D;}
+  code{background:#D8E0EE;padding:2px 6px;font-size:14px;color:#09318D;}
 </style>
 </head>
 <body>
@@ -61,45 +54,34 @@
   <div class="box" id="sig-1">
 
 <!-- ========== FIRMA · DANIEL RESTREPO — copiar desde aquí ========== -->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;max-width:600px;font-family:Arial,Helvetica,sans-serif;">
   <tr>
-    <td valign="top" style="padding:0 20px 0 0;">
-      <img src="https://freaknerd.co/assets/sig/mark.png" width="64" height="64" alt="freaknerd"
-           style="display:block;border:0;width:64px;height:64px;border-radius:8px;">
-    </td>
-    <td width="2" bgcolor="#0F9E56" style="width:2px;background:#0F9E56;font-size:0;line-height:0;">&nbsp;</td>
-    <td valign="top" style="padding:0 0 0 20px;">
-
-      <img src="https://freaknerd.co/assets/sig/wordmark.png" width="150" height="35" alt="freaknerd"
-           style="display:block;border:0;width:150px;height:35px;margin-bottom:10px;">
-
-      <div style="font-size:16px;font-weight:700;color:#14171A;letter-spacing:-.01em;">Daniel Restrepo</div>
-      <div style="font-size:13px;color:#0F9E56;font-weight:600;padding-top:2px;">Estrategia · Analítica · Automatización</div>
-
-      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
-      <div style="border-top:1px solid #E2E6E1;width:280px;font-size:0;line-height:0;">&nbsp;</div>
-      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
-
-      <div style="font-size:13px;color:#5A6469;line-height:1.7;">
-        <a href="mailto:contacto@freaknerd.co" style="color:#5A6469;text-decoration:none;">contacto@freaknerd.co</a><br>
-        <a href="https://wa.me/573117191394" style="color:#5A6469;text-decoration:none;">+57 311 719 1394</a><br>
-        <a href="https://freaknerd.co" style="color:#0F9E56;text-decoration:none;font-weight:600;">freaknerd.co</a>
+    <td valign="top" style="padding:0;">
+      <img src="https://freaknerd.co/assets/sig/wordmark.png" width="120" height="17" alt="freaknerd"
+           style="display:block;border:0;width:120px;height:17px;">
+      <div style="height:16px;line-height:16px;font-size:0;">&nbsp;</div>
+      <div style="font-family:Montserrat,'Arial Black',Arial,sans-serif;font-size:16px;line-height:22px;font-weight:900;color:#09318D;letter-spacing:-.02em;">Daniel Restrepo</div>
+      <div style="font-family:'JetBrains Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;line-height:22px;color:#5A6B94;letter-spacing:.14em;text-transform:uppercase;">Estrategia / Analítica / Automatización</div>
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
+      <div style="border-top:1px solid #D8E0EE;width:320px;font-size:0;line-height:0;">&nbsp;</div>
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
+      <div style="font-size:13px;color:#4B5C8C;line-height:22px;">
+        <a href="mailto:contacto@freaknerd.co" style="color:#4B5C8C;text-decoration:none;">contacto@freaknerd.co</a><br>
+        <a href="https://wa.me/573117191394" style="color:#4B5C8C;text-decoration:none;">+57 311 719 1394</a><br>
+        <a href="https://freaknerd.co" style="color:#09318D;text-decoration:none;font-weight:700;">freaknerd.co</a>
       </div>
-
-      <div style="height:14px;line-height:14px;font-size:0;">&nbsp;</div>
-
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         <tr>
           <td style="padding-right:12px;"><a href="https://instagram.com/freaknerd.co"><img src="https://freaknerd.co/assets/social/ig.png" width="18" height="18" alt="Instagram" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL. -->
+          <!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL en generar.py. -->
           <td style="padding-right:12px;"><a href="https://www.linkedin.com/in/daniel-restrepo-nunez/"><img src="https://freaknerd.co/assets/social/li.png" width="18" height="18" alt="LinkedIn" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- X: cuenta pendiente de crear. Si no la vas a abrir, borra esta celda entera. -->
+          <!-- X: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->
           <td style="padding-right:12px;"><a href="https://x.com/freaknerd_co"><img src="https://freaknerd.co/assets/social/x.png" width="18" height="18" alt="X" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, borra esta celda entera. -->
+          <!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->
           <td style=""><a href="https://www.tiktok.com/@freaknerd.co"><img src="https://freaknerd.co/assets/social/tt.png" width="18" height="18" alt="TikTok" style="display:block;border:0;width:18px;height:18px;"></a></td>
         </tr>
       </table>
-
     </td>
   </tr>
 </table>
@@ -114,45 +96,34 @@
   <div class="box" id="sig-2">
 
 <!-- ========== FIRMA · ANDRÉS ARDILA — copiar desde aquí ========== -->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;max-width:600px;font-family:Arial,Helvetica,sans-serif;">
   <tr>
-    <td valign="top" style="padding:0 20px 0 0;">
-      <img src="https://freaknerd.co/assets/sig/mark.png" width="64" height="64" alt="freaknerd"
-           style="display:block;border:0;width:64px;height:64px;border-radius:8px;">
-    </td>
-    <td width="2" bgcolor="#0F9E56" style="width:2px;background:#0F9E56;font-size:0;line-height:0;">&nbsp;</td>
-    <td valign="top" style="padding:0 0 0 20px;">
-
-      <img src="https://freaknerd.co/assets/sig/wordmark.png" width="150" height="35" alt="freaknerd"
-           style="display:block;border:0;width:150px;height:35px;margin-bottom:10px;">
-
-      <div style="font-size:16px;font-weight:700;color:#14171A;letter-spacing:-.01em;">Andrés Ardila</div>
-      <div style="font-size:13px;color:#0F9E56;font-weight:600;padding-top:2px;">Operaciones · Procesos · Mejora continua</div>
-
-      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
-      <div style="border-top:1px solid #E2E6E1;width:280px;font-size:0;line-height:0;">&nbsp;</div>
-      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
-
-      <div style="font-size:13px;color:#5A6469;line-height:1.7;">
-        <a href="mailto:contacto@freaknerd.co" style="color:#5A6469;text-decoration:none;">contacto@freaknerd.co</a><br>
-        <a href="https://wa.me/573506959144" style="color:#5A6469;text-decoration:none;">+57 350 695 9144</a><br>
-        <a href="https://freaknerd.co" style="color:#0F9E56;text-decoration:none;font-weight:600;">freaknerd.co</a>
+    <td valign="top" style="padding:0;">
+      <img src="https://freaknerd.co/assets/sig/wordmark.png" width="120" height="17" alt="freaknerd"
+           style="display:block;border:0;width:120px;height:17px;">
+      <div style="height:16px;line-height:16px;font-size:0;">&nbsp;</div>
+      <div style="font-family:Montserrat,'Arial Black',Arial,sans-serif;font-size:16px;line-height:22px;font-weight:900;color:#09318D;letter-spacing:-.02em;">Andrés Ardila</div>
+      <div style="font-family:'JetBrains Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;line-height:22px;color:#5A6B94;letter-spacing:.14em;text-transform:uppercase;">Operaciones / Procesos / Mejora continua</div>
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
+      <div style="border-top:1px solid #D8E0EE;width:320px;font-size:0;line-height:0;">&nbsp;</div>
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
+      <div style="font-size:13px;color:#4B5C8C;line-height:22px;">
+        <a href="mailto:contacto@freaknerd.co" style="color:#4B5C8C;text-decoration:none;">contacto@freaknerd.co</a><br>
+        <a href="https://wa.me/573506959144" style="color:#4B5C8C;text-decoration:none;">+57 350 695 9144</a><br>
+        <a href="https://freaknerd.co" style="color:#09318D;text-decoration:none;font-weight:700;">freaknerd.co</a>
       </div>
-
-      <div style="height:14px;line-height:14px;font-size:0;">&nbsp;</div>
-
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         <tr>
           <td style="padding-right:12px;"><a href="https://instagram.com/freaknerd.co"><img src="https://freaknerd.co/assets/social/ig.png" width="18" height="18" alt="Instagram" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL. -->
+          <!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL en generar.py. -->
           <td style="padding-right:12px;"><a href="https://www.linkedin.com/in/daniel-restrepo-nunez/"><img src="https://freaknerd.co/assets/social/li.png" width="18" height="18" alt="LinkedIn" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- X: cuenta pendiente de crear. Si no la vas a abrir, borra esta celda entera. -->
+          <!-- X: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->
           <td style="padding-right:12px;"><a href="https://x.com/freaknerd_co"><img src="https://freaknerd.co/assets/social/x.png" width="18" height="18" alt="X" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, borra esta celda entera. -->
+          <!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->
           <td style=""><a href="https://www.tiktok.com/@freaknerd.co"><img src="https://freaknerd.co/assets/social/tt.png" width="18" height="18" alt="TikTok" style="display:block;border:0;width:18px;height:18px;"></a></td>
         </tr>
       </table>
-
     </td>
   </tr>
 </table>
@@ -167,45 +138,34 @@
   <div class="box" id="sig-3">
 
 <!-- ========== FIRMA · JOHN RESTREPO — copiar desde aquí ========== -->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;max-width:600px;font-family:Arial,Helvetica,sans-serif;">
   <tr>
-    <td valign="top" style="padding:0 20px 0 0;">
-      <img src="https://freaknerd.co/assets/sig/mark.png" width="64" height="64" alt="freaknerd"
-           style="display:block;border:0;width:64px;height:64px;border-radius:8px;">
-    </td>
-    <td width="2" bgcolor="#0F9E56" style="width:2px;background:#0F9E56;font-size:0;line-height:0;">&nbsp;</td>
-    <td valign="top" style="padding:0 0 0 20px;">
-
-      <img src="https://freaknerd.co/assets/sig/wordmark.png" width="150" height="35" alt="freaknerd"
-           style="display:block;border:0;width:150px;height:35px;margin-bottom:10px;">
-
-      <div style="font-size:16px;font-weight:700;color:#14171A;letter-spacing:-.01em;">John Restrepo</div>
-      <div style="font-size:13px;color:#0F9E56;font-weight:600;padding-top:2px;">Dirección estratégica · Gobierno corporativo · Finanzas</div>
-
-      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
-      <div style="border-top:1px solid #E2E6E1;width:280px;font-size:0;line-height:0;">&nbsp;</div>
-      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
-
-      <div style="font-size:13px;color:#5A6469;line-height:1.7;">
-        <a href="mailto:contacto@freaknerd.co" style="color:#5A6469;text-decoration:none;">contacto@freaknerd.co</a><br>
-        <a href="https://wa.me/573117191406" style="color:#5A6469;text-decoration:none;">+57 311 719 1406</a><br>
-        <a href="https://freaknerd.co" style="color:#0F9E56;text-decoration:none;font-weight:600;">freaknerd.co</a>
+    <td valign="top" style="padding:0;">
+      <img src="https://freaknerd.co/assets/sig/wordmark.png" width="120" height="17" alt="freaknerd"
+           style="display:block;border:0;width:120px;height:17px;">
+      <div style="height:16px;line-height:16px;font-size:0;">&nbsp;</div>
+      <div style="font-family:Montserrat,'Arial Black',Arial,sans-serif;font-size:16px;line-height:22px;font-weight:900;color:#09318D;letter-spacing:-.02em;">John Restrepo</div>
+      <div style="font-family:'JetBrains Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;line-height:22px;color:#5A6B94;letter-spacing:.14em;text-transform:uppercase;">Dirección estratégica / Gobierno corporativo / Finanzas</div>
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
+      <div style="border-top:1px solid #D8E0EE;width:320px;font-size:0;line-height:0;">&nbsp;</div>
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
+      <div style="font-size:13px;color:#4B5C8C;line-height:22px;">
+        <a href="mailto:contacto@freaknerd.co" style="color:#4B5C8C;text-decoration:none;">contacto@freaknerd.co</a><br>
+        <a href="https://wa.me/573117191406" style="color:#4B5C8C;text-decoration:none;">+57 311 719 1406</a><br>
+        <a href="https://freaknerd.co" style="color:#09318D;text-decoration:none;font-weight:700;">freaknerd.co</a>
       </div>
-
-      <div style="height:14px;line-height:14px;font-size:0;">&nbsp;</div>
-
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         <tr>
           <td style="padding-right:12px;"><a href="https://instagram.com/freaknerd.co"><img src="https://freaknerd.co/assets/social/ig.png" width="18" height="18" alt="Instagram" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL. -->
+          <!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL en generar.py. -->
           <td style="padding-right:12px;"><a href="https://www.linkedin.com/in/daniel-restrepo-nunez/"><img src="https://freaknerd.co/assets/social/li.png" width="18" height="18" alt="LinkedIn" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- X: cuenta pendiente de crear. Si no la vas a abrir, borra esta celda entera. -->
+          <!-- X: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->
           <td style="padding-right:12px;"><a href="https://x.com/freaknerd_co"><img src="https://freaknerd.co/assets/social/x.png" width="18" height="18" alt="X" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, borra esta celda entera. -->
+          <!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->
           <td style=""><a href="https://www.tiktok.com/@freaknerd.co"><img src="https://freaknerd.co/assets/social/tt.png" width="18" height="18" alt="TikTok" style="display:block;border:0;width:18px;height:18px;"></a></td>
         </tr>
       </table>
-
     </td>
   </tr>
 </table>
@@ -221,45 +181,34 @@
   <div class="box" id="sig-4">
 
 <!-- ========== FIRMA · INSTITUCIONAL — copiar desde aquí ========== -->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;max-width:600px;font-family:Arial,Helvetica,sans-serif;">
   <tr>
-    <td valign="top" style="padding:0 20px 0 0;">
-      <img src="https://freaknerd.co/assets/sig/mark.png" width="64" height="64" alt="freaknerd"
-           style="display:block;border:0;width:64px;height:64px;border-radius:8px;">
-    </td>
-    <td width="2" bgcolor="#0F9E56" style="width:2px;background:#0F9E56;font-size:0;line-height:0;">&nbsp;</td>
-    <td valign="top" style="padding:0 0 0 20px;">
-
-      <img src="https://freaknerd.co/assets/sig/wordmark.png" width="150" height="35" alt="freaknerd"
-           style="display:block;border:0;width:150px;height:35px;margin-bottom:10px;">
-
-      <div style="font-size:16px;font-weight:700;color:#14171A;letter-spacing:-.01em;">Estrategia que se vuelve estructura.</div>
-      <div style="font-size:13px;color:#5A6469;font-weight:600;padding-top:2px;">Consultoría · Medellín</div>
-
-      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
-      <div style="border-top:1px solid #E2E6E1;width:280px;font-size:0;line-height:0;">&nbsp;</div>
-      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
-
-      <div style="font-size:13px;color:#5A6469;line-height:1.7;">
-        <a href="mailto:contacto@freaknerd.co" style="color:#5A6469;text-decoration:none;">contacto@freaknerd.co</a><br>
-        <a href="https://wa.me/573117191394" style="color:#5A6469;text-decoration:none;">+57 311 719 1394</a><br>
-        <a href="https://freaknerd.co" style="color:#0F9E56;text-decoration:none;font-weight:600;">freaknerd.co</a>
+    <td valign="top" style="padding:0;">
+      <img src="https://freaknerd.co/assets/sig/wordmark.png" width="120" height="17" alt="freaknerd"
+           style="display:block;border:0;width:120px;height:17px;">
+      <div style="height:16px;line-height:16px;font-size:0;">&nbsp;</div>
+      <div style="font-family:Montserrat,'Arial Black',Arial,sans-serif;font-size:16px;line-height:22px;font-weight:900;color:#09318D;letter-spacing:-.02em;">Estrategia que se vuelve estructura.</div>
+      <div style="font-family:'JetBrains Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;line-height:22px;color:#5A6B94;letter-spacing:.14em;text-transform:uppercase;">Consultoría de estrategia / Medellín</div>
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
+      <div style="border-top:1px solid #D8E0EE;width:320px;font-size:0;line-height:0;">&nbsp;</div>
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
+      <div style="font-size:13px;color:#4B5C8C;line-height:22px;">
+        <a href="mailto:contacto@freaknerd.co" style="color:#4B5C8C;text-decoration:none;">contacto@freaknerd.co</a><br>
+        <a href="https://wa.me/573117191394" style="color:#4B5C8C;text-decoration:none;">+57 311 719 1394</a><br>
+        <a href="https://freaknerd.co" style="color:#09318D;text-decoration:none;font-weight:700;">freaknerd.co</a>
       </div>
-
-      <div style="height:14px;line-height:14px;font-size:0;">&nbsp;</div>
-
+      <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         <tr>
           <td style="padding-right:12px;"><a href="https://instagram.com/freaknerd.co"><img src="https://freaknerd.co/assets/social/ig.png" width="18" height="18" alt="Instagram" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL. -->
+          <!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL en generar.py. -->
           <td style="padding-right:12px;"><a href="https://www.linkedin.com/in/daniel-restrepo-nunez/"><img src="https://freaknerd.co/assets/social/li.png" width="18" height="18" alt="LinkedIn" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- X: cuenta pendiente de crear. Si no la vas a abrir, borra esta celda entera. -->
+          <!-- X: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->
           <td style="padding-right:12px;"><a href="https://x.com/freaknerd_co"><img src="https://freaknerd.co/assets/social/x.png" width="18" height="18" alt="X" style="display:block;border:0;width:18px;height:18px;"></a></td>
-          <!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, borra esta celda entera. -->
+          <!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->
           <td style=""><a href="https://www.tiktok.com/@freaknerd.co"><img src="https://freaknerd.co/assets/social/tt.png" width="18" height="18" alt="TikTok" style="display:block;border:0;width:18px;height:18px;"></a></td>
         </tr>
       </table>
-
     </td>
   </tr>
 </table>
