@@ -416,21 +416,19 @@
     border-block: 1px solid var(--fn-rule-on-dark);
   }
 
-  /* Rejilla, no fila libre: con 9 marcas el flex dejaba 7+2 y la segunda
-     fila se leía como sobrante. Tres columnas en los dos tamaños, que con
-     nueve logos da 3x3 exacto; a cuatro columnas quedaba 4+4+1 y la marca
-     suelta de la última fila parecía un error. */
+  /* Solo clientes directos (cinco). Flex centrado en vez de rejilla: a tres
+     columnas quedaba 3+2 y la fila corta se iba a la izquierda; centrada se
+     lee como intención. En escritorio caben los cinco en una sola fila. */
   .logowall {
     list-style: none; margin: var(--fn-space-12) 0 0; padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex; flex-wrap: wrap; justify-content: center;
     align-items: center;
     gap: var(--fn-space-8) var(--fn-space-6);
   }
+  .logowall li { flex: 0 0 calc((100% - 2 * var(--fn-space-6)) / 3); }
   @media (min-width: 760px) {
-    .logowall {
-      gap: var(--fn-space-12) var(--fn-space-8);
-    }
+    .logowall { flex-wrap: nowrap; justify-content: space-between; gap: var(--fn-space-8); }
+    .logowall li { flex: 0 1 auto; }
   }
   .logowall li { display: grid; place-items: center; }
   /* Cada marca trae su propio peso óptico: la altura se ajusta por logo,
@@ -442,6 +440,22 @@
     max-width: var(--w, 148px);
     opacity: 0.85;
   }
+
+  /* Experiencia en proyectos: marcas donde el equipo trabajó como consultor
+     de otra firma. Va en texto y sin logos a propósito: no son clientes de
+     Freaknerd y un logo sugiere una relación (y un aval) que no existe. */
+  .past {
+    margin-top: var(--fn-space-12);
+    padding-top: var(--fn-space-8);
+    border-top: 1px solid var(--fn-rule-on-dark);
+  }
+  .past .kicker { color: var(--fn-ink-on-dark-mute); }
+  .past ul {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: var(--fn-space-2) var(--fn-space-6);
+    font-size: 1.125rem; font-weight: 600; color: var(--fn-ink-on-dark);
+  }
+  .past p { margin: var(--fn-space-4) 0 0; font-size: 0.875rem; max-width: 60ch; }
 
   /* ---------- las tres consultorías ---------- */
   .stack { display: grid; gap: var(--fn-space-4); margin-top: var(--fn-space-12); }
@@ -1099,15 +1113,24 @@
       </p>
       <ul class="logowall reveal" style="--d:140ms">
         <li><img src="assets/logos/l-puntos.png" alt="Puntos Colombia" width="367" height="135" loading="lazy"></li>
-        <li><img src="assets/logos/l-mastercard.png" alt="Mastercard" width="179" height="139" loading="lazy" style="--h:40px"></li>
-        <li><img src="assets/logos/l-natura.png" alt="Natura" width="159" height="95" loading="lazy"></li>
         <li><img src="assets/logos/l-actionclean.png" alt="Action Clean" width="232" height="131" loading="lazy"></li>
-        <li><img src="assets/logos/l-motta.png" alt="Grupo Motta Internacional" width="194" height="93" loading="lazy"></li>
         <li><img src="assets/logos/l-alinutri.png" alt="Ali Nutri" width="140" height="129" loading="lazy" style="--h:46px"></li>
         <li><img src="assets/logos/l-estrella.png" alt="Grupo Estrella" width="399" height="368" loading="lazy" style="--h:56px; --w:70px"></li>
-        <li><img src="assets/logos/l-victoria.png" alt="Sartenes Victoria · Mecánicos Unidos" width="527" height="193" loading="lazy" style="--h:40px; --w:168px"></li>
         <li><img src="assets/logos/l-impercap.png" alt="Impercap" width="375" height="376" loading="lazy" style="--h:54px; --w:64px"></li>
       </ul>
+      <div class="past reveal" style="--d:180ms">
+        <p class="kicker">Experiencia en proyectos con</p>
+        <ul>
+          <li>Mastercard</li>
+          <li>Natura</li>
+          <li>Grupo Motta Internacional</li>
+          <li>Sartenes Victoria</li>
+        </ul>
+        <p class="dim">
+          Proyectos en los que el equipo participó como consultor de otras firmas.
+          No son clientes directos de Freaknerd.
+        </p>
+      </div>
     </div>
   </section>
 
