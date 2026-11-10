@@ -23,7 +23,7 @@ MONO = "'JetBrains Mono',Menlo,Consolas,'Courier New',monospace"
 
 FIRMAS = [
     dict(id="sig-1", etiqueta="DANIEL RESTREPO", titulo="1 · Daniel Restrepo",
-         nombre="Daniel Restrepo", cargo="Estrategia / Analítica / Automatización",
+         nombre="Daniel Restrepo", cargo="Madurez digital / Analítica / Automatización con IA",
          tel="+57 311 719 1394", wa="573117191394"),
     dict(id="sig-2", etiqueta="ANDRÉS ARDILA", titulo="2 · Andrés Ardila",
          nombre="Andrés Ardila", cargo="Operaciones / Procesos / Mejora continua",
@@ -31,7 +31,16 @@ FIRMAS = [
     dict(id="sig-3", etiqueta="JOHN RESTREPO", titulo="3 · John Restrepo",
          nombre="John Restrepo", cargo="Dirección estratégica / Gobierno corporativo / Finanzas",
          tel="+57 311 719 1406", wa="573117191406"),
-    dict(id="sig-4", etiqueta="INSTITUCIONAL", titulo="4 · Institucional",
+    dict(id="sig-5", etiqueta="MARÍA ISABEL TANGARIFE", titulo="4 · María Isabel Tangarife",
+         nombre="María Isabel Tangarife", cargo="Marcas / Categorías / Portafolio",
+         tel="", wa=""),
+    dict(id="sig-6", etiqueta="NICOLÁS GONZÁLEZ", titulo="5 · Nicolás González",
+         nombre="Nicolás González", cargo="Estrategia comercial / Fuerzas de ventas / Desarrollo de canales",
+         tel="", wa=""),
+    dict(id="sig-7", etiqueta="MATHIAS ROMMEL", titulo="6 · Mathias Rommel",
+         nombre="Mathias Rommel", cargo="Estrategia comercial / Venta directa / Social commerce",
+         tel="", wa=""),
+    dict(id="sig-4", etiqueta="INSTITUCIONAL", titulo="7 · Institucional",
          nombre="Estrategia que se vuelve estructura.", cargo="Consultoría de estrategia / Medellín",
          tel="+57 311 719 1394", wa="573117191394",
          nota="Para el buzón compartido, cuando no firma una persona en particular."),
@@ -39,12 +48,7 @@ FIRMAS = [
 
 REDES = [
     ("ig", "Instagram", "https://instagram.com/freaknerd.co", ""),
-    ("li", "LinkedIn", "https://www.linkedin.com/in/daniel-restrepo-nunez/",
-     "<!-- LinkedIn: hoy apunta a un perfil personal. Cuando exista la página de empresa, cambia esta URL en generar.py. -->"),
-    ("x", "X", "https://x.com/freaknerd_co",
-     "<!-- X: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->"),
-    ("tt", "TikTok", "https://www.tiktok.com/@freaknerd.co",
-     "<!-- TikTok: cuenta pendiente de crear. Si no la vas a abrir, quita su entrada de REDES en generar.py. -->"),
+    ("li", "LinkedIn", "https://www.linkedin.com/company/freaknerd", ""),
 ]
 
 
@@ -73,8 +77,7 @@ PLANTILLA_FIRMA = """
       <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
       <div style="font-size:13px;color:{texto2};line-height:22px;">
         <a href="mailto:contacto@freaknerd.co" style="color:{texto2};text-decoration:none;">contacto@freaknerd.co</a><br>
-        <a href="https://wa.me/{wa}" style="color:{texto2};text-decoration:none;">{tel}</a><br>
-        <a href="https://freaknerd.co" style="color:{azul};text-decoration:none;font-weight:700;">freaknerd.co</a>
+{tel_linea}        <a href="https://freaknerd.co" style="color:{azul};text-decoration:none;font-weight:700;">freaknerd.co</a>
       </div>
       <div style="height:11px;line-height:11px;font-size:0;">&nbsp;</div>
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
@@ -90,7 +93,9 @@ PLANTILLA_FIRMA = """
 
 
 def firma(f):
-    return PLANTILLA_FIRMA.format(base=BASE, font=FONT, mono=MONO, azul=AZUL, texto2=TEXTO2,
+    tel_linea = ('        <a href="https://wa.me/%s" style="color:%s;text-decoration:none;">%s</a><br>\n'
+                 % (f["wa"], TEXTO2, f["tel"])) if f.get("tel") else ""
+    return PLANTILLA_FIRMA.format(tel_linea=tel_linea, base=BASE, font=FONT, mono=MONO, azul=AZUL, texto2=TEXTO2,
                                   nota=NOTA, tinte=TINTE, redes=redes(), **f)
 
 
@@ -141,7 +146,7 @@ CABEZA = """<!DOCTYPE html>
   <h1>Firmas de correo · freaknerd</h1>
   <p class="lead">Selecciona el contenido de un recuadro completo, cópialo y pégalo
      en tu cliente de correo. No copies el recuadro punteado: es solo el borde de esta página.
-     Los tres consultores comparten <b>contacto@freaknerd.co</b> y se distinguen por el teléfono.</p>
+     Todos comparten <b>contacto@freaknerd.co</b>; cada firma lleva el nombre, el rol y, si lo hay, el teléfono.</p>
 """
 
 INSTRUCCIONES = r"""  <h2>Cómo instalarla</h2>
