@@ -11,6 +11,24 @@
         ],
         "createdAt": "2026-09-17T05:38:24.614Z",
         "reason": "Claude: la L20 es body::before, una barra horizontal de 3px fija en el borde superior de la ventana (top/left/right:0, height:3px), no un borde lateral de tarjeta. Es el dispositivo de marca .rule que Daniel ya tenia en sus piezas de Instagram (02 Posts Instagram/post_*.html) y que ya esta en produccion en la landing. El unico border-left del archivo es un blockquote de 2px, convencion tipografica estandar."
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-10T18:00:57.024Z",
+        "reason": "Manual de marca Freaknerd v1, sección 4: etiquetas y roles en JetBrains Mono MAYÚSCULA de 11-12 px son decisión del sistema (no son párrafos)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-10T18:00:57.043Z",
+        "reason": "Las secciones llevan filete superior y el aire está en el .wrap interno (padding-block de 66-88 px); verificado en capturas de escritorio y 390 px el 10-nov-2026"
       }
     ]
   }
