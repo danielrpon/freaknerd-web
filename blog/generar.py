@@ -122,25 +122,30 @@ CABEZA = """<!DOCTYPE html>
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#0A0B0D">
+<meta name="theme-color" content="#FCFFFF">
 <link rel="alternate" type="application/rss+xml" title="freaknerd" href="/blog/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/tokens.css">
 {extra}<link rel="stylesheet" href="/blog/blog.css">
 </head>
 <body>
-<header class="wrap topbar">
-  <a class="wordmark" href="/">freaknerd<i>_</i></a>
-  <nav><a class="nav" href="/blog/">Blog</a><a class="nav" href="/#contacto">Contacto</a></nav>
-</header>
+<div class="topbar-wrap">
+  <header class="topbar">
+    <a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a>
+    <nav><a class="nav" href="/blog/">Blog</a><a class="nav nav--cta" href="/#contacto">Contacto</a></nav>
+  </header>
+</div>
 """
 
-PIE = """<footer class="wrap">
-  <span>&copy; 2026 <a href="/">freaknerd_</a></span>
+PIE = """<footer>
+  <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd">freaknerd<i></i></a></span>
   <span class="foot-links">
     <a href="/blog/feed.xml">RSS</a>
     <a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a>
@@ -195,7 +200,7 @@ def pagina_entrada(e):
 
   {visual}
 
-  <div class="post-body light">
+  <div class="post-body">
     <div class="wrap">
       {cuerpo}
     </div>
@@ -204,8 +209,8 @@ def pagina_entrada(e):
   <section class="post-cta">
     <div class="wrap">
       <h2>¿Esto le está pasando a tu operación?</h2>
-      <p class="lead dim">La primera charla no se cobra.</p>
-      <a class="btn" href="/#contacto">Hablemos del problema</a>
+      <p class="lead">La primera charla no se cobra.</p>
+      <a class="btn" href="/#contacto">Hablemos del problema <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
       <p class="volver"><a href="/blog/">← Todas las entradas</a></p>
     </div>
   </section>

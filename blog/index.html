@@ -16,21 +16,26 @@
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#0A0B0D">
+<meta name="theme-color" content="#FCFFFF">
 <link rel="alternate" type="application/rss+xml" title="freaknerd" href="/blog/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/blog/blog.css">
 </head>
 <body>
-<header class="wrap topbar">
-  <a class="wordmark" href="/">freaknerd<i>_</i></a>
-  <nav><a class="nav" href="/blog/">Blog</a><a class="nav" href="/#contacto">Contacto</a></nav>
-</header>
+<div class="topbar-wrap">
+  <header class="topbar">
+    <a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a>
+    <nav><a class="nav" href="/blog/">Blog</a><a class="nav nav--cta" href="/#contacto">Contacto</a></nav>
+  </header>
+</div>
 
 <main class="blog-index">
   <section>
@@ -55,8 +60,8 @@
     </div>
   </section>
 </main>
-<footer class="wrap">
-  <span>&copy; 2026 <a href="/">freaknerd_</a></span>
+<footer>
+  <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd">freaknerd<i></i></a></span>
   <span class="foot-links">
     <a href="/blog/feed.xml">RSS</a>
     <a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a>
