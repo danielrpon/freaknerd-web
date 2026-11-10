@@ -99,12 +99,14 @@
 
   @media (min-width: 761px) {
     .motor p, .step p, .row p {
-      text-align: justify;
-      -webkit-hyphens: auto;
-              hyphens: auto;
+      text-align: left;
+      -webkit-hyphens: manual;
+              hyphens: manual;
+      text-wrap: pretty;
     }
   }
 
+  .contrata-h { text-wrap: pretty; }
   section { padding-block: 110px; border-top: 1px solid var(--fn-tinte); }
   @media (max-width: 640px) { section { padding-block: 66px; } .step { padding-top: 55px; } }
 
@@ -875,7 +877,7 @@
   <section id="contratar">
     <div class="wrap">
       <p class="kicker reveal">05 · Cómo se contrata</p>
-      <h2 class="reveal" style="--d:60ms">Primero probamos el valor. Después hablamos de recurrencia.</h2>
+      <h2 class="reveal contrata-h" style="--d:60ms">Primero probamos el valor. Después hablamos de <span style="white-space:nowrap">recurrencia.</span></h2>
       <div class="steps">
         <article class="step reveal" style="--d:100ms">
           <h3>Empiezas por un dolor</h3>
@@ -918,7 +920,7 @@
       </div>
 
       <div class="offer reveal" style="--d:60ms">
-        <p class="kicker">Puerta de entrada · IA-abilities</p>
+        <p class="kicker">Puerta de entrada · <span style="white-space:nowrap">IA-abilities</span></p>
         <h3>La IA no sabe lo que sabe tu equipo.</h3>
         <p class="dim">
           Ahí está la ventaja. Años de oficio, criterio y conocimiento del negocio
@@ -949,7 +951,7 @@
           <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="10" width="14" height="12" rx="2"/><path d="M9 10V7h6v3"/><rect x="10" y="2" width="4" height="5" rx="1"/><path d="M9 15h6"/></svg>Fragancias y belleza</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M14 6a6 6 0 0 1 6 6v3"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><rect x="2" y="15" width="20" height="4" rx="1"/></svg>Construcción</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="2"/><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg>Medios</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>Software B2B</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 7-5 5 5 5"/><path d="m16 7 5 5-5 5"/></svg>Software B2B</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>Propiedad horizontal</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/><path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/><path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></svg>Ambiental y residuos</li>
         </ul>
