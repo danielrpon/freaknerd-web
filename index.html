@@ -165,12 +165,18 @@
 
 
   /* Momento firma: la celda de «estructura» se selecciona una sola vez
-     después de que entra el titular. El recuadro se revela de izquierda a
-     derecha (clip-path, 240 ms) y el tirador entra al final (120 ms). */
-  .hero h1 .sel { clip-path: inset(-8px 100% -8px -2px); }
+     después de que entra el titular. La palabra siempre se ve; lo que se
+     revela de izquierda a derecha es el relleno y el borde (capa ::before,
+     clip-path, 240 ms) y al final entra el tirador (120 ms). */
+  .hero h1 .sel { background: transparent; box-shadow: none; isolation: isolate; }
+  .hero h1 .sel::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: var(--fn-rosa); box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-azul);
+    clip-path: inset(0 100% 0 0);
+  }
   .hero h1 .sel::after { transform: scale(.6); opacity: 0; }
-  .hero h1[data-shown="true"] .sel {
-    clip-path: inset(-8px -8px -8px -2px);
+  .hero h1[data-shown="true"] .sel::before {
+    clip-path: inset(0 0 0 0);
     transition: clip-path 240ms cubic-bezier(.23,1,.32,1) 420ms;
   }
   .hero h1[data-shown="true"] .sel::after {
@@ -178,7 +184,7 @@
     transition: transform 120ms cubic-bezier(.23,1,.32,1) 640ms, opacity 120ms ease 640ms;
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero h1 .sel, .hero h1[data-shown="true"] .sel { clip-path: none; transition: none; }
+    .hero h1 .sel::before, .hero h1[data-shown="true"] .sel::before { clip-path: none; transition: none; }
     .hero h1 .sel::after, .hero h1[data-shown="true"] .sel::after { transform: none; opacity: 1; transition: none; }
   }
 
@@ -552,7 +558,7 @@
     .btn .chev, .motor-cta .chev { transition: none; }
   }
 </style>
-<noscript><style>.hero h1 .sel{clip-path:none}.hero h1 .sel::after{transform:none;opacity:1}.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}</style></noscript>
+<noscript><style>.hero h1 .sel::before{clip-path:none}.hero h1 .sel::after{transform:none;opacity:1}.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}</style></noscript>
 </head>
 <body>
 
