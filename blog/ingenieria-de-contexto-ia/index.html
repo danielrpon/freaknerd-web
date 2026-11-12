@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingeniería de contexto: por qué darle más a la IA la hace peor · freaknerd</title>
+<meta name="description" content="¿Le subió a la IA todo el reglamento y aun así respondió mal? Qué es la ingeniería de contexto, por qué más datos la empeoran y cómo darle lo justo.">
+<link rel="canonical" href="https://freaknerd.co/blog/ingenieria-de-contexto-ia/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="freaknerd">
+<meta property="og:locale" content="es_CO">
+<meta property="og:url" content="https://freaknerd.co/blog/ingenieria-de-contexto-ia/">
+<meta property="og:title" content="Ingeniería de contexto: por qué darle más a la IA la hace peor · freaknerd">
+<meta property="og:description" content="¿Le subió a la IA todo el reglamento y aun así respondió mal? Qué es la ingeniería de contexto, por qué más datos la empeoran y cómo darle lo justo.">
+<meta property="og:image" content="https://freaknerd.co/blog/ingenieria-de-contexto-ia/portada.jpg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#F4EFE6">
+<link rel="alternate" type="application/rss+xml" title="freaknerd" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Ingeniería de contexto: por qué darle más a la IA la hace peor",
+  "description": "¿Le subió a la IA todo el reglamento y aun así respondió mal? Qué es la ingeniería de contexto, por qué más datos la empeoran y cómo darle lo justo.",
+  "datePublished": "2026-11-11",
+  "dateModified": "2026-11-12",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Restrepo"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "freaknerd",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://freaknerd.co/assets/icon-512.png"
+    }
+  },
+  "mainEntityOfPage": "https://freaknerd.co/blog/ingenieria-de-contexto-ia/",
+  "image": "https://freaknerd.co/blog/ingenieria-de-contexto-ia/portada.jpg",
+  "inLanguage": "es-CO"
+}
+</script>
+<link rel="stylesheet" href="/blog/blog.css">
+</head>
+<body>
+<div class="topbar-wrap">
+  <header class="topbar">
+    <a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a>
+    <nav><a class="nav" href="/blog/">Blog</a><a class="nav nav--cta" href="/#contacto">Contacto</a></nav>
+  </header>
+</div>
+
+<main class="post">
+  <header class="post-head">
+    <div class="wrap">
+      <p class="kicker">Datos e IA · 11 de noviembre de 2026</p>
+      <h1>Ingeniería de contexto: por qué darle más a la IA la hace peor</h1>
+      <p class="lead dim">¿Le subió a la IA todo el reglamento y aun así respondió mal? Qué es la ingeniería de contexto, por qué más datos la empeoran y cómo darle lo justo.</p>
+      <p class="meta">Daniel Restrepo · 6 min de lectura</p>
+    </div>
+  </header>
+
+    <div class="post-visual">
+    <div class="wrap">
+      <img class="visual" src="/blog/ingenieria-de-contexto-ia/portada.jpg" alt=""
+           width="2400" height="1260" loading="lazy">
+    </div>
+  </div>
+
+  <div class="post-body">
+    <div class="wrap">
+      <p>Son las 4:30 de la tarde y el informe es para mañana. La analista de Talento Humano abre el chat, sube el reglamento interno, la convención colectiva en PDF, tres Excel de novedades y la presentación del comité del mes pasado. «Por si algo sirve.» Escribe la pregunta y espera.</p>
+      <p>La respuesta llega rápido, bien redactada y equivocada: mezcla el periodo de un archivo con el de otro y cita una regla que no aplica a ese caso. Corregirla le cuesta más tiempo que si hubiera hecho el cálculo a mano.</p>
+      <p>No fue que la IA fuera mala ni que el prompt estuviera mal escrito. Le dieron demasiado. Este texto explica por qué pasa, qué dice sobre eso el equipo de IA aplicada de Anthropic y qué cambiar desde el lunes.</p>
+      <h2 id="tabla-de-contenido">Tabla de contenido</h2>
+      <ul><li><a href="#que-es-la-ingenieria-de-contexto">¿Qué es la ingeniería de contexto?</a></li><li><a href="#por-que-darle-mas-informacion-a-la-ia-la-hace-responder-peor">¿Por qué darle más información a la IA la hace responder peor?</a></li><li><a href="#que-lleva-un-buen-contexto">¿Qué lleva un buen contexto?</a></li><li><a href="#como-se-maneja-una-tarea-larga-sin-que-la-ia-se-pierda">¿Cómo se maneja una tarea larga sin que la IA se pierda?</a></li><li><a href="#que-hacer-el-lunes">Qué hacer el lunes</a></li></ul>
+      <h2 id="que-es-la-ingenieria-de-contexto">¿Qué es la ingeniería de contexto?</h2>
+      <blockquote><p><strong>Respuesta rápida:</strong> es decidir qué tiene la IA a la vista en cada momento (instrucciones, archivos, herramientas, datos y el historial del chat) para que el resultado que buscamos sea el más probable. Casi siempre gana el conjunto más pequeño que tenga lo importante.</p></blockquote>
+      <p>Durante dos años la conversación fue sobre prompts: cómo escribir bien la instrucción. En septiembre de 2025, el equipo de IA aplicada de Anthropic publicó <a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>, donde propone el paso siguiente. El prompt es solo una parte de lo que el modelo lee. También lee los archivos que subimos, las respuestas anteriores, las herramientas que tiene disponibles y todo lo que se fue acumulando en la conversación.</p>
+      <p>La ingeniería de prompts pregunta qué palabras usar. La de contexto pregunta <strong>qué información entra, qué se queda por fuera y cuándo se trae lo demás</strong>. Y no se hace una vez: se depura vuelta a vuelta.</p>
+      <h2 id="por-que-darle-mas-informacion-a-la-ia-la-hace-responder-peor">¿Por qué darle más información a la IA la hace responder peor?</h2>
+      <p>Porque la atención del modelo tiene un presupuesto, y cada dato nuevo gasta un poco.</p>
+      <p>Los investigadores lo llaman <em>context rot</em>, deterioro del contexto: a medida que crece lo que hay en la conversación, el modelo recuerda con menos precisión lo que está ahí. Pasa en todos los modelos, incluidos los más potentes; en unos la caída es más suave que en otros, pero ninguno se salva.</p>
+      <p>Se parece a nuestra memoria de trabajo. Si a alguien le entregan cinco carpetas para responder una pregunta que cabía en una hoja, la respuesta no mejora: se demora más y se confunde de carpeta. La razón técnica es que el modelo relaciona cada pieza de información con todas las demás, así que el esfuerzo crece mucho más rápido que el volumen. No hay un precipicio, hay una pendiente.</p>
+      <p>Por eso «súbalo todo, por si acaso» es la peor estrategia, aunque se sienta la más segura.</p>
+      <h2 id="que-lleva-un-buen-contexto">¿Qué lleva un buen contexto?</h2>
+      <p>El artículo de Anthropic lo resume en pocas piezas. Así se ven en el trabajo de un equipo de Talento Humano:</p>
+      <table><thead><tr><th>Pieza</th><th>El error común</th><th>Lo que funciona</th></tr></thead><tbody><tr><td>Instrucciones</td><td>Una lista rígida de «si pasa A, haga B», o una frase vaga que supone que la IA ya sabe</td><td>Instrucciones por secciones, a la altura justa. Empiece con lo mínimo y agregue solo para corregir errores que vio</td></tr><tr><td>Archivos</td><td>La carpeta completa</td><td>El archivo que la tarea necesita, y que la IA lo describa antes de concluir</td></tr><tr><td>Herramientas</td><td>Varias que hacen casi lo mismo</td><td>Pocas y sin duplicados: si una persona no sabría cuál usar, la IA tampoco</td></tr><tr><td>Ejemplos</td><td>Veinte casos de borde</td><td>Tres ejemplos típicos y variados</td></tr></tbody></table>
+      <p>La otra idea fuerte es <strong>traer la información cuando se necesita</strong>. En vez de cargarlo todo al inicio, los agentes bien diseñados guardan referencias (la ruta de un archivo, un enlace, el nombre de una hoja) y abren solo lo que necesitan en cada paso. Por eso importa cómo se llaman las carpetas y los archivos: un nombre claro ya es contexto. A menudo lo mejor es una mezcla: unas instrucciones base que se leen siempre y el resto bajo demanda.</p>
+      <p>El consejo de fondo del artículo es sencillo: <strong>haga lo más simple que funcione</strong>.</p>
+      <h2 id="como-se-maneja-una-tarea-larga-sin-que-la-ia-se-pierda">¿Cómo se maneja una tarea larga sin que la IA se pierda?</h2>
+      <p>Cuando la tarea no cabe en una sola conversación, el artículo propone tres técnicas. Las tres se pueden usar hoy, sin programar nada:</p>
+      <p><strong>Compactar.</strong> Cuando el chat ya está largo, pídale a la IA un resumen de lo esencial (decisiones, pendientes y datos clave) y siga en un chat nuevo con ese resumen. Se pierde el ruido y se queda lo que importa.</p>
+      <p><strong>Tomar notas fuera de la conversación.</strong> Que la IA lleve una lista de pendientes o un archivo de notas y lo relea al retomar. Así no depende de acordarse de todo.</p>
+      <p><strong>Repartir el trabajo.</strong> Varios chats, o varios agentes, cada uno con su propio contexto limpio, que le devuelven al principal solo un resumen corto. Es lo mismo que hacemos cuando revisamos un entregable en un chat nuevo: el revisor no arrastra los supuestos de quien lo escribió.</p>
+      <h2 id="que-hacer-el-lunes">Qué hacer el lunes</h2>
+      <p><strong>Suba lo justo.</strong> El archivo que la tarea necesita, no la carpeta.</p>
+      <p><strong>Pídale que describa antes de concluir.</strong> Filas, columnas, periodo, vacíos y datos raros. Si no ve lo que hay, todo lo demás falla.</p>
+      <p><strong>Un tema por chat.</strong> Si se alarga, pida un resumen y siga en uno nuevo.</p>
+      <p><strong>Parta el monstruo.</strong> Tareas pequeñas y verificables, con un plan aprobado antes de ejecutar.</p>
+      <p><strong>Convierta una vez lo pesado.</strong> Si usa seguido un PDF largo, pídale a la IA que lo pase a texto simple (Markdown) organizado por títulos y reutilice esa versión liviana.</p>
+      <h2 id="en-resumen">En resumen</h2>
+      <ul><li>La IA lee mucho más que su prompt: archivos, historial y herramientas también cuentan.</li><li>Más información no es mejor: la atención del modelo se gasta y la precisión cae.</li><li>Un buen contexto es pequeño, ordenado y trae lo demás solo cuando hace falta.</li><li>Para tareas largas: compactar, tomar notas y repartir el trabajo.</li></ul>
+      <blockquote><p><strong>La tesis:</strong> a la IA no le falta información; le sobra. Darle lo justo es la habilidad.</p></blockquote>
+      <h2 id="preguntas-frecuentes">Preguntas frecuentes</h2>
+      <p><strong>¿La ingeniería de contexto reemplaza a la ingeniería de prompts?</strong></p>
+      <p>No. La contiene. El prompt sigue importando, pero es una de varias piezas que el modelo tiene a la vista.</p>
+      <p><strong>¿Los modelos con ventanas de contexto enormes no resuelven esto?</strong></p>
+      <p>Ayudan, pero el deterioro aparece igual. Que quepa más no significa que lo recuerde bien.</p>
+      <p><strong>¿Esto aplica si no programo agentes?</strong></p>
+      <p>Sí. Cada vez que decide qué archivo subir, cuándo abrir un chat nuevo o qué instrucciones dejar en un proyecto, está haciendo ingeniería de contexto.</p>
+      <p><strong>¿Cuántos ejemplos le doy a la IA?</strong></p>
+      <p>Pocos y bien escogidos. Tres casos típicos y distintos entre sí enseñan más que una lista larga de excepciones.</p>
+      <p><strong>¿Dónde leo el artículo original?</strong></p>
+      <p>En el sitio de Anthropic: <a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>, en inglés.</p>
+    </div>
+  </div>
+
+  <section class="post-cta">
+    <div class="wrap">
+      <div class="reticula" aria-hidden="true"></div>
+      <div class="celdas" aria-hidden="true"><span class="fn" style="--s:88px"><b>fn</b></span><span class="cell-next"></span></div>
+      <h2>¿Esto le está pasando a tu operación?</h2>
+      <p class="lead">La primera charla no se cobra.</p>
+      <a class="btn" href="/#contacto">Hablemos del problema <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+      <p class="volver"><a href="/blog/">← Todas las entradas</a></p>
+    </div>
+  </section>
+</main>
+<footer class="pie">
+  <div class="pie-in">
+  <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd">freaknerd<i></i></a></span>
+  <span class="foot-links">
+    <a href="/blog/feed.xml">RSS</a>
+    <a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a>
+    <a href="mailto:contacto@freaknerd.co">contacto@freaknerd.co</a>
+  </span>
+  </div>
+</footer>
+</body>
+</html>
