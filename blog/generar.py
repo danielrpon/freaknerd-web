@@ -12,7 +12,7 @@ Solo salen las entradas con estado "Publicado".
     python3 blog/generar.py            # solo publicadas
     python3 blog/generar.py --todas    # incluye borradores, para revisar en local
 """
-import json, os, re, sys, html, datetime
+import json, os, re, sys, html, datetime, unicodedata
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = "https://freaknerd.co"
@@ -32,6 +32,12 @@ def en_linea(t):
     t = re.sub(r'(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)', r'<em>\1</em>', t)
     return t
 
+def ancla(t):
+    # Mismo ancla que pide blog/ESTRUCTURA.md: minúsculas, sin tildes ni
+    # signos, palabras unidas con guiones. Sin esto la tabla de contenido no salta.
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode()
+    return re.sub(r'[^a-z0-9]+', '-', t.lower()).strip('-')
+
 def a_html(md):
     salida = []
     for linea in md.split("\n"):
@@ -41,7 +47,7 @@ def a_html(md):
         if l.startswith("### "):
             salida.append("<h3>%s</h3>" % en_linea(l[4:]))
         elif l.startswith("## "):
-            salida.append("<h2>%s</h2>" % en_linea(l[3:]))
+            salida.append('<h2 id="%s">%s</h2>' % (ancla(l[3:]), en_linea(l[3:])))
         elif l.startswith("> "):
             salida.append("<blockquote><p>%s</p></blockquote>" % en_linea(l[2:]))
         elif l.startswith("|") and l.endswith("|"):
