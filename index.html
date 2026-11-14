@@ -388,20 +388,65 @@
   }
   .past p { margin: 11px 0 0; font-size: 14px; line-height: 22px; max-width: 60ch; }
 
-  /* ---------- método: tres formas de entregar ---------- */
-  .stack { margin-top: 66px; }
-  .row {
-    display: grid; grid-template-columns: 44px 1fr; gap: var(--fn-u); align-items: start;
-    padding: 22px 0 22px; border-top: 1px solid var(--fn-filete);
+  /* ---------- método: lo que no hacemos / caja transparente (post 02) ---------- */
+  #metodo h2 .or { color: var(--fn-naranja-texto); }
+  .m-label {
+    margin: 66px 0 22px; max-width: none; color: var(--fn-piedra-osc);
+    font-family: var(--fn-mono); font-size: var(--fn-mono-size); line-height: var(--fn-mono-lh);
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase;
   }
-  .row .num {
-    font-family: var(--fn-mono); font-weight: 500; font-size: var(--fn-mono-sm); line-height: 33px;
-    letter-spacing: var(--fn-track-mono); color: var(--fn-piedra-osc);
+  .m-label--si { margin-top: 55px; color: var(--fn-pizarra); }
+  .nos { display: grid; gap: 33px; }
+  @media (min-width: 761px) { .nos { grid-template-columns: 1fr 1fr; gap: 44px; } }
+  .no {
+    display: grid; grid-template-columns: 44px 1fr; gap: 22px; align-items: start;
+    padding-top: 22px; border-top: 1px solid var(--fn-filete);
   }
-  .row h3 { margin-bottom: 11px; }
-  .row p { margin: 0; font-weight: 400; max-width: 770px; }
-  .row--mine { border-top: 2px solid var(--fn-naranja); }
-  .row--mine .num { color: var(--fn-naranja-texto); }
+  .no-x { width: 44px; height: 44px; box-shadow: inset 0 0 0 2px var(--fn-piedra); }
+  .no-x path { fill: none; stroke: var(--fn-piedra); stroke-width: 2.5; stroke-linecap: square;
+    stroke-dasharray: 26; stroke-dashoffset: 26; transition: stroke-dashoffset 420ms var(--fn-ease) 260ms; }
+  .no[data-shown="true"] .no-x path { stroke-dashoffset: 0; }
+  .no h3 { color: var(--fn-piedra-osc); text-wrap: balance; }
+  .no-sub { margin: 4px 0 0; color: var(--fn-piedra-osc); }
+  .no-txt { margin: 11px 0 0; font-size: 14px; line-height: 22px; font-weight: 400; color: var(--fn-piedra-osc); max-width: 52ch; }
+
+  .caja {
+    position: relative; padding: 33px 22px; background: var(--fn-naranja-tinte);
+    box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-naranja);
+  }
+  .caja::after { content: ""; position: absolute; right: -7px; bottom: -7px; width: 14px; height: 14px;
+    background: var(--fn-naranja); outline: 3px solid var(--fn-crema); }
+  @media (min-width: 761px) { .caja { padding: 44px; } }
+  .caja-head { display: grid; grid-template-columns: 88px 1fr; gap: 33px; align-items: center; }
+  .caja-ico { display: grid; grid-template-columns: 1fr 1fr; width: 88px; height: 88px;
+    box-shadow: inset 0 0 0 2px var(--fn-pizarra); }
+  .caja-ico i { box-shadow: inset 0 0 0 1px var(--fn-pizarra); }
+  .caja-ico i.on { background: var(--fn-naranja); clip-path: inset(100% 0 0 0);
+    transition: clip-path 480ms var(--fn-ease) 320ms; }
+  .caja[data-shown="true"] .caja-ico i.on { clip-path: inset(0); }
+  .caja h3 { font-size: 33px; line-height: 44px; letter-spacing: -0.03em; }
+  .caja-sub { margin: 0; color: var(--fn-pizarra); }
+  .caja-pts { list-style: none; margin: 33px 0 0; padding: 0; display: grid; gap: 11px; }
+  .caja-pts li { position: relative; padding-left: 33px; font-weight: 700; font-size: 18px; line-height: 33px; color: var(--fn-pizarra); }
+  .caja-pts li::before { content: ""; position: absolute; left: 0; top: 11px; width: 11px; height: 11px; background: var(--fn-naranja); }
+  .caja-txt { margin: 22px 0 0; padding-top: 22px; border-top: 1px solid rgba(184,58,18,.25);
+    font-weight: 400; color: var(--fn-pizarra); max-width: 62ch; }
+  @media (min-width: 900px) {
+    .caja { display: grid; grid-template-columns: 1fr 1fr; column-gap: 66px; }
+    .caja-head { grid-column: 1 / -1; }
+    .caja-txt { margin-top: 33px; padding: 0 0 0 33px; border-top: 0; border-left: 1px solid rgba(184,58,18,.25); align-self: start; }
+  }
+  @media (max-width: 640px) {
+    .caja-head { grid-template-columns: 1fr; gap: 22px; }
+    .caja-ico { width: 66px; height: 66px; }
+    .caja h3 { font-size: 26px; line-height: 33px; }
+    .caja-pts li { font-size: 16px; line-height: 22px; }
+    .caja-pts li::before { top: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .no-x path { stroke-dashoffset: 0; transition: none; }
+    .caja-ico i.on { clip-path: none; transition: none; }
+  }
 
   /* ---------- ciclo: conectores en codo (manual 8) ---------- */
   .loop { position: relative; margin-top: 66px; padding-bottom: 88px; --h: 132px; --sel: var(--fn-sel-borde); }
@@ -640,7 +685,7 @@
     .btn .chev, .motor-cta .chev { transition: none; }
   }
 </style>
-<noscript><style>.hero h1 .sel::before{clip-path:none}.hero h1 .sel::after{transform:none;opacity:1}.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}</style></noscript>
+<noscript><style>.hero h1 .sel::before{clip-path:none}.hero h1 .sel::after{transform:none;opacity:1}.reveal{opacity:1;transform:none}.wa{opacity:1;visibility:visible;transform:none}.no-x path{stroke-dashoffset:0}.caja-ico i.on{clip-path:none}</style></noscript>
 </head>
 <body>
 
@@ -818,17 +863,20 @@
     </div>
   </section>
 
-  <!-- MÉTODO: cajas transparentes -->
+  <!-- MÉTODO: cajas transparentes (versión web del post 02 de redes) -->
   <section id="metodo">
     <div class="wrap">
       <p class="kicker reveal">03 · Cómo trabajamos</p>
-      <h2 class="reveal" style="--d:60ms">El diagnóstico no es el trabajo.</h2>
-      <div class="stack">
-        <article class="row reveal" style="--d:100ms">
-          <span class="num">A</span>
+      <h2 class="reveal" style="--d:60ms">El diagnóstico no es <span class="or">el trabajo</span>.</h2>
+
+      <p class="m-label reveal" style="--d:100ms">Lo que no hacemos</p>
+      <div class="nos">
+        <article class="no reveal" style="--d:120ms">
+          <svg class="no-x" viewBox="0 0 44 44" aria-hidden="true"><path d="M13 13L31 31M31 13L13 31"/></svg>
           <div>
-            <h3 class="dim">El diagnóstico que se queda en informe</h3>
-            <p class="dim">
+            <h3>Un informe impecable que se queda en el cajón.</h3>
+            <p class="no-sub">La raíz sigue donde estaba.</p>
+            <p class="no-txt">
               Se entrega un diagnóstico impecable y la gerencia queda tranquila
               ante la junta. El respaldo es real. La raíz, a veces, sigue
               exactamente donde estaba: te dieron la hora con tu propio reloj y
@@ -836,33 +884,42 @@
             </p>
           </div>
         </article>
-        <article class="row reveal" style="--d:140ms">
-          <span class="num">B</span>
+        <article class="no reveal" style="--d:160ms">
+          <svg class="no-x" viewBox="0 0 44 44" aria-hidden="true"><path d="M13 13L31 31M31 13L13 31"/></svg>
           <div>
-            <h3 class="dim">La caja negra</h3>
-            <p class="dim">
+            <h3>Una caja negra que solo entiende quien la armó.</h3>
+            <p class="no-sub">Cada ajuste se paga aparte.</p>
+            <p class="no-txt">
               La solución resuelve de verdad, pero se diseña desde una sola
               mirada, se entrega y quien la armó se va. El equipo que va a operarla no la
-              construyó: nadie la entiende y nadie la controla. De ahí salen dos finales
-              y los dos son malos. O la solución se muere poco después que el contrato,
-              o sobrevive y cada ajuste hay que pagárselo a quien la armó. Contrataste
-              que te resolvieran un problema y quedaste con una cuota.
-            </p>
-          </div>
-        </article>
-        <article class="row row--mine reveal" style="--d:180ms">
-          <span class="num">C</span>
-          <div>
-            <h3>Caja transparente</h3>
-            <p>
-              Tu equipo entiende cómo se llegó a la solución porque participó en armarla.
-              Metemos mano donde duele, no donde es cómodo facturar. Cuando salimos,
-              lo que queda no es un PDF: es gente que sabe hacerlo y herramientas que
-              siguen corriendo.
+              construyó: nadie la entiende y nadie la controla. O la solución se muere poco
+              después que el contrato, o sobrevive y cada ajuste hay que pagárselo a quien
+              la armó. Contrataste que te resolvieran un problema y quedaste con una cuota.
             </p>
           </div>
         </article>
       </div>
+
+      <p class="m-label m-label--si reveal" style="--d:100ms">Cómo sí trabajamos</p>
+      <article class="caja reveal" style="--d:140ms">
+        <div class="caja-head">
+          <span class="caja-ico" aria-hidden="true"><i></i><i></i><i></i><i class="on"></i></span>
+          <div>
+            <h3>Caja transparente</h3>
+            <p class="caja-sub">Construimos la solución contigo, a la vista de todos.</p>
+          </div>
+        </div>
+        <ul class="caja-pts">
+          <li>Tu equipo la construye con nosotros.</li>
+          <li>Ve cada paso y entiende por qué.</li>
+          <li>Cuando salimos, sigue funcionando sin nosotros.</li>
+        </ul>
+        <p class="caja-txt">
+          Metemos mano donde duele, no donde es cómodo facturar. Cuando salimos,
+          lo que queda no es un PDF: es gente que sabe hacerlo y herramientas que
+          siguen corriendo.
+        </p>
+      </article>
     </div>
   </section>
 
