@@ -5,6 +5,7 @@ Trae las entradas desde Notion y escribe blog/contenido.json.
 
 Este es el paso que vuelve el blog autónomo: sin esto hay que pedirle a Claude
 que lea Notion. Con esto, escribir en Notion y poner Estado = Publicado basta.
+Si la Fecha es futura, la entrada espera a ese día (así se programa).
 
 Necesita un token de integración de Notion en la variable NOTION_TOKEN.
 Sin dependencias: usa urllib.
@@ -12,11 +13,12 @@ Sin dependencias: usa urllib.
     export NOTION_TOKEN='ntn_...'
     python3 blog/sincronizar.py
 """
-import json, os, sys, urllib.request, urllib.error
+import datetime, json, os, sys, urllib.request, urllib.error
 
 BASE_DATOS = "0e68c9bb-9ba5-4f8e-9ac6-061577b69654"
 VERSION = "2022-06-28"
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HOY = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=5)).date().isoformat()  # Bogotá
 
 TOKEN = os.environ.get("NOTION_TOKEN")
 if not TOKEN:
@@ -151,6 +153,11 @@ def main():
             titulo = valor(props, "Título")
             if not slug or not fecha:
                 print("  omitida (sin slug o sin fecha): %s" % titulo)
+                continue
+            # Programar: una entrada Publicado con fecha futura espera a su día
+            # (hora de Bogotá; el workflow corre cada dos horas).
+            if fecha[:10] > HOY:
+                print("  programada para %s: %s" % (fecha[:10], titulo))
                 continue
             entradas.append({
                 "notion_id": pg["id"],
