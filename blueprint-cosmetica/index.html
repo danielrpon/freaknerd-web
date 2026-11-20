@@ -138,7 +138,7 @@
     .hero-in { grid-template-columns: 1fr; gap: 44px; }
     .rueda-box { max-width: 560px; margin-inline: auto; width: 100%; }
   }
-  @media (max-width: 640px) { .cta .btn { width: 100%; justify-content: space-between; } .rueda .gl { display: none; } .rueda .gl.key { display: inline; font: 700 19px var(--fn-font); letter-spacing: 0; text-transform: none; } .rueda .fl { font-size: 15px; } }
+  @media (max-width: 640px) { .cta .btn { width: 100%; justify-content: space-between; } .rueda .gl { display: none; } .rueda .gl.key { display: inline; font: 700 19px var(--fn-font); letter-spacing: 0; text-transform: none; } .rueda .gl.key.inv { font-size: 16px; } .rueda .fl { font-size: 15px; } }
 
   /* ---------- problema ---------- */
   .dolores { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 44px; }
@@ -149,7 +149,7 @@
   .sesiones { list-style: none; margin: 66px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 2px solid var(--fn-pizarra); }
   .sesiones li { padding: 22px 22px 0 0; position: relative; }
   .sesiones li + li { padding-left: 22px; border-left: 1px solid var(--fn-filete); }
-  .sesiones .n { color: var(--fn-naranja-texto); }
+  .sesiones .n { color: var(--fn-pizarra); }
   .sesiones h3 { margin: 0 0 11px; }
   .sesiones p { font-size: 15px; }
   .sesiones .deja { display: block; margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--fn-filete); color: var(--fn-piedra-osc); }
@@ -260,7 +260,7 @@
           <path class="g" d="M52.1 -108.1L108.5 -225.2A250 250 0 0 1 195.5 -155.9L93.8 -74.8A120 120 0 0 0 52.1 -108.1Z" tabindex="0" role="button" aria-label="Floral suave: Aldehídos, notas polvosas" data-n="Floral suave" data-f="Floral" data-t="Aldehídos, notas polvosas"/>
           <text class="gl" x="106.0" y="-132.9" transform="rotate(-51.4 106.0 -132.9)">Floral suave</text>
           <path class="g hueco" d="M93.8 -74.8L195.5 -155.9A250 250 0 0 1 243.7 -55.6L117.0 -26.7A120 120 0 0 0 93.8 -74.8Z" tabindex="0" role="button" aria-label="Floral ámbar: Azahar, especias dulces" data-n="Floral ámbar" data-f="Floral" data-t="Azahar, especias dulces"/>
-          <text class="gl inv key" x="153.2" y="-73.8" transform="rotate(-25.7 153.2 -73.8)">Floral ámbar</text>
+          <text class="gl key inv" x="153.2" y="-73.8" transform="rotate(-25.7 153.2 -73.8)">Floral ámbar</text>
           <path class="g" d="M117.0 -26.7L243.7 -55.6A250 250 0 0 1 243.7 55.6L117.0 26.7A120 120 0 0 0 117.0 -26.7Z" tabindex="0" role="button" aria-label="Ámbar suave: Incienso, ámbar" data-n="Ámbar suave" data-f="Ámbar" data-t="Incienso, ámbar"/>
           <text class="gl" x="170.0" y="0.0" transform="rotate(0.0 170.0 0.0)">Ámbar suave</text>
           <path class="g" d="M117.0 26.7L243.7 55.6A250 250 0 0 1 195.5 155.9L93.8 74.8A120 120 0 0 0 117.0 26.7Z" tabindex="0" role="button" aria-label="Ámbar: Resinas orientales" data-n="Ámbar" data-f="Ámbar" data-t="Resinas orientales"/>
@@ -291,11 +291,11 @@
           <text class="fl" x="-67.6" y="296.4" transform="rotate(12.9 -67.6 296.4)">AMADERADA</text>
           <path class="fa" d="M-224.1 171.2A282 282 0 0 1 -5.9 -281.9"/>
           <text class="fl" x="-273.9" y="-131.9" transform="rotate(295.7 -273.9 -131.9)">FRESCA</text>
-          <circle class="dot m" cx="212.3" cy="77.5" r="9" style="--i:0"><title>Tu marca A</title></circle>
-          <circle class="dot m" cx="-203.6" cy="98.1" r="9" style="--i:1"><title>Tu marca B</title></circle>
-          <circle class="dot c" cx="50.3" cy="-220.3" r="9" style="--i:2"><title>Competidor 1</title></circle>
-          <circle class="dot c" cx="193.0" cy="117.7" r="9" style="--i:3"><title>Competidor 2</title></circle>
-          <circle class="dot c" cx="-226.0" cy="0.0" r="9" style="--i:4"><title>Competidor 3</title></circle>
+          <circle class="dot m" cx="223.6" cy="81.6" r="9" style="--i:0"><title>Tu marca A</title></circle>
+          <circle class="dot m" cx="-214.4" cy="103.3" r="9" style="--i:1"><title>Tu marca B</title></circle>
+          <circle class="dot c" cx="53.0" cy="-232.0" r="9" style="--i:2"><title>Competidor 1</title></circle>
+          <circle class="dot c" cx="203.2" cy="123.9" r="9" style="--i:3"><title>Competidor 2</title></circle>
+          <circle class="dot c" cx="-238.0" cy="0.0" r="9" style="--i:4"><title>Competidor 3</title></circle>
           <text class="centro-t" y="-4">Dónde juegas</text>
           <text class="centro-s" y="20">14 subfamilias</text>
         </svg>
@@ -325,7 +325,7 @@
   <section id="sesiones" aria-labelledby="t-ses">
     <div class="wrap">
       <h2 id="t-ses" class="reveal">Cinco sesiones, y cada una deja una parte del plan</h2>
-      <p class="lead dim reveal">Dos horas cada una. Uno de nosotros trae el concepto y el otro lo aplica a tus marcas, frente a tu equipo.</p>
+      <p class="lead dim reveal">Dos horas cada una: primero el concepto, y enseguida lo aplicamos a tus marcas frente a tu equipo.</p>
       <ol class="sesiones">
         <li class="reveal"><h3><span class="n">1</span> El mapa de la categoría</h3><p>Tu equipo ordena la categoría según cómo compra la gente: para mí o para regalar, uso diario u ocasión especial.</p><span class="deja mono">Contexto · deja: el mapa de espacios</span></li>
         <li class="reveal"><h3><span class="n">2</span> Un cliente con cara</h3><p>Cada espacio queda con un perfil: qué lo mueve, qué lo frena y qué comparte con los demás.</p><span class="deja mono">Audiencia · deja: un perfil por espacio</span></li>
