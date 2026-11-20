@@ -38,6 +38,12 @@
         ],
         "createdAt": "2026-11-10T20:20:56.573Z",
         "reason": "Manual de marca v2 aprobado por Daniel el 10-nov-2026 (user confirmed): ambiente crema #F4EFE6 para leer es decisión de marca"
+      },
+      {
+        "rule": "overused-font",
+        "value": "montserrat",
+        "createdAt": "2026-11-20T19:40:27.105Z",
+        "reason": "Decisión de marca documentada por Daniel: Montserrat es la tipografía oficial de Freaknerd (memoria project_freaknerd_web, 'Montserrat se queda aunque una auditoría la marcara')"
       }
     ]
   }

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blueprint de marca cosmética · freaknerd</title>
+<meta name="description" content="Programa de 5 sesiones para marcas de perfumería: tu equipo decide dónde juega cada marca, por qué gana ahí y con qué iniciativas lo va a probar. Sin estudios de mercado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://freaknerd.co/blueprint-cosmetica/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="freaknerd">
+<meta property="og:locale" content="es_CO">
+<meta property="og:url" content="https://freaknerd.co/blueprint-cosmetica/">
+<meta property="og:title" content="Blueprint de marca cosmética · freaknerd">
+<meta property="og:description" content="El plan de tu marca lo construye tu equipo, en 5 sesiones y con método de consumo masivo.">
+<meta property="og:image" content="https://freaknerd.co/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="theme-color" content="#F4EFE6">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  /* Blueprint de marca cosmética · página de producto. Hereda la identidad v2
+     (manual de marca v2.1): crema para leer, piedra al cerrar, módulo de 22 px.
+     Celdas naranjas rellenas en la página: el gajo «hueco» de la rueda y la
+     celda del cierre. La celda seleccionada del titular es la de borde. */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--fn-crema); color: var(--fn-pizarra);
+    font: 500 var(--fn-body-size)/var(--fn-body-lh) var(--fn-font);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--fn-naranja-tinte); color: var(--fn-pizarra); }
+  :focus-visible { outline: 2px solid var(--fn-pizarra); outline-offset: 3px; }
+  .wrap { width: min(var(--fn-container), calc(100% - 44px)); margin-inline: auto; }
+
+  .mono, .kicker {
+    font-family: var(--fn-mono); font-weight: 500;
+    font-size: var(--fn-mono-size); line-height: var(--fn-mono-lh);
+    letter-spacing: var(--fn-track-mono); text-transform: uppercase;
+  }
+  .kicker { color: var(--fn-piedra-osc); margin: 0 0 var(--fn-u); }
+  h1, h2, h3 { margin: 0; font-weight: 900; color: var(--fn-pizarra); }
+  h1 { font-size: var(--fn-h1-size); line-height: var(--fn-h1-lh); letter-spacing: var(--fn-track-display); text-wrap: balance; }
+  h2 { font-size: var(--fn-h2-size); line-height: var(--fn-h2-lh); letter-spacing: var(--fn-track-h2); max-width: 770px; text-wrap: balance; }
+  h3 { font-size: 22px; line-height: 33px; letter-spacing: -0.02em; }
+  p { margin: 0 0 var(--fn-u); max-width: 62ch; text-wrap: pretty; }
+  .lead { font-size: var(--fn-lead-size); line-height: var(--fn-lead-lh); margin-top: var(--fn-u); }
+  .dim { color: var(--fn-piedra-osc); }
+  section { padding-block: 110px; border-top: 1px solid var(--fn-filete); }
+  @media (max-width: 640px) { section { padding-block: 66px; } }
+
+  .wm { font: 900 30px/1 var(--fn-font); letter-spacing: -0.035em; display: inline-flex; align-items: baseline; color: var(--fn-pizarra); text-decoration: none; }
+  .wm i { display: inline-block; width: .2em; height: .2em; background: var(--fn-naranja); margin-left: .06em; }
+  .chev { width: 12px; height: 16px; fill: currentColor; flex: none; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 14px; height: 44px; padding: 0 20px;
+    background: var(--fn-pizarra); color: var(--fn-crema); font: 900 15px/1 var(--fn-font);
+    text-decoration: none; border: 0; border-radius: 0; cursor: pointer;
+    transition: transform var(--fn-dur-press) cubic-bezier(.23,1,.32,1);
+  }
+  .btn .chev { color: var(--fn-naranja); transition: transform var(--fn-dur-hover) cubic-bezier(.23,1,.32,1); }
+  .btn:active { transform: scale(0.98); }
+  @media (hover: hover) and (pointer: fine) { .btn:hover .chev { transform: translateX(3px); } }
+  .btn--inv { background: var(--fn-crema); color: var(--fn-pizarra); }
+  .link2 { font: 700 15px/22px var(--fn-font); color: var(--fn-pizarra); text-decoration: none; border-bottom: 2px solid var(--fn-naranja); padding-bottom: 3px; }
+  .link2:focus-visible { outline-offset: 6px; }
+  .sel { display: inline-block; position: relative; background: var(--fn-naranja-tinte); padding: 0 .12em; margin: 0 .04em 0 .02em; box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-naranja); white-space: nowrap; }
+  .sel::after { content: ""; position: absolute; right: -6px; bottom: -6px; width: 11px; height: 11px; background: var(--fn-naranja); box-shadow: 0 0 0 2px var(--fn-crema); }
+
+  /* ---------- barra ---------- */
+  .topbar-wrap { position: sticky; top: 0; z-index: 10; background: var(--fn-crema); border-bottom: 1px solid var(--fn-filete); }
+  .topbar { display: flex; align-items: center; justify-content: space-between; height: 88px; gap: 22px; }
+  .topbar nav { display: flex; gap: var(--fn-u); align-items: center; }
+  .topbar a.nav { font-family: var(--fn-mono); font-size: var(--fn-mono-size); line-height: var(--fn-mono-lh); letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-piedra-osc); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; transition: color var(--fn-dur-hover) ease; }
+  @media (hover: hover) and (pointer: fine) { .topbar a.nav:hover { color: var(--fn-pizarra); } }
+  .topbar a.nav--cta { color: var(--fn-pizarra); }
+  .miga { display: flex; align-items: baseline; gap: 14px; min-width: 0; }
+  .miga-t { color: var(--fn-piedra-osc); white-space: nowrap; }
+  @media (max-width: 1100px) { .miga-t { display: none; } }
+  .topbar .back .chev { transform: scaleX(-1); width: 9px; height: 12px; }
+  @media (max-width: 760px) { .topbar nav .opt { display: none; } }
+  @media (max-width: 640px) { .wm { font-size: 24px; } .topbar { height: 66px; } html { scroll-padding-top: 66px; } }
+
+  /* ---------- hero: la rueda primero ---------- */
+  .hero { border-top: 0; padding-block: 66px 88px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(to right, var(--fn-reticula-en-crema) 1px, transparent 1px), linear-gradient(to bottom, var(--fn-reticula-en-crema) 1px, transparent 1px);
+    background-size: var(--fn-celda-web) var(--fn-celda-web);
+    -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent); mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  }
+  .hero-in { position: relative; display: grid; grid-template-columns: minmax(0, 9fr) minmax(0, 11fr); gap: 44px; align-items: center; }
+  .hero h1 { font-size: clamp(40px, 3.9vw, 54px); line-height: 1.12; }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 33px; margin-top: 44px; }
+  .rueda-box { position: relative; }
+  @media (min-width: 1100px) { .rueda-box { margin-right: -66px; } }
+  .rueda { width: 100%; height: auto; display: block; overflow: visible; }
+  .rueda .g { fill: var(--fn-crema-2); stroke: var(--fn-crema); stroke-width: 3; cursor: pointer; outline: none; transition: fill var(--fn-dur-hover) ease; }
+  .rueda .g:focus-visible { stroke: var(--fn-pizarra); stroke-width: 3; }
+  .rueda .g.on { fill: var(--fn-azul-claro); }
+  .rueda .g.hueco { fill: var(--fn-naranja); }
+  .rueda .gl { font: 500 10px var(--fn-mono); letter-spacing: .06em; fill: var(--fn-piedra-osc); text-anchor: middle; dominant-baseline: middle; pointer-events: none; text-transform: uppercase; }
+  .rueda .gl.inv { fill: var(--fn-pizarra); }
+  .rueda .fa { fill: none; stroke: var(--fn-pizarra); stroke-width: 2; }
+  .rueda .fl { font: 500 11px var(--fn-mono); letter-spacing: .14em; fill: var(--fn-pizarra); text-anchor: middle; dominant-baseline: middle; }
+  .rueda .dot.m { fill: var(--fn-pizarra); }
+  .rueda .dot.c { fill: var(--fn-crema); stroke: var(--fn-azul); stroke-width: 3; }
+  .rueda .centro-t { font: 900 22px var(--fn-font); letter-spacing: -0.02em; fill: var(--fn-pizarra); text-anchor: middle; }
+  .rueda .centro-s { font: 500 13px var(--fn-font); fill: var(--fn-piedra-osc); text-anchor: middle; }
+  .rueda .tag-hueco { font: 900 13px var(--fn-font); fill: var(--fn-pizarra); text-anchor: middle; }
+  .rueda-pie { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 11px 22px; margin-top: 22px; }
+  .leyenda { display: flex; flex-wrap: wrap; gap: 6px 22px; color: var(--fn-piedra-osc); }
+  .leyenda span { display: inline-flex; align-items: center; gap: 8px; }
+  .leyenda i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+  .leyenda .m { background: var(--fn-pizarra); }
+  .leyenda .c { border: 3px solid var(--fn-azul); }
+  .leyenda .h { border-radius: 0; background: var(--fn-naranja); }
+  .lectura { min-height: 66px; margin-top: 11px; padding: 11px 0 0; border-top: 1px solid var(--fn-filete); }
+  .lectura b { font-weight: 900; }
+  /* movimiento: los puntos llegan a su lugar una vez; el hueco se marca al final */
+  .js .rueda .dot { opacity: 0; transform: scale(.4); transform-box: fill-box; transform-origin: center; }
+  .js .rueda.on .dot { opacity: 1; transform: none; transition: opacity 360ms var(--fn-ease), transform var(--fn-dur-campo) var(--fn-ease); transition-delay: calc(200ms + var(--i) * 90ms); }
+  .js .rueda .g.hueco { fill: var(--fn-crema-2); }
+  .js .rueda.on .g.hueco { fill: var(--fn-naranja); transition: fill 240ms cubic-bezier(.23,1,.32,1) 900ms; }
+  .js .rueda .tag-hueco { opacity: 0; }
+  .js .rueda.on .tag-hueco { opacity: 1; transition: opacity 240ms ease 1020ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .js .rueda .dot, .js .rueda .tag-hueco { opacity: 1; transform: none; transition: none; }
+    .js .rueda .g.hueco { fill: var(--fn-naranja); transition: none; }
+  }
+  @media (max-width: 900px) {
+    .hero-in { grid-template-columns: 1fr; gap: 44px; }
+    .rueda-box { max-width: 560px; margin-inline: auto; width: 100%; }
+  }
+  @media (max-width: 640px) { .cta .btn { width: 100%; justify-content: space-between; } .rueda .gl { display: none; } .rueda .gl.key { display: inline; font: 700 19px var(--fn-font); letter-spacing: 0; text-transform: none; } .rueda .fl { font-size: 15px; } }
+
+  /* ---------- problema ---------- */
+  .dolores { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 44px; }
+  .dolores li { padding: 22px 0; border-top: 1px solid var(--fn-filete); font-size: var(--fn-lead-size); line-height: 33px; }
+  @media (max-width: 760px) { .dolores { grid-template-columns: 1fr; } .dolores li { font-size: 16px; line-height: 22px; } }
+
+  /* ---------- sesiones ---------- */
+  .sesiones { list-style: none; margin: 66px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 2px solid var(--fn-pizarra); }
+  .sesiones li { padding: 22px 22px 0 0; position: relative; }
+  .sesiones li + li { padding-left: 22px; border-left: 1px solid var(--fn-filete); }
+  .sesiones .n { color: var(--fn-naranja-texto); }
+  .sesiones h3 { margin: 0 0 11px; }
+  .sesiones p { font-size: 15px; }
+  .sesiones .deja { display: block; margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--fn-filete); color: var(--fn-piedra-osc); }
+  .tarea { margin-top: 44px; padding: 22px; background: var(--fn-crema-2); max-width: none; }
+  .tarea p { margin: 0; max-width: 80ch; }
+  @media (max-width: 900px) {
+    .sesiones { grid-template-columns: 1fr; border-top: 0; }
+    .sesiones li, .sesiones li + li { padding: 22px 0; border-left: 0; border-top: 1px solid var(--fn-filete); }
+    .sesiones li:first-child { border-top: 2px solid var(--fn-pizarra); }
+  }
+
+  /* ---------- qué te llevas ---------- */
+  .llevas { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 66px; margin-top: 66px; align-items: start; }
+  .ficha { background: var(--fn-crema); border: 1px solid var(--fn-piedra); }
+  .ficha-h { display: flex; justify-content: space-between; align-items: center; gap: 11px; padding: 11px 22px; border-bottom: 1px solid var(--fn-filete); }
+  .ficha-h .ej { background: var(--fn-pizarra); color: var(--fn-crema); padding: 0 8px; }
+  .fila { padding: 15px 22px; border-top: 1px solid var(--fn-filete); }
+  .fila:first-of-type { border-top: 0; }
+  .fila .mono { display: block; color: var(--fn-piedra-osc); }
+  .fila p { margin: 4px 0 0; }
+  .fila .big { font-weight: 900; font-size: 18px; }
+  .fila ul { margin: 6px 0 0; padding: 0; list-style: none; }
+  .fila li { margin: 4px 0; }
+  .fila li b { font-weight: 900; }
+  .piezas { list-style: none; margin: 0; padding: 0; }
+  .piezas li { padding: 15px 0 15px 33px; border-top: 1px solid var(--fn-filete); position: relative; }
+  .piezas li::before { content: ""; position: absolute; left: 0; top: 21px; width: 11px; height: 11px; border: 2px solid var(--fn-pizarra); }
+  @media (max-width: 900px) { .llevas { grid-template-columns: 1fr; gap: 44px; } }
+
+  /* ---------- por qué así / para quién no ---------- */
+  .dos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 66px; margin-top: 44px; }
+  .lista { list-style: none; margin: 22px 0 0; padding: 0; }
+  .lista li { padding: 11px 0; border-top: 1px solid var(--fn-filete); }
+  .lista.no li { color: var(--fn-piedra-osc); }
+  .por { display: inline-block; padding: 0 6px; margin-right: 6px; box-shadow: inset 0 0 0 2px var(--fn-naranja); color: var(--fn-naranja-texto); }
+  .lista.no li { display: flex; gap: 11px; align-items: baseline; }
+  .lista.no svg { width: 11px; height: 11px; flex: none; stroke: var(--fn-pizarra); stroke-width: 2.4; stroke-linecap: square; position: relative; top: 1px; }
+  @media (max-width: 760px) { .dos { grid-template-columns: 1fr; gap: 44px; } }
+
+  /* ---------- preguntas ---------- */
+  .faq { margin-top: 44px; max-width: 770px; }
+  .faq details { border-top: 1px solid var(--fn-filete); }
+  .faq details:last-child { border-bottom: 1px solid var(--fn-filete); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 22px; align-items: center; min-height: 66px; padding: 11px 0; font: 900 18px/26px var(--fn-font); letter-spacing: -0.01em; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary .chev { transform: rotate(90deg); color: var(--fn-naranja-texto); transition: transform var(--fn-dur-hover) var(--fn-ease); }
+  .faq details[open] summary .chev { transform: rotate(-90deg); }
+  .faq details p { padding-bottom: 11px; }
+
+  /* ---------- cierre: ambiente piedra ---------- */
+  .close { position: relative; overflow: hidden; background: var(--fn-piedra); color: var(--fn-crema); border-top: 0; padding-block: 88px; }
+  .close::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(to right, var(--fn-reticula-en-piedra) 1px, transparent 1px), linear-gradient(to bottom, var(--fn-reticula-en-piedra) 1px, transparent 1px); background-size: var(--fn-celda-web) var(--fn-celda-web); }
+  .close .wrap { position: relative; }
+  .close h2, .close .lead, .close .kicker { color: var(--fn-crema); }
+  .close h2 { max-width: 16ch; }
+  .close .link2 { color: var(--fn-crema); }
+  .close :focus-visible { outline-color: var(--fn-crema); }
+  .close .celda { position: absolute; right: 0; top: 0; width: 88px; height: 88px; background: var(--fn-naranja); display: none; }
+  .close .celda::after { content: ""; position: absolute; right: -6px; bottom: -6px; width: 11px; height: 11px; background: var(--fn-crema); box-shadow: 0 0 0 2px var(--fn-piedra); }
+  @media (min-width: 900px) { .close .celda { display: block; } }
+  .pie { background: var(--fn-piedra); color: var(--fn-crema); border-top: 1px solid var(--fn-reticula-en-piedra); }
+  .pie-in { padding-block: 33px; display: flex; flex-wrap: wrap; gap: 22px; align-items: center; justify-content: space-between; font-family: var(--fn-mono); font-size: var(--fn-mono-sm); line-height: 22px; letter-spacing: var(--fn-track-mono); text-transform: uppercase; }
+  .pie .wm { font-size: 22px; text-transform: none; color: var(--fn-crema); }
+  .pie a { color: inherit; text-decoration: none; }
+  .pie :focus-visible { outline-color: var(--fn-crema); }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 22px; }
+
+  .reveal { opacity: 1; }
+  .js .reveal { opacity: 0; transform: translateY(10px); }
+  .js .reveal.in { opacity: 1; transform: none; transition: opacity var(--fn-dur-reveal) var(--fn-ease), transform var(--fn-dur-reveal) var(--fn-ease); }
+  @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; } }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<div class="topbar-wrap">
+  <header class="wrap topbar">
+    <div class="miga"><a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a><span class="mono miga-t" aria-hidden="true">/ Blueprint de marca cosmética</span></div>
+    <nav aria-label="Secciones">
+      <a class="nav opt" href="#sesiones">Las 5 sesiones</a>
+      <a class="nav opt" href="#llevas">Qué te llevas</a>
+      <a class="nav opt" href="#preguntas">Preguntas</a>
+      <a class="nav nav--cta" href="#contacto">Contacto <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+    </nav>
+  </header>
+</div>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="wrap hero-in">
+      <div>
+        <h1 id="t-hero">El plan de tu marca lo construye <span class="sel">tu equipo</span></h1>
+        <p class="lead"><b>Blueprint de marca cosmética</b> es un programa de cinco sesiones para marcas de perfumería: tu equipo decide dónde juega cada marca, por qué gana ahí y con qué iniciativas lo va a probar. Sin estudios de mercado: con tus ventas, lo que se ve en el mercado y un método que viene del consumo masivo.</p>
+        <div class="cta">
+          <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20del%20Blueprint%20de%20marca%20cosm%C3%A9tica." target="_blank" rel="noopener noreferrer">Hablemos de tu marca <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+          <a class="link2" href="#sesiones">Ver las 5 sesiones</a>
+        </div>
+      </div>
+
+      <figure class="rueda-box" style="margin:0">
+        <svg class="rueda" id="rueda" viewBox="-330 -330 660 660" role="group" aria-labelledby="rueda-t rueda-d">
+          <title id="rueda-t">Rueda olfativa de 14 subfamilias, ejemplo ilustrativo</title>
+          <desc id="rueda-d">Dos marcas propias y tres competidores ubicados en la rueda. La subfamilia Floral ámbar está libre: es un hueco.</desc>
+          <path class="g" d="M0.0 -120.0L0.0 -250.0A250 250 0 0 1 108.5 -225.2L52.1 -108.1A120 120 0 0 0 0.0 -120.0Z" tabindex="0" role="button" aria-label="Floral: Flores recién cortadas" data-n="Floral" data-f="Floral" data-t="Flores recién cortadas"/>
+          <text class="gl key" x="37.9" y="-165.7" transform="rotate(-77.1 37.9 -165.7)">Floral</text>
+          <path class="g" d="M52.1 -108.1L108.5 -225.2A250 250 0 0 1 195.5 -155.9L93.8 -74.8A120 120 0 0 0 52.1 -108.1Z" tabindex="0" role="button" aria-label="Floral suave: Aldehídos, notas polvosas" data-n="Floral suave" data-f="Floral" data-t="Aldehídos, notas polvosas"/>
+          <text class="gl" x="106.0" y="-132.9" transform="rotate(-51.4 106.0 -132.9)">Floral suave</text>
+          <path class="g hueco" d="M93.8 -74.8L195.5 -155.9A250 250 0 0 1 243.7 -55.6L117.0 -26.7A120 120 0 0 0 93.8 -74.8Z" tabindex="0" role="button" aria-label="Floral ámbar: Azahar, especias dulces" data-n="Floral ámbar" data-f="Floral" data-t="Azahar, especias dulces"/>
+          <text class="gl inv key" x="153.2" y="-73.8" transform="rotate(-25.7 153.2 -73.8)">Floral ámbar</text>
+          <path class="g" d="M117.0 -26.7L243.7 -55.6A250 250 0 0 1 243.7 55.6L117.0 26.7A120 120 0 0 0 117.0 -26.7Z" tabindex="0" role="button" aria-label="Ámbar suave: Incienso, ámbar" data-n="Ámbar suave" data-f="Ámbar" data-t="Incienso, ámbar"/>
+          <text class="gl" x="170.0" y="0.0" transform="rotate(0.0 170.0 0.0)">Ámbar suave</text>
+          <path class="g" d="M117.0 26.7L243.7 55.6A250 250 0 0 1 195.5 155.9L93.8 74.8A120 120 0 0 0 117.0 26.7Z" tabindex="0" role="button" aria-label="Ámbar: Resinas orientales" data-n="Ámbar" data-f="Ámbar" data-t="Resinas orientales"/>
+          <text class="gl key" x="153.2" y="73.8" transform="rotate(25.7 153.2 73.8)">Ámbar</text>
+          <path class="g" d="M93.8 74.8L195.5 155.9A250 250 0 0 1 108.5 225.2L52.1 108.1A120 120 0 0 0 93.8 74.8Z" tabindex="0" role="button" aria-label="Ámbar amaderado: Sándalo, pachulí" data-n="Ámbar amaderado" data-f="Ámbar" data-t="Sándalo, pachulí"/>
+          <text class="gl" x="106.0" y="132.9" transform="rotate(51.4 106.0 132.9)">Ámbar amaderado</text>
+          <path class="g" d="M52.1 108.1L108.5 225.2A250 250 0 0 1 0.0 250.0L0.0 120.0A120 120 0 0 0 52.1 108.1Z" tabindex="0" role="button" aria-label="Maderas: Maderas aromáticas, vetiver" data-n="Maderas" data-f="Amaderada" data-t="Maderas aromáticas, vetiver"/>
+          <text class="gl" x="37.9" y="165.7" transform="rotate(77.1 37.9 165.7)">Maderas</text>
+          <path class="g" d="M0.0 120.0L0.0 250.0A250 250 0 0 1 -108.5 225.2L-52.1 108.1A120 120 0 0 0 0.0 120.0Z" tabindex="0" role="button" aria-label="Maderas musgosas: Musgo de roble, ámbar" data-n="Maderas musgosas" data-f="Amaderada" data-t="Musgo de roble, ámbar"/>
+          <text class="gl" x="-37.9" y="165.7" transform="rotate(282.9 -37.9 165.7)">Maderas musgosas</text>
+          <path class="g" d="M-52.1 108.1L-108.5 225.2A250 250 0 0 1 -195.5 155.9L-93.8 74.8A120 120 0 0 0 -52.1 108.1Z" tabindex="0" role="button" aria-label="Maderas secas: Maderas secas, cuero" data-n="Maderas secas" data-f="Amaderada" data-t="Maderas secas, cuero"/>
+          <text class="gl" x="-106.0" y="132.9" transform="rotate(308.6 -106.0 132.9)">Maderas secas</text>
+          <path class="g" d="M-93.8 74.8L-195.5 155.9A250 250 0 0 1 -243.7 55.6L-117.0 26.7A120 120 0 0 0 -93.8 74.8Z" tabindex="0" role="button" aria-label="Aromática: Lavanda, hierbas aromáticas" data-n="Aromática" data-f="Fresca" data-t="Lavanda, hierbas aromáticas"/>
+          <text class="gl key" x="-153.2" y="73.8" transform="rotate(334.3 -153.2 73.8)">Aromática</text>
+          <path class="g" d="M-117.0 26.7L-243.7 55.6A250 250 0 0 1 -243.7 -55.6L-117.0 -26.7A120 120 0 0 0 -117.0 26.7Z" tabindex="0" role="button" aria-label="Cítrica: Bergamota, aceites cítricos" data-n="Cítrica" data-f="Fresca" data-t="Bergamota, aceites cítricos"/>
+          <text class="gl key" x="-170.0" y="0.0" transform="rotate(360.0 -170.0 0.0)">Cítrica</text>
+          <path class="g" d="M-117.0 -26.7L-243.7 -55.6A250 250 0 0 1 -195.5 -155.9L-93.8 -74.8A120 120 0 0 0 -117.0 -26.7Z" tabindex="0" role="button" aria-label="Acuática: Notas marinas y acuáticas" data-n="Acuática" data-f="Fresca" data-t="Notas marinas y acuáticas"/>
+          <text class="gl" x="-153.2" y="-73.8" transform="rotate(385.7 -153.2 -73.8)">Acuática</text>
+          <path class="g" d="M-93.8 -74.8L-195.5 -155.9A250 250 0 0 1 -108.5 -225.2L-52.1 -108.1A120 120 0 0 0 -93.8 -74.8Z" tabindex="0" role="button" aria-label="Verde: Gálbano, notas verdes" data-n="Verde" data-f="Fresca" data-t="Gálbano, notas verdes"/>
+          <text class="gl" x="-106.0" y="-132.9" transform="rotate(411.4 -106.0 -132.9)">Verde</text>
+          <path class="g" d="M-52.1 -108.1L-108.5 -225.2A250 250 0 0 1 -0.0 -250.0L-0.0 -120.0A120 120 0 0 0 -52.1 -108.1Z" tabindex="0" role="button" aria-label="Frutal: Bayas, frutas" data-n="Frutal" data-f="Fresca" data-t="Bayas, frutas"/>
+          <text class="gl" x="-37.9" y="-165.7" transform="rotate(437.1 -37.9 -165.7)">Frutal</text>
+          <path class="fa" d="M5.9 -281.9A282 282 0 0 1 273.6 -68.5"/>
+          <text class="fl" x="189.5" y="-237.7" transform="rotate(38.6 189.5 -237.7)">FLORAL</text>
+          <path class="fa" d="M276.2 -57.0A282 282 0 0 1 127.6 251.5"/>
+          <text class="fl" x="273.9" y="131.9" transform="rotate(-64.3 273.9 131.9)">ÁMBAR</text>
+          <path class="fa" d="M117.0 256.6A282 282 0 0 1 -216.7 180.4"/>
+          <text class="fl" x="-67.6" y="296.4" transform="rotate(12.9 -67.6 296.4)">AMADERADA</text>
+          <path class="fa" d="M-224.1 171.2A282 282 0 0 1 -5.9 -281.9"/>
+          <text class="fl" x="-273.9" y="-131.9" transform="rotate(295.7 -273.9 -131.9)">FRESCA</text>
+          <circle class="dot m" cx="212.3" cy="77.5" r="9" style="--i:0"><title>Tu marca A</title></circle>
+          <circle class="dot m" cx="-203.6" cy="98.1" r="9" style="--i:1"><title>Tu marca B</title></circle>
+          <circle class="dot c" cx="50.3" cy="-220.3" r="9" style="--i:2"><title>Competidor 1</title></circle>
+          <circle class="dot c" cx="193.0" cy="117.7" r="9" style="--i:3"><title>Competidor 2</title></circle>
+          <circle class="dot c" cx="-226.0" cy="0.0" r="9" style="--i:4"><title>Competidor 3</title></circle>
+          <text class="centro-t" y="-4">Dónde juegas</text>
+          <text class="centro-s" y="20">14 subfamilias</text>
+        </svg>
+        <figcaption>
+          <div class="rueda-pie">
+            <div class="leyenda mono"><span><i class="m"></i>Tus marcas</span><span><i class="c"></i>Competencia</span><span><i class="h"></i>Hueco</span></div>
+            <span class="mono dim">Ejemplo ilustrativo</span>
+          </div>
+          <p class="lectura" id="lectura" aria-live="polite"><b>Floral ámbar</b> · azahar, especias dulces. Nadie de tu categoría juega aquí todavía. Toca otra subfamilia para leerla.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-dolor">
+    <div class="wrap">
+      <h2 id="t-dolor" class="reveal">Decidir a ojo sale caro cuando cada lanzamiento es una apuesta</h2>
+      <ul class="dolores">
+        <li class="reveal">Lanzas, cambias precios y entras a canales con intuición y con lo que hace la competencia.</li>
+        <li class="reveal">Tus marcas se parecen entre sí y nadie puede decir, con el mismo criterio, para quién es cada una.</li>
+        <li class="reveal">Un estudio de mercado no cabe en el presupuesto, y un piloto de producto tampoco: el lote mínimo ya es una inversión.</li>
+        <li class="reveal">Un plan hecho por fuera termina en un cajón: tu equipo no lo construyó y no lo defiende.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sesiones" aria-labelledby="t-ses">
+    <div class="wrap">
+      <h2 id="t-ses" class="reveal">Cinco sesiones, y cada una deja una parte del plan</h2>
+      <p class="lead dim reveal">Dos horas cada una. Uno de nosotros trae el concepto y el otro lo aplica a tus marcas, frente a tu equipo.</p>
+      <ol class="sesiones">
+        <li class="reveal"><h3><span class="n">1</span> El mapa de la categoría</h3><p>Tu equipo ordena la categoría según cómo compra la gente: para mí o para regalar, uso diario u ocasión especial.</p><span class="deja mono">Contexto · deja: el mapa de espacios</span></li>
+        <li class="reveal"><h3><span class="n">2</span> Un cliente con cara</h3><p>Cada espacio queda con un perfil: qué lo mueve, qué lo frena y qué comparte con los demás.</p><span class="deja mono">Audiencia · deja: un perfil por espacio</span></li>
+        <li class="reveal"><h3><span class="n">3</span> Cada perfume en su lugar</h3><p>Qué referencias hacen el volumen y cuáles el valor, en qué espacio vende cada una y dónde se pisan tus marcas.</p><span class="deja mono">Portafolio · deja: la ficha por perfume</span></li>
+        <li class="reveal"><h3><span class="n">4</span> Un espacio por marca</h3><p>La rueda olfativa, la competencia y el precio a la vista. Los huecos del mapa son las oportunidades.</p><span class="deja mono">Dónde jugar · deja: precio frente a valor</span></li>
+        <li class="reveal"><h3><span class="n">5</span> Historia, iniciativas e indicador</h3><p>Cada marca sale con por qué gana en su espacio, sus iniciativas y la meta escrita antes de lanzar.</p><span class="deja mono">Cómo ganar · deja: la ficha de marca</span></li>
+      </ol>
+      <div class="tarea reveal"><p><b>Entre sesiones hay tarea, y es corta:</b> usa lo que ya tienes. Tus ventas por referencia, lo que tu equipo escucha en tienda y los perfumes de tu competencia.</p></div>
+    </div>
+  </section>
+
+  <section id="llevas" aria-labelledby="t-llevas">
+    <div class="wrap">
+      <h2 id="t-llevas" class="reveal">Un documento por marca que tu equipo puede defender</h2>
+      <div class="llevas">
+        <article class="ficha reveal" aria-label="Ficha de marca, ejemplo ilustrativo">
+          <div class="ficha-h"><span class="mono">Ficha de marca · Marca X</span><span class="mono ej">Ejemplo ilustrativo</span></div>
+          <div class="fila"><span class="mono">Espacio objetivo</span><p class="big">Regalo para una ocasión especial</p></div>
+          <div class="fila"><span class="mono">Por qué gana ahí</span><p>Un frasco y una historia que se regalan con orgullo, a un precio por debajo de la marca internacional que juega en el mismo espacio.</p></div>
+          <div class="fila"><span class="mono">Iniciativas</span><ul><li><b>Producto ·</b> validar el olfativo con un focus group antes de producir.</li><li><b>Precio y promoción ·</b> un set de regalo para la temporada alta.</li><li><b>Comunicación ·</b> la historia del perfume contada en el punto de venta.</li></ul></div>
+          <div class="fila"><span class="mono">Indicador</span><p>Unidades del set frente a una meta escrita antes de lanzarlo.</p></div>
+        </article>
+        <div>
+          <p class="lead reveal" style="margin-top:0">Además de la ficha de cada marca, te quedas con:</p>
+          <ul class="piezas">
+            <li class="reveal">El mapa de dónde juega y cómo gana cada marca.</li>
+            <li class="reveal">Los mapas de la categoría: espacios, rueda olfativa y precio frente a valor percibido.</li>
+            <li class="reveal">Una ficha por perfume y un tablero de iniciativas con dueño, fecha y meta.</li>
+            <li class="reveal">Dos rutinas para generar datos propios: precios de la competencia y clasificación de clientes.</li>
+            <li class="reveal">Las plantillas, para repetirlo sin nosotros.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-porque">
+    <div class="wrap">
+      <h2 id="t-porque" class="reveal">El criterio se queda en tu empresa</h2>
+      <div class="dos">
+        <div>
+          <ul class="lista">
+            <li class="reveal">El plan lo arma quien lo va a ejecutar. Por eso lo entiende y lo ajusta cuando cambia el mercado.</li>
+            <li class="reveal">Cada sesión deja una herramienta llena. No es un curso.</li>
+            <li class="reveal">Decimos qué es dato y qué es supuesto. Nada se presenta como medido si no lo está.</li>
+            <li class="reveal pendiente" data-pendiente="visto bueno de Mathias"><span class="mono por">Por confirmar</span> Experiencia que una pyme no tiene adentro: años de marketing de perfumería en compañías multinacionales de consumo y la gerencia de una compañía de fragancias en Colombia.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="reveal">No es para ti si buscas que alguien lo haga por ti</h3>
+          <ul class="lista no">
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Quieres recibir un plan terminado sin sentar a tu equipo.</span></li>
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Necesitas participación de mercado o un estudio de consumidores: eso es otro trabajo.</span></li>
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Tu equipo no puede dedicar las 5 sesiones y la tarea entre una y otra.</span></li>
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Todavía no tienes ventas propias: el método parte de tus datos.</span></li>
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Buscas una campaña, un empaque nuevo o una fórmula.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preguntas" aria-labelledby="t-faq">
+    <div class="wrap">
+      <h2 id="t-faq" class="reveal">Lo que suelen preguntarnos</h2>
+      <div class="faq">
+        <details><summary>¿De verdad se puede hacer estrategia sin un estudio de mercado? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Sí, si tratas cada decisión como una hipótesis y la pones a prueba. Usamos tus ventas, los precios y las reseñas que están a la vista y el criterio de tu equipo, con reglas claras. Lo que no se puede saber así te lo decimos: no vas a salir con tamaños de mercado ni con participación.</p></details>
+        <details><summary>¿Quién de mi equipo debe participar? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Quienes toman y ejecutan las decisiones de marca: gerencia, mercadeo y comercial. Recomendamos que la persona de mercadeo esté en las 5 sesiones. Tu perfumista, o la de tu casa de fragancias, valida la ubicación en la rueda olfativa.</p></details>
+        <details><summary>¿Qué información tengo que entregar? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>El listado de tus perfumes con precio y canal, y tu venta mensual por referencia con los descuentos. No pedimos costos ni márgenes en el programa base. Tu información es confidencial y no sale del proyecto.</p></details>
+        <details><summary>¿Sirve si mi marca no es de perfumería? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Por ahora el programa es para perfumería. Estamos preparando la versión para cuidado de la piel, cuidado del cabello y maquillaje: cambia una pieza, el mapa de producto. Si te interesa, escríbenos y te contamos cuando esté lista.</p></details>
+        <details><summary>¿Qué pasa cuando termina el programa? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Tu equipo queda con el plan, las plantillas y dos rutinas para seguir generando datos. Si después quieres confirmar algo con una encuesta o un panel, el plan se actualiza, no se rehace.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" id="contacto" aria-labelledby="t-close">
+    <div class="wrap">
+      <span class="celda" aria-hidden="true"></span>
+      <h2 id="t-close">Cuéntanos de tus marcas</h2>
+      <p class="lead">Una conversación de 30 minutos para ver si el programa encaja con tu equipo y tu momento.</p>
+      <div class="cta">
+        <a class="btn btn--inv" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20del%20Blueprint%20de%20marca%20cosm%C3%A9tica." target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+        <a class="link2" href="mailto:contacto@freaknerd.co?subject=Blueprint%20de%20marca%20cosm%C3%A9tica">contacto@freaknerd.co</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="wrap pie-in">
+    <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a></span>
+    <span class="foot-links"><a href="/">Inicio</a><a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var rueda = document.getElementById('rueda');
+  var lectura = document.getElementById('lectura');
+  var gajos = rueda.querySelectorAll('.g');
+  var activo = null;
+  function leer(g) {
+    if (activo) activo.classList.remove('on');
+    activo = g.classList.contains('hueco') ? null : g;
+    if (activo) activo.classList.add('on');
+    var hueco = g.classList.contains('hueco');
+    lectura.innerHTML = '<b>' + g.dataset.n + '</b> · ' + g.dataset.t.toLowerCase() + '. ' +
+      (hueco ? 'Nadie de tu categoría juega aquí todavía.' : 'Familia ' + g.dataset.f.toLowerCase() + '.');
+  }
+  gajos.forEach(function (g) {
+    g.addEventListener('pointerenter', function () { leer(g); });
+    g.addEventListener('focus', function () { leer(g); });
+    g.addEventListener('click', function () { leer(g); });
+    g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); leer(g); } });
+  });
+  requestAnimationFrame(function () { requestAnimationFrame(function () { rueda.classList.add('on'); }); });
+
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' }) : null;
+  document.querySelectorAll('.reveal').forEach(function (el) { io ? io.observe(el) : el.classList.add('in'); });
+})();
+</script>
+</body>
+</html>
