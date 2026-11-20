@@ -300,6 +300,8 @@ def rss(entradas):
 def sitemap(entradas):
     urls = ['  <url><loc>%s/</loc><lastmod>%s</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>'
             % (BASE, datetime.date.today().isoformat())]
+    # Páginas fijas fuera del blog (se mantienen a mano)
+    urls.append('  <url><loc>%s/blueprint-cosmetica/</loc><lastmod>2026-11-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>' % BASE)
     if entradas:
         urls.append('  <url><loc>%s/blog/</loc><lastmod>%s</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>'
                     % (BASE, max(e["fecha"] for e in entradas)))
