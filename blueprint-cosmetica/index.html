@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blueprint de marca cosmética · freaknerd</title>
-<meta name="description" content="Programa de 5 sesiones para marcas de perfumería: tu equipo decide dónde juega cada marca, por qué gana ahí y con qué iniciativas lo va a probar. Sin estudios de mercado.">
+<meta name="description" content="Programa de 5 sesiones para marcas de perfumería: tu equipo decide dónde juega cada marca, por qué gana ahí y con qué iniciativas lo va a probar, con o sin estudios de mercado.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -174,6 +174,16 @@
   .fila ul { margin: 6px 0 0; padding: 0; list-style: none; }
   .fila li { margin: 4px 0; }
   .fila li b { font-weight: 900; }
+  .inic { margin-top: 22px; border: 1px solid var(--fn-piedra); font-size: 14px; line-height: 20px; }
+  .inic-r { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr) minmax(0, .7fr) minmax(0, 2fr); gap: 0 15px; padding: 11px 15px; border-top: 1px solid var(--fn-filete); }
+  .inic-r b { font-weight: 900; }
+  .inic-h { border-top: 0; background: var(--fn-crema-2); font-family: var(--fn-mono); font-size: var(--fn-mono-sm); letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-piedra-osc); }
+  @media (max-width: 640px) {
+    .inic-h { display: none; }
+    .inic-r { grid-template-columns: 1fr 1fr; gap: 4px 15px; }
+    .inic-r span:first-child, .inic-r span:last-child { grid-column: 1 / -1; }
+    .inic-r span:nth-child(2), .inic-r span:nth-child(3) { font-family: var(--fn-mono); font-size: var(--fn-mono-sm); letter-spacing: var(--fn-track-mono); text-transform: uppercase; color: var(--fn-piedra-osc); }
+  }
   .piezas { list-style: none; margin: 0; padding: 0; }
   .piezas li { padding: 15px 0 15px 33px; border-top: 1px solid var(--fn-filete); position: relative; }
   .piezas li::before { content: ""; position: absolute; left: 0; top: 21px; width: 11px; height: 11px; border: 2px solid var(--fn-pizarra); }
@@ -216,6 +226,27 @@
   .pie :focus-visible { outline-color: var(--fn-crema); }
   .foot-links { display: flex; flex-wrap: wrap; gap: 22px; }
 
+
+  /* palabra clave en naranja (manual 5: ≥44 px) con subrayado que se dibuja una vez */
+  h2 .or { color: var(--fn-naranja); position: relative; white-space: nowrap; }
+  @media (max-width: 640px) { h2 .or { color: var(--fn-naranja-texto); white-space: normal; } }
+  .dolores b, .lead b { font-weight: 900; }
+  /* celda seleccionada del titular: relleno y borde de izquierda a derecha, luego el tirador (manual 8) */
+  .js .hero h1 .sel { background: transparent; box-shadow: none; }
+  .js .hero h1 .sel::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--fn-naranja-tinte); box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-naranja); clip-path: inset(0 100% 0 0); }
+  .js .hero h1 .sel::after { opacity: 0; transform: scale(.4); }
+  .js .hero h1 .sel { isolation: isolate; }
+  .js.listo .hero h1 .sel::before { clip-path: inset(0 0 0 0); transition: clip-path 240ms cubic-bezier(.23,1,.32,1) 150ms; }
+  .js.listo .hero h1 .sel::after { opacity: 1; transform: none; transition: opacity 120ms ease 390ms, transform 120ms cubic-bezier(.23,1,.32,1) 390ms; }
+  @media (prefers-reduced-motion: reduce) { .js .hero h1 .sel::before { clip-path: none; transition: none; } .js .hero h1 .sel::after { opacity: 1; transform: none; transition: none; } }
+  /* frasco genérico en el centro de la rueda */
+  .rueda .frasco .vidrio { fill: var(--fn-crema); stroke: var(--fn-pizarra); stroke-width: 3; }
+  .rueda .frasco .liquido { fill: var(--fn-naranja-tinte); }
+  .rueda .frasco .tapa { fill: var(--fn-pizarra); }
+  .rueda .frasco .etiqueta { fill: var(--fn-crema); stroke: var(--fn-pizarra); stroke-width: 1.5; }
+  .rueda .frasco .et-t { font: 900 13px var(--fn-font); letter-spacing: -0.02em; fill: var(--fn-pizarra); text-anchor: middle; }
+  .rueda .frasco .et-s { font: 500 8px var(--fn-mono); letter-spacing: .14em; fill: var(--fn-piedra-osc); text-anchor: middle; }
+  .rueda .frasco .brillo { fill: none; stroke: var(--fn-crema); stroke-width: 3; stroke-linecap: square; }
   .reveal { opacity: 1; }
   .js .reveal { opacity: 0; transform: translateY(10px); }
   .js .reveal.in { opacity: 1; transform: none; transition: opacity var(--fn-dur-reveal) var(--fn-ease), transform var(--fn-dur-reveal) var(--fn-ease); }
@@ -243,7 +274,7 @@
     <div class="wrap hero-in">
       <div>
         <h1 id="t-hero">El plan de tu marca lo construye <span class="sel">tu equipo</span></h1>
-        <p class="lead"><b>Blueprint de marca cosmética</b> es un programa de cinco sesiones para marcas de perfumería: tu equipo decide dónde juega cada marca, por qué gana ahí y con qué iniciativas lo va a probar. Sin estudios de mercado: con tus ventas, lo que se ve en el mercado y un método que viene del consumo masivo.</p>
+        <p class="lead"><b>Blueprint de marca cosmética</b> es un programa de cinco sesiones para marcas de perfumería: tu equipo decide dónde juega cada marca, por qué gana ahí y con qué iniciativas lo va a probar. <b>Con o sin estudios de mercado</b>, según las capacidades de cada marca: partimos de tus ventas, de lo que se ve en el mercado y de un método que viene del consumo masivo.</p>
         <div class="cta">
           <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20del%20Blueprint%20de%20marca%20cosm%C3%A9tica." target="_blank" rel="noopener noreferrer">Hablemos de tu marca <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
           <a class="link2" href="#sesiones">Ver las 5 sesiones</a>
@@ -295,8 +326,17 @@
           <circle class="dot c" cx="53.0" cy="-232.0" r="9" style="--i:2"><title>Competidor 1</title></circle>
           <circle class="dot c" cx="203.2" cy="123.9" r="9" style="--i:3"><title>Competidor 2</title></circle>
           <circle class="dot c" cx="-238.0" cy="0.0" r="9" style="--i:4"><title>Competidor 3</title></circle>
-          <text class="centro-t" y="-4">Dónde juegas</text>
-          <text class="centro-s" y="20">14 subfamilias</text>
+          <g class="frasco" aria-hidden="true">
+            <rect class="tapa" x="-17" y="-92" width="34" height="26"/>
+            <rect class="tapa" x="-9" y="-66" width="18" height="10"/>
+            <path class="vidrio" d="M-42 -56H42L48 -48V44L42 52H-42L-48 44V-48Z"/>
+            <path class="liquido" d="M-45 -30H45V43L40 49H-40L-45 43Z"/>
+            <path class="brillo" d="M-36 -44V30"/>
+            <rect class="etiqueta" x="-32" y="-14" width="64" height="40"/>
+            <text class="et-t" y="6">Marca X</text>
+            <text class="et-s" y="19">EXTRACTO</text>
+          </g>
+          <text class="centro-s" y="76">Dónde juegas</text>
         </svg>
         <figcaption>
           <div class="rueda-pie">
@@ -311,26 +351,26 @@
 
   <section aria-labelledby="t-dolor">
     <div class="wrap">
-      <h2 id="t-dolor" class="reveal">Decidir a ojo sale caro cuando cada lanzamiento es una apuesta</h2>
+      <h2 id="t-dolor" class="reveal">Decidir sin criterio <span class="or">sale caro</span> cuando cada lanzamiento es una apuesta</h2>
       <ul class="dolores">
-        <li class="reveal">Lanzas, cambias precios y entras a canales con intuición y con lo que hace la competencia.</li>
-        <li class="reveal">Tus marcas se parecen entre sí y nadie puede decir, con el mismo criterio, para quién es cada una.</li>
-        <li class="reveal">Un estudio de mercado no cabe en el presupuesto, y un piloto de producto tampoco: el lote mínimo ya es una inversión.</li>
-        <li class="reveal">Un plan hecho por fuera termina en un cajón: tu equipo no lo construyó y no lo defiende.</li>
+        <li class="reveal"><b>Lanzas, cambias precios y entras a canales</b> con intuición y con lo que hace la competencia.</li>
+        <li class="reveal"><b>Tus marcas se parecen entre sí</b> y nadie puede decir, con el mismo criterio, para quién es cada una.</li>
+        <li class="reveal">No siempre hay presupuesto para un estudio de mercado, y <b>probar con producto ya es una inversión</b>: el lote mínimo cuesta.</li>
+        <li class="reveal"><b>Un plan hecho por fuera termina en un cajón:</b> tu equipo no lo construyó y no lo defiende.</li>
       </ul>
     </div>
   </section>
 
   <section id="sesiones" aria-labelledby="t-ses">
     <div class="wrap">
-      <h2 id="t-ses" class="reveal">Cinco sesiones, y cada una deja una parte del plan</h2>
+      <h2 id="t-ses" class="reveal">Cinco sesiones, y cada una deja <span class="or">una parte del plan</span></h2>
       <p class="lead dim reveal">Dos horas cada una: primero el concepto, y enseguida lo aplicamos a tus marcas frente a tu equipo.</p>
       <ol class="sesiones">
         <li class="reveal"><h3><span class="n">1</span> El mapa de la categoría</h3><p>Tu equipo ordena la categoría según cómo compra la gente: para mí o para regalar, uso diario u ocasión especial.</p><span class="deja mono">Contexto · deja: el mapa de espacios</span></li>
         <li class="reveal"><h3><span class="n">2</span> Un cliente con cara</h3><p>Cada espacio queda con un perfil: qué lo mueve, qué lo frena y qué comparte con los demás.</p><span class="deja mono">Audiencia · deja: un perfil por espacio</span></li>
         <li class="reveal"><h3><span class="n">3</span> Cada perfume en su lugar</h3><p>Qué referencias hacen el volumen y cuáles el valor, en qué espacio vende cada una y dónde se pisan tus marcas.</p><span class="deja mono">Portafolio · deja: la ficha por perfume</span></li>
         <li class="reveal"><h3><span class="n">4</span> Un espacio por marca</h3><p>La rueda olfativa, la competencia y el precio a la vista. Los huecos del mapa son las oportunidades.</p><span class="deja mono">Dónde jugar · deja: precio frente a valor</span></li>
-        <li class="reveal"><h3><span class="n">5</span> Historia, iniciativas e indicador</h3><p>Cada marca sale con por qué gana en su espacio, sus iniciativas y la meta escrita antes de lanzar.</p><span class="deja mono">Cómo ganar · deja: la ficha de marca</span></li>
+        <li class="reveal"><h3><span class="n">5</span> Historia, iniciativas e indicador</h3><p>Cada marca sale con por qué gana en su espacio y sus iniciativas, cada una con dueño, fecha y meta.</p><span class="deja mono">Cómo ganar · deja: el resumen y las iniciativas</span></li>
       </ol>
       <div class="tarea reveal"><p><b>Entre sesiones hay tarea, y es corta:</b> usa lo que ya tienes. Tus ventas por referencia, lo que tu equipo escucha en tienda y los perfumes de tu competencia.</p></div>
     </div>
@@ -338,21 +378,27 @@
 
   <section id="llevas" aria-labelledby="t-llevas">
     <div class="wrap">
-      <h2 id="t-llevas" class="reveal">Un documento por marca que tu equipo puede defender</h2>
+      <h2 id="t-llevas" class="reveal">Un documento por marca que tu equipo <span class="or">puede defender</span></h2>
       <div class="llevas">
-        <article class="ficha reveal" aria-label="Ficha de marca, ejemplo ilustrativo">
-          <div class="ficha-h"><span class="mono">Ficha de marca · Marca X</span><span class="mono ej">Ejemplo ilustrativo</span></div>
-          <div class="fila"><span class="mono">Espacio objetivo</span><p class="big">Regalo para una ocasión especial</p></div>
-          <div class="fila"><span class="mono">Por qué gana ahí</span><p>Un frasco y una historia que se regalan con orgullo, a un precio por debajo de la marca internacional que juega en el mismo espacio.</p></div>
-          <div class="fila"><span class="mono">Iniciativas</span><ul><li><b>Producto ·</b> validar el olfativo con un focus group antes de producir.</li><li><b>Precio y promoción ·</b> un set de regalo para la temporada alta.</li><li><b>Comunicación ·</b> la historia del perfume contada en el punto de venta.</li></ul></div>
-          <div class="fila"><span class="mono">Indicador</span><p>Unidades del set frente a una meta escrita antes de lanzarlo.</p></div>
-        </article>
+        <div class="reveal">
+          <article class="ficha" aria-label="Resumen de marca, ejemplo ilustrativo">
+            <div class="ficha-h"><span class="mono">Resumen de marca · Marca X</span><span class="mono ej">Ejemplo ilustrativo</span></div>
+            <div class="fila"><span class="mono">Dónde juega</span><p class="big">Regalo para una ocasión especial</p></div>
+            <div class="fila"><span class="mono">Por qué gana ahí</span><p>Un frasco y una historia que se regalan con orgullo, a un precio por debajo de la marca internacional que juega en el mismo espacio.</p></div>
+          </article>
+          <div class="inic" role="table" aria-label="Iniciativas de la marca, ejemplo ilustrativo">
+            <div class="inic-r inic-h" role="row"><span role="columnheader">Iniciativa</span><span role="columnheader">Dueño</span><span role="columnheader">Cuándo</span><span role="columnheader">Meta</span></div>
+            <div class="inic-r" role="row"><span role="cell"><b>Producto ·</b> validar el olfativo con un focus group antes de producir</span><span role="cell">Mercadeo</span><span role="cell">Mes 1</span><span role="cell">Gana el olfativo con más intención de compra</span></div>
+            <div class="inic-r" role="row"><span role="cell"><b>Precio y promoción ·</b> set de regalo para la temporada alta</span><span role="cell">Comercial</span><span role="cell">Mes 3</span><span role="cell">Unidades del set frente a la meta escrita antes de lanzar</span></div>
+            <div class="inic-r" role="row"><span role="cell"><b>Comunicación ·</b> la historia del perfume en el punto de venta</span><span role="cell">Mercadeo</span><span role="cell">Mes 2</span><span role="cell">Venta de la referencia en tienda frente al mes anterior</span></div>
+          </div>
+        </div>
         <div>
-          <p class="lead reveal" style="margin-top:0">Además de la ficha de cada marca, te quedas con:</p>
+          <p class="lead reveal" style="margin-top:0">Además del resumen y las iniciativas de cada marca, te quedas con:</p>
           <ul class="piezas">
             <li class="reveal">El mapa de dónde juega y cómo gana cada marca.</li>
             <li class="reveal">Los mapas de la categoría: espacios, rueda olfativa y precio frente a valor percibido.</li>
-            <li class="reveal">Una ficha por perfume y un tablero de iniciativas con dueño, fecha y meta.</li>
+            <li class="reveal">Una ficha por perfume, con su lugar en la rueda y su rol de precio.</li>
             <li class="reveal">Dos rutinas para generar datos propios: precios de la competencia y clasificación de clientes.</li>
             <li class="reveal">Las plantillas, para repetirlo sin nosotros.</li>
           </ul>
@@ -363,7 +409,7 @@
 
   <section aria-labelledby="t-porque">
     <div class="wrap">
-      <h2 id="t-porque" class="reveal">El criterio se queda en tu empresa</h2>
+      <h2 id="t-porque" class="reveal">El criterio se queda <span class="or">en tu empresa</span></h2>
       <div class="dos">
         <div>
           <ul class="lista">
@@ -376,7 +422,7 @@
           <h3 class="reveal">No es para ti si buscas que alguien lo haga por ti</h3>
           <ul class="lista no">
             <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Quieres recibir un plan terminado sin sentar a tu equipo.</span></li>
-            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Necesitas participación de mercado o un estudio de consumidores: eso es otro trabajo.</span></li>
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Lo que buscas es que hagamos un estudio de consumidores: eso es otro trabajo, que se cotiza aparte.</span></li>
             <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Tu equipo no puede dedicar las 5 sesiones y la tarea entre una y otra.</span></li>
             <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Todavía no tienes ventas propias: el método parte de tus datos.</span></li>
             <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Buscas una campaña, un empaque nuevo o una fórmula.</span></li>
@@ -390,7 +436,7 @@
     <div class="wrap">
       <h2 id="t-faq" class="reveal">Lo que suelen preguntarnos</h2>
       <div class="faq">
-        <details><summary>¿De verdad se puede hacer estrategia sin un estudio de mercado? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Sí, si tratas cada decisión como una hipótesis y la pones a prueba. Usamos tus ventas, los precios y las reseñas que están a la vista y el criterio de tu equipo, con reglas claras. Lo que no se puede saber así te lo decimos: no vas a salir con tamaños de mercado ni con participación.</p></details>
+        <details><summary>¿Necesito un estudio de mercado para empezar? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>No. Si tu marca ya tiene estudios, paneles o datos de terceros, los usamos. Si no, tratamos cada decisión como una hipótesis y la ponemos a prueba con tus ventas, los precios y las reseñas que están a la vista y el criterio de tu equipo. Lo que no se puede saber así te lo decimos, y si después quieres una encuesta o un panel, se suma como módulo aparte.</p></details>
         <details><summary>¿Quién de mi equipo debe participar? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Quienes toman y ejecutan las decisiones de marca: gerencia, mercadeo y comercial. Recomendamos que la persona de mercadeo esté en las 5 sesiones. Tu perfumista, o la de tu casa de fragancias, valida la ubicación en la rueda olfativa.</p></details>
         <details><summary>¿Qué información tengo que entregar? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>El listado de tus perfumes con precio y canal, y tu venta mensual por referencia con los descuentos. No pedimos costos ni márgenes en el programa base. Tu información es confidencial y no sale del proyecto.</p></details>
         <details><summary>¿Sirve si mi marca no es de perfumería? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Por ahora el programa es para perfumería. Estamos preparando la versión para cuidado de la piel, cuidado del cabello y maquillaje: cambia una pieza, el mapa de producto. Si te interesa, escríbenos y te contamos cuando esté lista.</p></details>
@@ -439,7 +485,7 @@
     g.addEventListener('click', function () { leer(g); });
     g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); leer(g); } });
   });
-  requestAnimationFrame(function () { requestAnimationFrame(function () { rueda.classList.add('on'); }); });
+  requestAnimationFrame(function () { requestAnimationFrame(function () { rueda.classList.add('on'); document.documentElement.classList.add('listo'); }); });
 
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
