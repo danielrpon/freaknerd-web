@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafolio · freaknerd</title>
+<meta name="description" content="Los programas de Freaknerd: IA-abilities, Gobierno de datos con IA y Blueprint de marca cosmética. Alcance, formato y entregable claros; tu equipo hace el trabajo y se queda con el criterio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://freaknerd.co/portafolio/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="freaknerd">
+<meta property="og:locale" content="es_CO">
+<meta property="og:url" content="https://freaknerd.co/portafolio/">
+<meta property="og:title" content="Portafolio · freaknerd">
+<meta property="og:description" content="Tres programas con alcance, formato y entregable claros. Tu equipo hace el trabajo y se queda con el criterio.">
+<meta property="og:image" content="https://freaknerd.co/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="theme-color" content="#F4EFE6">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/programa.css">
+<style>
+  .hero { padding-block: 66px 44px; }
+  .hero-in { grid-template-columns: minmax(0, 1fr); }
+  .hero h1 { max-width: 16ch; }
+  .hero .lead { max-width: 56ch; }
+
+  /* ---------- índice de programas ---------- */
+  .indice { border-top: 0; padding-top: 0; }
+  .progs { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--fn-pizarra); }
+  .prog { display: grid; grid-template-columns: 220px minmax(0, 1fr) auto; gap: 44px; align-items: center; padding: 44px 0; border-bottom: 1px solid var(--fn-filete); position: relative; }
+  .prog h2 { font-size: 33px; line-height: 38px; }
+  .prog h2 a { color: inherit; text-decoration: none; }
+  .prog h2 a::after { content: ""; position: absolute; inset: 0; }
+  .prog h2 a:focus-visible { outline: none; }
+  .prog:has(h2 a:focus-visible) { outline: 2px solid var(--fn-pizarra); outline-offset: 6px; }
+  .prog .promesa { font-size: var(--fn-lead-size); line-height: 28px; margin: 11px 0 0; }
+  .prog dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 22px; margin: 22px 0 0; }
+  .prog dl div { border-top: 1px solid var(--fn-filete); padding-top: 8px; }
+  .prog dt { color: var(--fn-piedra-osc); }
+  .prog dd { margin: 2px 0 0; font-size: 15px; }
+  .prog .ir { position: relative; z-index: 1; pointer-events: none; }
+  .fig { width: 220px; height: 165px; background: var(--fn-crema-2); display: grid; place-items: center; transition: background-color var(--fn-dur-hover) ease; }
+  .fig svg { width: 176px; height: 132px; overflow: visible; }
+  @media (hover: hover) and (pointer: fine) {
+    .prog:hover .fig { background: var(--fn-naranja-tinte); }
+    .prog:hover .btn .chev { transform: translateX(3px); }
+  }
+  @media (max-width: 900px) {
+    .prog { grid-template-columns: 132px minmax(0, 1fr); gap: 22px 33px; align-items: start; }
+    .fig { width: 132px; height: 99px; }
+    .fig svg { width: 110px; height: 83px; }
+    .prog .ir { grid-column: 2; }
+    .prog dl { grid-template-columns: 1fr; gap: 8px; }
+  }
+  @media (max-width: 640px) {
+    .prog { grid-template-columns: minmax(0, 1fr); padding: 33px 0; }
+    .prog .ir { grid-column: 1; }
+    .prog h2 { font-size: 26px; line-height: 31px; }
+    .prog .ir .btn { width: 100%; justify-content: space-between; }
+  }
+  /* trazos de las figuras */
+  .k-pz { fill: var(--fn-pizarra); } .k-pd { fill: var(--fn-piedra); } .k-cr { fill: var(--fn-crema); }
+  .k-or { fill: var(--fn-naranja); } .k-ln { fill: none; stroke: var(--fn-piedra); stroke-width: 2; stroke-dasharray: 5 4; }
+  .k-gj { fill: var(--fn-crema); stroke: var(--fn-crema-2); stroke-width: 2; }
+
+  /* ---------- por dónde empezar ---------- */
+  .empezar { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 66px; align-items: end; }
+  @media (max-width: 900px) { .empezar { grid-template-columns: 1fr; gap: 0; } }
+  .principios { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 44px; }
+  .principios li { border-top: 2px solid var(--fn-pizarra); padding-top: 13px; }
+  .principios h3 { margin-bottom: 6px; }
+  @media (max-width: 760px) { .principios { grid-template-columns: 1fr; gap: 22px; } }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<div class="topbar-wrap">
+  <header class="wrap topbar">
+    <div class="miga"><a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a><span class="mono miga-t" aria-hidden="true">/ Portafolio</span></div>
+    <nav aria-label="Secciones">
+      <a class="nav opt" href="/#equipo">Quiénes somos</a>
+      <a class="nav opt" href="/blog/">Blog</a>
+      <a class="nav nav--cta" href="#contacto">Contacto <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+    </nav>
+  </header>
+</div>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="wrap hero-in">
+      <div>
+        <h1 id="t-hero">Tu equipo hace el trabajo y se queda con <span class="sel">el criterio</span></h1>
+        <p class="lead">Tres programas con alcance, formato y entregable claros. En todos rige lo mismo: lo construye quien lo va a usar, y cada sesión deja algo que se puede ver.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="indice" aria-label="Programas">
+    <div class="wrap">
+      <ol class="progs">
+        <li class="prog reveal">
+          <div class="fig" aria-hidden="true">
+            <svg viewBox="0 0 176 132">
+              <rect class="k-pd" x="0" y="110" width="176" height="20"/>
+              <rect class="k-pz" x="22" y="88" width="154" height="20"/>
+              <rect class="k-pz" x="44" y="66" width="132" height="20"/>
+              <rect class="k-or" x="66" y="44" width="110" height="20"/>
+              <rect class="k-ln" x="89" y="23" width="86" height="18"/>
+              <rect class="k-ln" x="111" y="1" width="64" height="18"/>
+            </svg>
+          </div>
+          <div>
+            <h2><a href="/ia-abilities/">IA-abilities</a></h2>
+            <p class="promesa">La escalera de la IA en el trabajo: tu equipo sube cuatro escalones con las manos y ve funcionando los tres de arriba.</p>
+            <dl>
+              <div><dt class="mono">Para</dt><dd>Equipos que ya usan IA, cada uno a su manera</dd></div>
+              <div><dt class="mono">Formato</dt><dd>8 horas, en cuatro niveles</dd></div>
+              <div><dt class="mono">Deja</dt><dd>Un asistente por persona y el backlog del equipo</dd></div>
+            </dl>
+          </div>
+          <span class="ir"><span class="btn">Ver el programa <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></span></span>
+        </li>
+
+        <li class="prog reveal">
+          <div class="fig" aria-hidden="true">
+            <svg viewBox="0 0 176 132">
+              <rect class="k-pz" x="58" y="0" width="60" height="132"/>
+              <circle cx="88" cy="24" r="15" fill="#2F7D4F"/>
+              <circle cx="88" cy="66" r="15" fill="#B9790B"/>
+              <circle cx="88" cy="108" r="15" fill="#C23A1A"/>
+              <rect class="k-or" x="128" y="56" width="20" height="20"/>
+              <rect class="k-pd" x="128" y="98" width="20" height="20"/>
+              <rect class="k-pd" x="128" y="14" width="20" height="20"/>
+            </svg>
+          </div>
+          <div>
+            <h2><a href="/gobierno-datos-ia/">Gobierno de datos con IA</a></h2>
+            <p class="promesa">Las reglas para usar IA en toda la empresa, en dos páginas: qué se puede, con qué herramienta, con qué datos y quién decide.</p>
+            <dl>
+              <div><dt class="mono">Para</dt><dd>Gerencias que quieren reglas antes de escalar</dd></div>
+              <div><dt class="mono">Formato</dt><dd>90 días, ocho piezas</dd></div>
+              <div><dt class="mono">Deja</dt><dd>Política firmada, semáforo de datos, niveles de uso y comité</dd></div>
+            </dl>
+          </div>
+          <span class="ir"><span class="btn">Ver el programa <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></span></span>
+        </li>
+
+        <li class="prog reveal">
+          <div class="fig" aria-hidden="true">
+            <svg viewBox="-66 -66 132 132" style="width:132px">
+              <g id="rueda-mini"></g>
+              <circle class="k-pz" cx="0" cy="0" r="22"/>
+            </svg>
+          </div>
+          <div>
+            <h2><a href="/blueprint-cosmetica/">Blueprint de marca cosmética</a></h2>
+            <p class="promesa">El plan de tu marca lo construye tu equipo: dónde juega cada marca, por qué gana ahí y con qué iniciativas lo va a probar.</p>
+            <dl>
+              <div><dt class="mono">Para</dt><dd>Marcas de perfumería con marca propia</dd></div>
+              <div><dt class="mono">Formato</dt><dd>Cinco sesiones de 2 horas</dd></div>
+              <div><dt class="mono">Deja</dt><dd>Un plan por marca, con iniciativas, dueño y meta</dd></div>
+            </dl>
+          </div>
+          <span class="ir"><span class="btn">Ver el programa <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></span></span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-emp">
+    <div class="wrap">
+      <div class="empezar">
+        <div>
+          <h2 id="t-emp" class="reveal">¿No sabes por cuál empezar? <span class="or">Empieza por el dolor</span></h2>
+          <p class="lead dim reveal">Con el <b>Mapa de dolores</b>, tu equipo pone sobre la mesa lo que se está rompiendo, lo agrupa por causa y lo prioriza por impacto y esfuerzo. De ahí sale cuál programa, o cuál proyecto, va primero.</p>
+        </div>
+        <div class="cta reveal" style="margin-top:0">
+          <a class="btn" href="/#contratar">Cómo funciona el mapa <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+        </div>
+      </div>
+      <ul class="principios">
+        <li class="reveal"><h3>Caja transparente</h3><p>Tu equipo participa en construir la solución y entiende cómo se llegó a ella.</p></li>
+        <li class="reveal"><h3>Cada sesión deja algo</h3><p>Una herramienta llena, un asistente funcionando, una regla firmada. No es un curso.</p></li>
+        <li class="reveal"><h3>Se queda cuando nos vamos</h3><p>Lo que construimos lo opera tu gente, sin depender de nosotros.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="close" id="contacto" aria-labelledby="t-close">
+    <div class="wrap">
+      <span class="celda" aria-hidden="true"></span>
+      <h2 id="t-close">Cuéntanos qué se está rompiendo</h2>
+      <p class="lead">Una conversación de 30 minutos para ver cuál programa encaja con tu equipo y tu momento.</p>
+      <div class="cta">
+        <a class="btn btn--inv" href="https://wa.me/573117191394?text=Hola%2C%20vi%20el%20portafolio%20de%20freaknerd%20y%20quiero%20conversar." target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+        <a class="link2" href="mailto:contacto@freaknerd.co?subject=Portafolio">contacto@freaknerd.co</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="wrap pie-in">
+    <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a></span>
+    <span class="foot-links"><a href="/">Inicio</a><a href="/blog/">Blog</a><a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a></span>
+  </div>
+</footer>
+
+<script src="../assets/programa.js"></script>
+<script>
+(function () {
+  /* rueda mini de 14 gajos, con el hueco en naranja */
+  var g = document.getElementById('rueda-mini'), n = 14, R = 64, r = 26, NS = 'http://www.w3.org/2000/svg';
+  for (var k = 0; k < n; k++) {
+    var a0 = (k / n) * 2 * Math.PI - Math.PI / 2, a1 = ((k + 1) / n) * 2 * Math.PI - Math.PI / 2;
+    var p = document.createElementNS(NS, 'path');
+    var d = 'M' + (r * Math.cos(a0)).toFixed(1) + ' ' + (r * Math.sin(a0)).toFixed(1) +
+      'L' + (R * Math.cos(a0)).toFixed(1) + ' ' + (R * Math.sin(a0)).toFixed(1) +
+      'A' + R + ' ' + R + ' 0 0 1 ' + (R * Math.cos(a1)).toFixed(1) + ' ' + (R * Math.sin(a1)).toFixed(1) +
+      'L' + (r * Math.cos(a1)).toFixed(1) + ' ' + (r * Math.sin(a1)).toFixed(1) +
+      'A' + r + ' ' + r + ' 0 0 0 ' + (r * Math.cos(a0)).toFixed(1) + ' ' + (r * Math.sin(a0)).toFixed(1) + 'Z';
+    p.setAttribute('d', d);
+    p.setAttribute('class', k === 3 ? 'k-or' : 'k-gj');
+    if (k !== 3) p.setAttribute('style', 'fill:' + (k % 3 === 0 ? 'var(--fn-piedra)' : 'var(--fn-crema)'));
+    g.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>

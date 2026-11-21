@@ -302,6 +302,9 @@ def sitemap(entradas):
             % (BASE, datetime.date.today().isoformat())]
     # Páginas fijas fuera del blog (se mantienen a mano)
     urls.append('  <url><loc>%s/blueprint-cosmetica/</loc><lastmod>2026-11-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>' % BASE)
+    urls.append('  <url><loc>%s/portafolio/</loc><lastmod>2026-11-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>' % BASE)
+    urls.append('  <url><loc>%s/ia-abilities/</loc><lastmod>2026-11-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>' % BASE)
+    urls.append('  <url><loc>%s/gobierno-datos-ia/</loc><lastmod>2026-11-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>' % BASE)
     if entradas:
         urls.append('  <url><loc>%s/blog/</loc><lastmod>%s</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>'
                     % (BASE, max(e["fecha"] for e in entradas)))

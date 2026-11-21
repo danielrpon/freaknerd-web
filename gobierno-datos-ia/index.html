@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gobierno de datos con IA · freaknerd</title>
+<meta name="description" content="Las reglas de juego para usar IA en tu empresa: qué se puede, con qué herramienta, con qué datos y quién decide. Ocho piezas, un semáforo de datos y tres niveles de uso, en 90 días.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://freaknerd.co/gobierno-datos-ia/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="freaknerd">
+<meta property="og:locale" content="es_CO">
+<meta property="og:url" content="https://freaknerd.co/gobierno-datos-ia/">
+<meta property="og:title" content="Gobierno de datos con IA · freaknerd">
+<meta property="og:description" content="Reglas de juego para usar IA en toda la compañía, en dos páginas, sin perder la velocidad.">
+<meta property="og:image" content="https://freaknerd.co/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="theme-color" content="#F4EFE6">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/programa.css">
+<style>
+  /* colores del semáforo: solo en las marcas (punto y filete), nunca en texto largo */
+  :root { --sem-verde: #2F7D4F; --sem-ambar: #B9790B; --sem-rojo: #C23A1A; }
+
+  /* ---------- el semáforo interactivo ---------- */
+  .sema { border: 1px solid var(--fn-piedra); background: var(--fn-crema); }
+  .sema-h { display: flex; justify-content: space-between; align-items: center; gap: 11px; padding: 11px 22px; border-bottom: 1px solid var(--fn-filete); color: var(--fn-piedra-osc); }
+  .sema-b { padding: 22px; }
+  .sema .pre { color: var(--fn-piedra-osc); margin: 0 0 6px; }
+  .dato { font: 900 26px/33px var(--fn-font); letter-spacing: -0.02em; margin: 0; min-height: 66px; text-wrap: balance; }
+  .opciones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; margin-top: 22px; }
+  .op {
+    all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; cursor: pointer;
+    font: 900 15px/1 var(--fn-font); color: var(--fn-pizarra); background: var(--fn-crema-2);
+    transition: background-color var(--fn-dur-hover) ease, transform var(--fn-dur-press) cubic-bezier(.23,1,.32,1);
+  }
+  .op:active { transform: scale(0.97); }
+  .op:focus-visible { outline: 2px solid var(--fn-pizarra); outline-offset: 3px; }
+  @media (hover: hover) and (pointer: fine) { .op:hover { background: var(--fn-naranja-tinte); } }
+  .op i, .tag i, .bandas i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; flex: none; }
+  .v { background: var(--sem-verde); } .a { background: var(--sem-ambar); } .r { background: var(--sem-rojo); }
+  .op[aria-pressed="true"] { background: var(--fn-pizarra); color: var(--fn-crema); }
+  .op[disabled] { cursor: default; }
+  .veredicto { min-height: 110px; margin-top: 22px; padding-top: 15px; border-top: 1px solid var(--fn-filete); }
+  .veredicto p { margin: 6px 0 0; }
+  .tag { display: inline-flex; align-items: center; gap: 8px; font: 900 15px/22px var(--fn-font); }
+  .sema-f { display: flex; justify-content: space-between; align-items: center; gap: 11px; padding: 11px 22px; border-top: 1px solid var(--fn-filete); }
+  .sig { all: unset; cursor: pointer; font: 700 15px/22px var(--fn-font); border-bottom: 2px solid var(--fn-naranja); padding-bottom: 3px; }
+  .sig:focus-visible { outline: 2px solid var(--fn-pizarra); outline-offset: 6px; }
+  .js .veredicto > * { animation: aparece 280ms var(--fn-ease) both; }
+  @keyframes aparece { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .js .veredicto > * { animation: none; } }
+  @media (max-width: 640px) { .sema-b { padding: 15px; } .dato { font-size: 22px; line-height: 28px; } .opciones { gap: 6px; } .op { font-size: 14px; gap: 6px; } .sema-h, .sema-f { padding: 11px 15px; } }
+
+  /* ---------- las ocho piezas ---------- */
+  .piezas8 { margin-top: 66px; border-top: 2px solid var(--fn-pizarra); }
+  .grupo { display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 22px; border-bottom: 1px solid var(--fn-filete); }
+  .grupo > .mono { padding: 15px 0; color: var(--fn-piedra-osc); }
+  .grupo ol { list-style: none; margin: 0; padding: 0; }
+  .grupo li { display: grid; grid-template-columns: 44px minmax(0, 3fr) minmax(0, 2fr); gap: 0 22px; padding: 15px 0; }
+  .grupo li + li { border-top: 1px solid var(--fn-filete); }
+  .grupo .n { color: var(--fn-naranja-texto); }
+  .grupo h3 { font-size: 18px; line-height: 22px; margin-bottom: 4px; }
+  .grupo p { margin: 0; font-size: 15px; }
+  .grupo .firma { color: var(--fn-piedra-osc); }
+  .grupo .firma b { display: block; font: 700 15px/22px var(--fn-font); letter-spacing: 0; text-transform: none; color: var(--fn-pizarra); }
+  @media (max-width: 900px) {
+    .grupo { grid-template-columns: 1fr; gap: 0; }
+    .grupo > .mono { padding-bottom: 0; }
+    .grupo li { grid-template-columns: 33px minmax(0, 1fr); }
+    .grupo .firma { grid-column: 2; margin-top: 6px; }
+  }
+
+  /* ---------- semáforo en bandas ---------- */
+  .bandas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 44px; border: 1px solid var(--fn-piedra); }
+  .bandas > div { padding: 22px; border-top: 6px solid var(--c); }
+  .bandas > div + div { border-left: 1px solid var(--fn-filete); }
+  .bandas h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .bandas .ej { display: block; margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--fn-filete); color: var(--fn-piedra-osc); }
+  .bandas .ej + p { margin-top: 4px; }
+  @media (max-width: 900px) { .bandas { grid-template-columns: 1fr; } .bandas > div + div { border-left: 0; } }
+
+  /* ---------- tres niveles de uso ---------- */
+  .niveles { margin-top: 44px; border: 1px solid var(--fn-piedra); font-size: 15px; }
+  .niv-r { display: grid; grid-template-columns: 176px repeat(3, minmax(0, 1fr)); gap: 0 22px; padding: 13px 22px; border-top: 1px solid var(--fn-filete); }
+  .niv-r:first-child { border-top: 0; }
+  .niv-r > :first-child { color: var(--fn-piedra-osc); }
+  .niv-h { background: var(--fn-crema-2); align-items: end; }
+  .niv-h b { display: block; font: 900 20px/26px var(--fn-font); letter-spacing: -0.02em; color: var(--fn-pizarra); text-transform: none; }
+  .niv-h .mono { color: var(--fn-piedra-osc); }
+  .niv-h .sub { display: block; font: 500 13px/18px var(--fn-font); color: var(--fn-piedra-osc); margin-top: 2px; }
+  @media (max-width: 900px) {
+    .niveles { border: 0; }
+    .niv-h { display: none; }
+    .niv-r { display: none; }
+  }
+  .nivc { display: none; }
+  @media (max-width: 900px) {
+    .nivc { display: block; border: 1px solid var(--fn-piedra); margin-top: 15px; }
+    .nivc h3 { padding: 11px 15px; background: var(--fn-crema-2); font-size: 20px; line-height: 26px; }
+    .nivc h3 span { display: block; font: 500 13px/18px var(--fn-font); color: var(--fn-piedra-osc); letter-spacing: 0; }
+    .nivc dl { margin: 0; }
+    .nivc div { padding: 11px 15px; border-top: 1px solid var(--fn-filete); }
+    .nivc dt { color: var(--fn-piedra-osc); }
+    .nivc dd { margin: 2px 0 0; }
+  }
+
+  /* ---------- quién hace qué y por dónde entra una idea ---------- */
+  .roles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 22px; margin-top: 44px; }
+  .roles > div { border-top: 2px solid var(--fn-pizarra); padding-top: 13px; }
+  .roles h3 { font-size: 17px; line-height: 22px; margin-bottom: 6px; }
+  .roles p { font-size: 15px; }
+  .roles .fn { border-top-color: var(--fn-naranja); }
+  @media (max-width: 900px) { .roles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; } }
+  @media (max-width: 520px) { .roles { grid-template-columns: 1fr; gap: 15px; } }
+  .ruta { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); counter-reset: r; }
+  .ruta li { position: relative; padding: 15px 22px 15px 0; border-top: 1px solid var(--fn-piedra); }
+  .ruta li::before { counter-increment: r; content: counter(r); display: grid; place-items: center; width: 33px; height: 33px; margin-bottom: 11px; background: var(--fn-pizarra); color: var(--fn-crema); font: 500 13px/1 var(--fn-mono); position: relative; top: -32px; margin-bottom: -22px; }
+  .ruta li:nth-child(3)::before { background: var(--fn-naranja); color: var(--fn-pizarra); }
+  .ruta b { display: block; }
+  @media (max-width: 760px) {
+    .ruta { grid-template-columns: 1fr; border-left: 1px solid var(--fn-piedra); margin-left: 16px; }
+    .ruta li { border-top: 0; padding: 0 0 22px 33px; }
+    .ruta li::before { position: absolute; left: -17px; top: 0; margin: 0; }
+  }
+  .regla { margin-top: 44px; padding: 22px; background: var(--fn-pizarra); color: var(--fn-crema); }
+  .regla p { margin: 0; max-width: 80ch; font-size: var(--fn-lead-size); line-height: var(--fn-lead-lh); }
+
+  /* ---------- referencias ---------- */
+  .refs { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 22px; }
+  .refs li { border-top: 1px solid var(--fn-piedra); padding-top: 11px; }
+  .refs b { display: block; font-size: 15px; }
+  .refs span { font-size: 14px; color: var(--fn-piedra-osc); }
+  @media (max-width: 760px) { .refs { grid-template-columns: 1fr 1fr; gap: 15px 22px; } }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<div class="topbar-wrap">
+  <header class="wrap topbar">
+    <div class="miga"><a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a><a class="mono" href="/portafolio/">/ Portafolio</a><span class="mono miga-t" aria-hidden="true">/ Gobierno de datos con IA</span></div>
+    <nav aria-label="Secciones">
+      <a class="nav opt" href="#piezas">Las 8 piezas</a>
+      <a class="nav opt" href="#plan">90 días</a>
+      <a class="nav opt" href="#preguntas">Preguntas</a>
+      <a class="nav nav--cta" href="#contacto">Contacto <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+    </nav>
+  </header>
+</div>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="wrap hero-in">
+      <div>
+        <h1 id="t-hero">Reglas para usar IA en toda la empresa, <span class="sel">en dos páginas</span></h1>
+        <p class="lead"><b>Gobierno de datos con IA</b> deja escrito qué se puede hacer, con qué herramienta, con qué datos y quién decide. Son ocho piezas cortas que firma tu gerencia y que tu gente entiende sin leer un manual. Así se cuidan los datos sin perder la velocidad.</p>
+        <div class="cta">
+          <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20de%20Gobierno%20de%20datos%20con%20IA" target="_blank" rel="noopener noreferrer">Hablemos de tus reglas <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+          <a class="link2" href="#piezas">Ver las 8 piezas</a>
+        </div>
+      </div>
+
+      <div class="sema" id="sema" role="group" aria-labelledby="sema-t">
+        <div class="sema-h"><span class="mono" id="sema-t">Antes de pegarlo en la IA</span><span class="mono" id="sema-n">Dato 1 de 7</span></div>
+        <div class="sema-b">
+          <p class="pre">¿De qué color es este dato?</p>
+          <p class="dato" id="dato">Ideas para el nombre de una campaña</p>
+          <div class="opciones">
+            <button class="op" type="button" data-c="v" aria-pressed="false"><i class="v" aria-hidden="true"></i>Verde</button>
+            <button class="op" type="button" data-c="a" aria-pressed="false"><i class="a" aria-hidden="true"></i>Amarillo</button>
+            <button class="op" type="button" data-c="r" aria-pressed="false"><i class="r" aria-hidden="true"></i>Rojo</button>
+          </div>
+          <div class="veredicto" id="veredicto" aria-live="polite"><p class="dim">Elige un color. Te decimos cuál es y por qué.</p></div>
+        </div>
+        <div class="sema-f"><span class="mono dim">Ejemplos ilustrativos</span><button class="sig" type="button" id="sig">Siguiente dato</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-dolor">
+    <div class="wrap">
+      <h2 id="t-dolor" class="reveal">La gente ya usa IA. <span class="or">Las reglas todavía no existen</span></h2>
+      <div class="dos">
+        <ul class="lista">
+          <li class="reveal">Cada quien usa su cuenta personal, y nadie sabe qué información de la empresa ya salió por ahí.</li>
+          <li class="reveal">Cada área compra licencias por su lado, o nadie compra y todo se queda en pruebas.</li>
+          <li class="reveal">Alguien quiere conectar la IA al ERP o a la base de clientes y no hay a quién preguntarle.</li>
+        </ul>
+        <ul class="lista">
+          <li class="reveal">Las políticas de las empresas grandes tienen cuarenta páginas que nadie lee.</li>
+          <li class="reveal">Prohibir no funciona: la gente lo usa igual, pero a escondidas.</li>
+          <li class="reveal"><b>Gobierno sí, pero sin perder la mentalidad de startup.</b> Eso es lo que nos piden las gerencias.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="piezas" aria-labelledby="t-piezas">
+    <div class="wrap">
+      <h2 id="t-piezas" class="reveal">Ocho piezas concretas, <span class="or">cada una con su firma</span></h2>
+      <p class="lead dim reveal">Es lo que ya tienen las compañías grandes: política, compromiso firmado, licencias corporativas y un comité. Aquí, en versión corta.</p>
+      <div class="piezas8">
+        <div class="grupo reveal">
+          <span class="mono">Qué se puede usar</span>
+          <ol>
+            <li><span class="mono n">01</span><div><h3>Política de uso de IA</h3><p>Dos páginas: qué se puede, qué no, con qué datos y qué hacer si algo sale mal.</p></div><span class="mono firma">Firma<b>Gerencia general</b></span></li>
+            <li><span class="mono n">02</span><div><h3>Compromiso individual</h3><p>Cada persona lo firma cuando recibe su herramienta. Tu área jurídica define cómo entra al contrato.</p></div><span class="mono firma">Firma<b>Cada colaborador</b></span></li>
+            <li><span class="mono n">03</span><div><h3>Semáforo de datos</h3><p>Qué información se puede usar con la IA, y cómo.</p></div><span class="mono firma">Firma<b>TI, jurídica y quien responde por los datos personales</b></span></li>
+            <li><span class="mono n">04</span><div><h3>Herramientas aprobadas</h3><p>Qué herramienta, para qué uso, con qué datos y quién la administra.</p></div><span class="mono firma">Firma<b>TI</b></span></li>
+          </ol>
+        </div>
+        <div class="grupo reveal">
+          <span class="mono">Quién decide</span>
+          <ol>
+            <li><span class="mono n">05</span><div><h3>Decisión de licencias</h3><p>Qué licencias hacen falta. Toda compra se presenta con su costo y necesita autorización previa.</p></div><span class="mono firma">Firma<b>Dueño del presupuesto</b></span></li>
+            <li><span class="mono n">06</span><div><h3>Roles y comité</h3><p>Quién decide, quién construye y un comité de 45 minutos cada 15 días.</p></div><span class="mono firma">Firma<b>Gerencia general</b></span></li>
+            <li><span class="mono n">07</span><div><h3>Registro de ideas</h3><p>El backlog en un solo lugar, con dueño, ficha y estado.</p></div><span class="mono firma">Firma<b>Líder interno</b></span></li>
+          </ol>
+        </div>
+        <div class="grupo reveal">
+          <span class="mono">Cómo se crece</span>
+          <ol>
+            <li><span class="mono n">08</span><div><h3>Niveles de uso</h3><p>Tres niveles. Para subir se pasa una prueba práctica.</p></div><span class="mono firma">Firma<b>Talento humano</b></span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="nota reveal"><p><b>Nosotros las redactamos y facilitamos.</b> Las validan tu TI, tu área jurídica y talento humano, y las publica la gerencia. La primera versión es provisional a propósito: se ajusta cuando se decide la licencia.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-sem">
+    <div class="wrap">
+      <h2 id="t-sem" class="reveal">Una regla que todos entienden: <span class="or">el semáforo</span></h2>
+      <p class="lead dim reveal">Antes de pegar algo en la IA hay una sola pregunta: ¿de qué color es este dato?</p>
+      <div class="bandas reveal">
+        <div style="--c:var(--sem-verde)"><h3><i class="v" aria-hidden="true"></i>Verde · se puede</h3><p>Información pública, o de la compañía que no es confidencial ni tiene datos de personas.</p><span class="ej mono">Por ejemplo</span><p>Textos, ideas para una campaña, presentaciones, información que ya es pública.</p></div>
+        <div style="--c:var(--sem-ambar)"><h3><i class="a" aria-hidden="true"></i>Amarillo · con cuidado</h3><p>Información interna. Solo en la cuenta corporativa y sin nombres: códigos en lugar de personas.</p><span class="ej mono">Por ejemplo</span><p>Ventas por zona, cifras financieras agregadas, reportes del comité.</p></div>
+        <div style="--c:var(--sem-rojo)"><h3><i class="r" aria-hidden="true"></i>Rojo · nunca</h3><p>Datos que identifican a una persona, claves y contraseñas.</p><span class="ej mono">Por ejemplo</span><p>Clientes y empleados con nombre o cédula. Ninguna clave en un chat.</p></div>
+      </div>
+      <h3 class="reveal" style="margin-top:66px">Seis reglas para el primer mes</h3>
+      <div class="dos" style="margin-top:0">
+        <ul class="lista">
+          <li class="reveal"><b>Cero credenciales en un chat.</b> Ninguna clave, contraseña ni token. Las conexiones se hacen desde el panel de conectores, con una cuenta corporativa.</li>
+          <li class="reveal"><b>Solo datos anonimizados.</b> Códigos en lugar de nombres. El cruce con la identidad se hace adentro, nunca en la IA.</li>
+          <li class="reveal"><b>Nada contra producción.</b> Quien construya algo que lea datos lo hace sobre una copia, nunca sobre la fuente original.</li>
+        </ul>
+        <ul class="lista">
+          <li class="reveal"><b>Corre solo, pero no sale solo.</b> Todo lo que produce una automatización lo revisa una persona antes de enviarlo.</li>
+          <li class="reveal"><b>Las cuentas personales no son para trabajar.</b> Si alguien ya lo hizo, apaga la opción de entrenar el modelo y migra a la cuenta corporativa.</li>
+          <li class="reveal"><b>Datos personales, con jurídica.</b> Se revisa la transferencia internacional de datos de cada herramienta, según la Ley 1581.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-niv">
+    <div class="wrap">
+      <h2 id="t-niv" class="reveal">Tres niveles de uso: <span class="or">se sube con práctica</span></h2>
+      <p class="lead dim reveal">Ubicarse en un nivel no es lo mismo que demostrarlo. Por eso se sube con un caso real del propio trabajo. Y los niveles también ordenan el costo: no todos necesitan la licencia más cara.</p>
+      <div class="niveles reveal" role="table" aria-label="Tres niveles de uso">
+        <div class="niv-r niv-h" role="row"><span class="mono" role="columnheader">Nivel</span><span role="columnheader"><b>1 · Usuario</b><span class="sub">Toda la compañía</span></span><span role="columnheader"><b>2 · Avanzado</b><span class="sub">Quien pasa la prueba práctica</span></span><span role="columnheader"><b>3 · Champion</b><span class="sub">Uno por área</span></span></div>
+        <div class="niv-r" role="row"><span class="mono" role="rowheader">Qué puede hacer</span><span role="cell">Redactar, resumir y analizar sus propios archivos en el chat corporativo</span><span role="cell">Crear sus propios asistentes y proyectos; trabajar por fases</span><span role="cell">Conectores, agentes y tareas programadas, con ficha aprobada en el comité</span></div>
+        <div class="niv-r" role="row"><span class="mono" role="rowheader">Con qué datos</span><span role="cell">Verdes</span><span role="cell">Verdes y amarillos, sin nombres</span><span role="cell">Verdes y amarillos, siempre sobre una copia de los datos</span></div>
+        <div class="niv-r" role="row"><span class="mono" role="rowheader">Cómo se entra</span><span role="cell">Inducción corta y firma del compromiso</span><span role="cell">Prueba práctica: un caso real de su área, frente a su champion</span><span role="cell">Ficha y demostración en el comité</span></div>
+        <div class="niv-r" role="row"><span class="mono" role="rowheader">Qué recibe</span><span role="cell">La herramienta corporativa</span><span role="cell">La herramienta corporativa; la licencia avanzada, con autorización previa</span><span role="cell">Licencia avanzada con autorización previa y acceso a la copia de datos</span></div>
+      </div>
+      <div class="nivc reveal"><h3>1 · Usuario<span>Toda la compañía</span></h3><dl><div><dt class="mono">Qué puede hacer</dt><dd>Redactar, resumir y analizar sus propios archivos en el chat corporativo</dd></div><div><dt class="mono">Con qué datos</dt><dd>Verdes</dd></div><div><dt class="mono">Cómo se entra</dt><dd>Inducción corta y firma del compromiso</dd></div></dl></div>
+      <div class="nivc reveal"><h3>2 · Avanzado<span>Quien pasa la prueba práctica</span></h3><dl><div><dt class="mono">Qué puede hacer</dt><dd>Crear sus propios asistentes y proyectos; trabajar por fases</dd></div><div><dt class="mono">Con qué datos</dt><dd>Verdes y amarillos, sin nombres</dd></div><div><dt class="mono">Cómo se entra</dt><dd>Prueba práctica: un caso real de su área, frente a su champion</dd></div></dl></div>
+      <div class="nivc reveal"><h3>3 · Champion<span>Uno por área</span></h3><dl><div><dt class="mono">Qué puede hacer</dt><dd>Conectores, agentes y tareas programadas, con ficha aprobada en el comité</dd></div><div><dt class="mono">Con qué datos</dt><dd>Verdes y amarillos, siempre sobre una copia de los datos</dd></div><div><dt class="mono">Cómo se entra</dt><dd>Ficha y demostración en el comité</dd></div></dl></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-roles">
+    <div class="wrap">
+      <h2 id="t-roles" class="reveal">Quién hace qué y <span class="or">por dónde entra una idea</span></h2>
+      <div class="roles">
+        <div class="reveal"><h3>Gerencia general</h3><p>Decide, desbloquea y prioriza.</p></div>
+        <div class="reveal"><h3>Líder interno</h3><p>Lleva el backlog y el comité. Es de tu empresa, no de la consultora.</p></div>
+        <div class="reveal"><h3>Champions</h3><p>Uno por área. Traen ideas y resuelven las suyas.</p></div>
+        <div class="reveal"><h3>TI y datos</h3><p>Accesos, seguridad, licencias y la copia de datos.</p></div>
+        <div class="reveal fn"><h3>Freaknerd</h3><p>Redacta, facilita el comité y forma a los champions.</p></div>
+      </div>
+      <ol class="ruta reveal" aria-label="Por dónde entra una idea">
+        <li><b>Alguien detecta</b>una tarea repetitiva</li>
+        <li><b>Su champion</b>la vuelve una ficha</li>
+        <li><b>El comité</b>la prioriza</li>
+        <li><b>La construye</b>el champion o el equipo técnico</li>
+        <li><b>Se mide y se decide</b>si se mantiene, se refuerza o se retira</li>
+      </ol>
+      <div class="regla reveal"><p><b>La regla que lo ordena:</b> todos usan IA; no todos conectan sistemas. Nadie conecta por su cuenta el ERP ni una base de datos. Esa solicitud pasa por el comité y la construye el equipo técnico.</p></div>
+    </div>
+  </section>
+
+  <section id="plan" aria-labelledby="t-plan">
+    <div class="wrap">
+      <h2 id="t-plan" class="reveal">Noventa días, con <span class="or">una meta en cada tramo</span></h2>
+      <p class="lead dim reveal">Las reglas avanzan al tiempo que el primer proyecto: un carril construye y el otro pone la base.</p>
+      <ol class="cols" style="--n:3">
+        <li class="reveal"><span class="rango mono">Días 1 a 30</span><h3>Política provisional</h3><p>Se publica la política y se arranca con las herramientas y licencias que la compañía ya usa. Inventario: quién usa qué.</p><span class="deja mono">Listo cuando: la política está publicada</span></li>
+        <li class="reveal"><span class="rango mono">Días 31 a 60</span><h3>Licencias y datos</h3><p>Opciones de licencias, con su costo, para autorización previa. Diseño con TI de la copia de datos para lo que toque sistemas.</p><span class="deja mono">Listo cuando: las opciones están presentadas</span></li>
+        <li class="reveal"><span class="rango mono">Días 61 a 90</span><h3>Niveles y comité</h3><p>Niveles de uso con prueba práctica. Toda idea nueva entra con ficha. Revisión contra la medición inicial.</p><span class="deja mono">Listo cuando: la gerencia decide si sigue</span></li>
+      </ol>
+      <h3 class="reveal" style="margin-top:88px">No lo inventamos</h3>
+      <ul class="refs reveal">
+        <li><b>NIST AI RMF</b><span>Marco de gestión de riesgos de IA (Estados Unidos)</span></li>
+        <li><b>ISO/IEC 42001</b><span>Sistema de gestión de IA, como referencia</span></li>
+        <li><b>Ley 1581 de 2012</b><span>Protección de datos personales en Colombia</span></li>
+        <li><b>Circular Externa 002 de 2024</b><span>SIC: datos personales en sistemas de IA</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="preguntas" aria-labelledby="t-faq">
+    <div class="wrap">
+      <h2 id="t-faq" class="reveal">Lo que suelen preguntarnos</h2>
+      <div class="faq">
+        <details><summary>¿Tenemos que comprar licencias para empezar? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>No. Se arranca con las herramientas que la compañía ya usa. Cualquier compra que sugiramos se presenta con su costo y solo se hace con autorización previa.</p></details>
+        <details><summary>¿Esto no frena a la gente? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Es lo contrario: cuando la gente sabe qué puede hacer, deja de preguntar y deja de esconderse. Las reglas caben en dos páginas y los proyectos no esperan a que estén terminadas: avanzan en paralelo.</p></details>
+        <details><summary>¿Sirve para una empresa mediana? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Para eso está hecho. Las grandes tienen áreas enteras dedicadas a esto; aquí son ocho piezas cortas, un líder interno y un comité de 45 minutos cada quince días.</p></details>
+        <details><summary>¿Quién valida lo legal? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Tu área jurídica, o tu asesor externo. Nosotros redactamos con los marcos de referencia y la ley colombiana de datos personales, pero la firma legal es de tu empresa.</p></details>
+        <details><summary>¿Se combina con la formación del equipo? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Sí. <a class="link2" href="/ia-abilities/">IA-abilities</a> forma a la gente y el gobierno pone las reglas. Los niveles de uso y el semáforo son los mismos en los dos programas.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" id="contacto" aria-labelledby="t-close">
+    <div class="wrap">
+      <span class="celda" aria-hidden="true"></span>
+      <h2 id="t-close">Pongamos las reglas antes de escalar</h2>
+      <p class="lead">Una conversación de 30 minutos para ver cómo usa IA tu empresa hoy y qué haría falta.</p>
+      <div class="cta">
+        <a class="btn btn--inv" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20de%20Gobierno%20de%20datos%20con%20IA" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+        <a class="link2" href="mailto:contacto@freaknerd.co?subject=Gobierno%20de%20datos%20con%20IA">contacto@freaknerd.co</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="wrap pie-in">
+    <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a></span>
+    <span class="foot-links"><a href="/portafolio/">Portafolio</a><a href="/">Inicio</a><a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a></span>
+  </div>
+</footer>
+
+<script src="../assets/programa.js"></script>
+<script>
+(function () {
+  var datos = [
+    ['Ideas para el nombre de una campaña', 'v', 'No tiene datos de personas ni es confidencial.'],
+    ['Las ventas por zona del último trimestre', 'a', 'Es información interna: solo en la cuenta corporativa y agregada, sin nombres de clientes.'],
+    ['La base de clientes, con nombre y cédula', 'r', 'Identifica a personas. Es un dato personal y no entra a la IA.'],
+    ['La contraseña del ERP, para que la IA saque un reporte', 'r', 'Ninguna clave en un chat. Las conexiones se hacen desde el panel de conectores, con una cuenta corporativa.'],
+    ['La evaluación de desempeño de una persona, con su nombre', 'r', 'Identifica a una persona y es sensible.'],
+    ['La misma evaluación, con un código en lugar del nombre', 'a', 'Anonimizada pasa a amarillo: el color depende de cómo se presenta el dato, no del tema. Y la tabla de códigos se queda en tu computador.'],
+    ['Un texto que tu empresa ya publicó en redes', 'v', 'Ya es público.']
+  ];
+  var nombres = { v: 'Verde', a: 'Amarillo', r: 'Rojo' };
+  var i = 0;
+  var dato = document.getElementById('dato'), ver = document.getElementById('veredicto'), num = document.getElementById('sema-n');
+  var ops = document.querySelectorAll('.op');
+  function pintar() {
+    dato.textContent = datos[i][0];
+    num.textContent = 'Dato ' + (i + 1) + ' de ' + datos.length;
+    ver.innerHTML = '<p class="dim">Elige un color. Te decimos cuál es y por qué.</p>';
+    ops.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); o.disabled = false; });
+  }
+  ops.forEach(function (o) {
+    o.addEventListener('click', function () {
+      var d = datos[i], ok = o.dataset.c === d[1];
+      ops.forEach(function (x) { x.setAttribute('aria-pressed', x === o ? 'true' : 'false'); });
+      ver.innerHTML = '<span class="tag"><i class="' + d[1] + '" aria-hidden="true"></i>' + nombres[d[1]] + (ok ? ' · acertaste' : ' · no era ' + nombres[o.dataset.c].toLowerCase()) + '</span><p>' + d[2] + '</p>';
+    });
+  });
+  document.getElementById('sig').addEventListener('click', function () { i = (i + 1) % datos.length; pintar(); });
+})();
+</script>
+</body>
+</html>

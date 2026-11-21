@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA-abilities · freaknerd</title>
+<meta name="description" content="Programa de 8 horas en cuatro niveles para que tu equipo suba la escalera de la IA: del piso, preguntar cosas sueltas, al piloto automático, con su propio trabajo y datos ficticios de su sector.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://freaknerd.co/ia-abilities/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="freaknerd">
+<meta property="og:locale" content="es_CO">
+<meta property="og:url" content="https://freaknerd.co/ia-abilities/">
+<meta property="og:title" content="IA-abilities · freaknerd">
+<meta property="og:description" content="La escalera de la IA en el trabajo: un piso y siete escalones. Tu equipo sube cuatro con las manos y ve funcionando los tres de arriba.">
+<meta property="og:image" content="https://freaknerd.co/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="theme-color" content="#F4EFE6">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/programa.css">
+<style>
+  /* ---------- la escalera: un piso y siete escalones ---------- */
+  .esc-box { position: relative; }
+  .esc-ley { display: flex; flex-wrap: wrap; gap: 6px 22px; color: var(--fn-piedra-osc); margin-bottom: 15px; }
+  .esc-ley span { display: inline-flex; align-items: center; gap: 8px; }
+  .esc-ley i { display: inline-block; width: 12px; height: 12px; }
+  .esc-ley .m { background: var(--fn-pizarra); }
+  .esc-ley .v { border: 2px dashed var(--fn-piedra); }
+  .esc { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column-reverse; gap: 4px; }
+  .esc li { margin-left: calc(var(--i) * var(--paso, 33px)); }
+  .esc button {
+    all: unset; box-sizing: border-box; position: relative; display: flex; align-items: center; gap: 14px;
+    width: 100%; min-height: 44px; padding: 0 15px; cursor: pointer;
+    font: 700 15px/20px var(--fn-font); color: var(--fn-crema); background: var(--fn-pizarra);
+    transition: background-color var(--fn-dur-hover) ease, color var(--fn-dur-hover) ease;
+  }
+  .esc button .n { font: 500 var(--fn-mono-size)/1 var(--fn-mono); letter-spacing: var(--fn-track-mono); color: var(--fn-naranja-tinte); min-width: 3.2em; }
+  .esc .piso button { background: var(--fn-piedra-osc); }
+  .esc .piso button .n { color: var(--fn-crema); }
+  .esc .ves button { background: transparent; color: var(--fn-pizarra); border: 2px dashed var(--fn-piedra); }
+  .esc .ves button .n { color: var(--fn-naranja-texto); }
+  @media (hover: hover) and (pointer: fine) {
+    .esc .manos button:hover { background-color: #3d4440; }
+    .esc .ves button:hover { background-color: var(--fn-crema-2); }
+  }
+  .esc button:focus-visible { outline: 2px solid var(--fn-pizarra); outline-offset: 3px; }
+  .esc li button[aria-pressed="true"], .esc li button[aria-pressed="true"]:hover {
+    border: 0;
+    background: var(--fn-naranja-tinte); color: var(--fn-pizarra); box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-naranja);
+  }
+  .esc li button[aria-pressed="true"] .n { color: var(--fn-naranja-texto); }
+  .esc button[aria-pressed="true"]::after { content: ""; position: absolute; right: -6px; bottom: -6px; width: 11px; height: 11px; background: var(--fn-naranja); box-shadow: 0 0 0 2px var(--fn-crema); }
+  .lectura { min-height: 110px; margin-top: 22px; padding-top: 15px; border-top: 1px solid var(--fn-filete); }
+  .lectura .tit { font: 900 20px/26px var(--fn-font); letter-spacing: -0.02em; margin: 0; }
+  .lectura p { margin: 6px 0 0; }
+  .lectura .mono { display: block; color: var(--fn-piedra-osc); margin-top: 6px; }
+  /* entrada: los escalones suben uno tras otro, una sola vez */
+  .js .esc li { opacity: 0; transform: translateY(8px); }
+  .js .esc.on li { opacity: 1; transform: none; transition: opacity 300ms var(--fn-ease), transform 420ms var(--fn-ease); transition-delay: calc(120ms + var(--i) * 70ms); }
+  @media (prefers-reduced-motion: reduce) { .js .esc li { opacity: 1; transform: none; transition: none; } }
+  @media (max-width: 1100px) { .esc { --paso: 26px; } }
+  @media (max-width: 900px) { .esc-box { max-width: 560px; } }
+  @media (max-width: 640px) { .esc { --paso: 18px; } .esc button { font-size: 14px; gap: 10px; padding: 0 11px; } .esc button .n { min-width: 0; } }
+
+  /* ---------- cómo se aprende: comparar ---------- */
+  .comp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 66px; border: 1px solid var(--fn-piedra); }
+  .comp > div { padding: 22px; }
+  .comp > div + div { border-left: 1px solid var(--fn-filete); }
+  .comp .mono { display: block; color: var(--fn-piedra-osc); margin-bottom: 11px; }
+  .comp .pedido { font: 500 15px/22px var(--fn-mono); letter-spacing: 0; text-transform: none; background: var(--fn-crema-2); padding: 11px 15px; margin: 0 0 11px; max-width: none; }
+  .comp .guia .pedido { background: var(--fn-naranja-tinte); }
+  .comp p { font-size: 15px; }
+  .comp .ej { display: flex; justify-content: space-between; gap: 11px; grid-column: 1 / -1; padding: 11px 22px; border-bottom: 1px solid var(--fn-filete); }
+  .comp .ej .t { background: var(--fn-pizarra); color: var(--fn-crema); padding: 0 8px; }
+  @media (max-width: 900px) {
+    .comp { grid-template-columns: 1fr; }
+    .comp > div + div { border-left: 0; border-top: 1px solid var(--fn-filete); }
+  }
+
+  /* ---------- plataforma ---------- */
+  .plat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 44px; margin-top: 44px; }
+  .plat > div { border-top: 2px solid var(--fn-pizarra); padding-top: 15px; }
+  .plat h3 { margin-bottom: 6px; }
+  @media (max-width: 760px) { .plat { grid-template-columns: 1fr; gap: 33px; } }
+
+  /* ---------- antes y después ---------- */
+  .foto { margin-top: 66px; border: 1px solid var(--fn-piedra); }
+  .foto-h { display: flex; justify-content: space-between; align-items: center; gap: 11px; padding: 11px 22px; border-bottom: 1px solid var(--fn-filete); }
+  .foto-h .t { background: var(--fn-pizarra); color: var(--fn-crema); padding: 0 8px; }
+  .foto-b { padding: 22px; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 15px 22px; align-items: end; }
+  .barras { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; align-items: end; height: 132px; }
+  .barras i { display: block; height: calc(var(--v) * 1%); min-height: 2px; background: var(--fn-piedra); }
+  .barras.desp i { background: var(--fn-pizarra); }
+  .barras.desp i.top { background: var(--fn-naranja); }
+  .eje { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; text-align: center; color: var(--fn-piedra-osc); }
+  .foto-b .lbl { color: var(--fn-piedra-osc); align-self: center; }
+  .foto-b .lbl b { display: block; color: var(--fn-pizarra); font: 900 15px/22px var(--fn-font); letter-spacing: 0; text-transform: none; }
+  .js .barras i { transform: scaleY(0); transform-origin: bottom; }
+  .js .foto.in .barras i { transform: none; transition: transform 700ms var(--fn-ease); transition-delay: calc(var(--k, 0) * 40ms); }
+  .js .foto.in .barras.desp i { transition-delay: calc(400ms + var(--k, 0) * 40ms); }
+  @media (prefers-reduced-motion: reduce) { .js .barras i { transform: none; transition: none; } }
+  @media (max-width: 640px) { .foto-b { grid-template-columns: 1fr; padding: 15px; } .foto-b .lbl { align-self: start; } .barras { height: 88px; } }
+
+  /* ---------- formato ---------- */
+  .formato { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 66px; margin-top: 44px; align-items: start; }
+  .datos { border-top: 2px solid var(--fn-pizarra); }
+  .datos div { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 15px; padding: 13px 0; border-bottom: 1px solid var(--fn-filete); }
+  .datos dt { color: var(--fn-piedra-osc); }
+  .datos dd { margin: 0; font-weight: 700; }
+  @media (max-width: 900px) { .formato { grid-template-columns: 1fr; gap: 44px; } }
+  @media (max-width: 640px) { .datos div { grid-template-columns: 1fr; gap: 2px; } }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<div class="topbar-wrap">
+  <header class="wrap topbar">
+    <div class="miga"><a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a><a class="mono" href="/portafolio/">/ Portafolio</a><span class="mono miga-t" aria-hidden="true">/ IA-abilities</span></div>
+    <nav aria-label="Secciones">
+      <a class="nav opt" href="#niveles">Los 4 niveles</a>
+      <a class="nav opt" href="#formato">Formato</a>
+      <a class="nav opt" href="#preguntas">Preguntas</a>
+      <a class="nav nav--cta" href="#contacto">Contacto <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+    </nav>
+  </header>
+</div>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="wrap hero-in">
+      <div>
+        <h1 id="t-hero">Tu equipo ya usa IA. La pregunta es <span class="sel">en qué escalón</span></h1>
+        <p class="lead"><b>IA-abilities</b> es un programa de ocho horas, en cuatro niveles, sobre el trabajo de todos los días de tu gente. Cada persona sube con las manos los primeros cuatro escalones y ve funcionando los tres de arriba. Al final, el equipo sale con su propio backlog: qué automatizar primero y quién lo hace.</p>
+        <div class="cta">
+          <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20de%20IA-abilities%20para%20mi%20equipo" target="_blank" rel="noopener noreferrer">Hablemos de tu equipo <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+          <a class="link2" href="#niveles">Ver los 4 niveles</a>
+        </div>
+      </div>
+
+      <div class="esc-box">
+        <div class="esc-ley mono"><span><i class="m"></i>Lo subes con las manos</span><span><i class="v"></i>Lo ves funcionando</span></div>
+        <ol class="esc" id="esc" aria-label="La escalera: un piso y siete escalones. Toca un escalón para leerlo.">
+          <li class="manos piso" style="--i:0"><button type="button" data-k="0" aria-pressed="false"><span class="n">Piso</span>Preguntar cosas sueltas</button></li>
+          <li class="manos" style="--i:1"><button type="button" data-k="1" aria-pressed="false"><span class="n">1</span>Planear antes de pedir</button></li>
+          <li class="manos" style="--i:2"><button type="button" data-k="2" aria-pressed="false"><span class="n">2</span>Darle el manual</button></li>
+          <li class="manos" style="--i:3"><button type="button" data-k="3" aria-pressed="false"><span class="n">3</span>No repetir</button></li>
+          <li class="manos" style="--i:4"><button type="button" data-k="4" aria-pressed="false"><span class="n">4</span>Conectar</button></li>
+          <li class="ves" style="--i:5"><button type="button" data-k="5" aria-pressed="false"><span class="n">5</span>Por fases</button></li>
+          <li class="ves" style="--i:6"><button type="button" data-k="6" aria-pressed="false"><span class="n">6</span>Un equipo de especialistas</button></li>
+          <li class="ves" style="--i:7"><button type="button" data-k="7" aria-pressed="false"><span class="n">7</span>Piloto automático</button></li>
+        </ol>
+        <div class="lectura" id="lectura" aria-live="polite">
+          <p class="tit">Un piso y siete escalones</p>
+          <p>Cada escalón contiene al anterior: nada se reemplaza, se acumula. Toca uno para ver cómo se trabaja ahí.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-dolor">
+    <div class="wrap">
+      <h2 id="t-dolor" class="reveal">Todos tienen la herramienta. <span class="or">Pocos tienen el método</span></h2>
+      <div class="dos">
+        <ul class="lista">
+          <li class="reveal">Cada persona usa la IA a su manera, y lo que alguien descubre no le llega al resto.</li>
+          <li class="reveal">Se le pide «de una» y se recibe algo que hay que rehacer. Se concluye que la IA no sirve para esto.</li>
+          <li class="reveal">Nadie sabe bien qué datos se pueden pegar en un chat y cuáles no.</li>
+        </ul>
+        <ul class="lista">
+          <li class="reveal">Los cursos genéricos enseñan botones que cambian cada mes, con ejemplos que no son de tu negocio.</li>
+          <li class="reveal">La gerencia quiere automatizar, pero no sabe por dónde empezar ni quién lo haría.</li>
+          <li class="reveal">Lo que sabe tu equipo, años de oficio y criterio, no lo trae ninguna herramienta de fábrica. <b>Ahí está la ventaja.</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="niveles" aria-labelledby="t-niv">
+    <div class="wrap">
+      <h2 id="t-niv" class="reveal">Cuatro niveles, y en cada uno <span class="or">tu gente hace</span></h2>
+      <p class="lead dim reveal">Dos horas por nivel. Cada nivel cubre unos escalones y deja algo que se puede ver.</p>
+      <ol class="cols" style="--n:4">
+        <li class="reveal"><span class="rango mono">Piso → 1</span><h3>Entender</h3><p>Qué puede y qué no puede hacer la IA, por qué inventa con seguridad y qué datos se pueden usar. Luego, planear antes de pedir.</p><span class="deja mono">Deja: tres pedidos de su proceso, bien escritos</span></li>
+        <li class="reveal"><span class="rango mono">1 → 2</span><h3>Preguntar</h3><p>Darle a la IA el manual de la tarea: un archivo real, el contexto que necesita y cómo verificar lo que responde.</p><span class="deja mono">Deja: un pedido con su verificación</span></li>
+        <li class="reveal"><span class="rango mono">2 → 4</span><h3>Construir</h3><p>Lo que se repite se vuelve un asistente propio, probado con un caso normal, uno de borde y una trampa. Y qué se puede conectar, y quién lo autoriza.</p><span class="deja mono">Deja: un asistente funcionando, con su ficha</span></li>
+        <li class="reveal"><span class="rango mono">5 → 7</span><h3>Automatizar</h3><p>Trabajo por fases con una prueba de aceptación, una automatización de punta a punta en vivo y la priorización del equipo.</p><span class="deja mono">Deja: el backlog con responsable, fecha y riesgo</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-comp">
+    <div class="wrap">
+      <h2 id="t-comp" class="reveal">Cada ejercicio se aprende <span class="or">comparando</span></h2>
+      <p class="lead dim reveal">Nadie te dice que la segunda versión es mejor: lo ves en tus dos resultados.</p>
+      <div class="comp reveal" role="group" aria-label="Patrón de un ejercicio, ejemplo ilustrativo">
+        <div class="ej"><span class="mono">Un ejercicio, tres pasos</span><span class="mono t">Ejemplo ilustrativo</span></div>
+        <div><span class="mono">1 · Sin estructura</span><p class="pedido">Hazme el informe del mes con este archivo.</p><p>Como lo harías hoy, por intuición.</p></div>
+        <div class="guia"><span class="mono">2 · Con la guía</span><p class="pedido">Primero propón el plan y espera mi visto bueno. Cada cifra con su fuente. Si falta un dato, pregúntame; no lo supongas.</p><p>El mismo pedido, con lo que aprendiste en el nivel.</p></div>
+        <div><span class="mono">3 · Comparar</span><p>¿Propuso el plan primero? ¿Cada cifra tiene de dónde salió? ¿Inventó algo en la primera versión?</p><p><b>Qué cambió y por qué</b>, dicho por quien lo hizo.</p></div>
+      </div>
+      <div class="nota reveal"><p><b>Cero datos reales en la sala.</b> Practicamos con datos ficticios de tu sector y con tus propias tareas. La regla de qué se puede usar va desde el primer nivel: es la baranda de toda la escalera. Si tu empresa aún no la tiene, la armamos en <a class="link2" href="/gobierno-datos-ia/">Gobierno de datos con IA</a>.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-plat">
+    <div class="wrap">
+      <h2 id="t-plat" class="reveal">Todo pasa en una plataforma, <span class="or">no en un PDF</span></h2>
+      <div class="plat">
+        <div class="reveal"><h3>El tablero</h3><p>Lo que cada persona copia y hace: pedidos, pasos y datos de práctica. Nada se dicta y nada llega por correo.</p></div>
+        <div class="reveal"><h3>El muro</h3><p>Lo que cada uno produce, a la vista del grupo: se comenta y se vota. Cada ejercicio cierra con lo que hizo la sala.</p></div>
+        <div class="reveal"><h3>La medición</h3><p>La misma pregunta al empezar y al terminar: ¿en qué escalón estás? Así el programa se ajusta al grupo, y no al revés.</p></div>
+      </div>
+      <figure class="foto reveal" id="foto" style="margin-inline:0">
+        <div class="foto-h"><span class="mono">¿En qué escalón está tu equipo? · 20 personas</span><span class="mono t">Ejemplo ilustrativo</span></div>
+        <div class="foto-b">
+          <span class="lbl mono"><b>Antes</b>Nivel 1</span>
+          <div class="barras" aria-hidden="true"><i style="--v:40;--k:0"></i><i style="--v:100;--k:1"></i><i style="--v:50;--k:2"></i><i style="--v:10;--k:3"></i><i style="--v:0;--k:4"></i><i style="--v:0;--k:5"></i><i style="--v:0;--k:6"></i><i style="--v:0;--k:7"></i></div>
+          <span class="lbl mono"><b>Después</b>Nivel 4</span>
+          <div class="barras desp" aria-hidden="true"><i style="--v:0;--k:0"></i><i style="--v:0;--k:1"></i><i style="--v:30;--k:2"></i><i style="--v:70;--k:3"></i><i class="top" style="--v:100;--k:4"></i><i style="--v:10;--k:5"></i><i style="--v:0;--k:6"></i><i style="--v:0;--k:7"></i></div>
+          <span></span>
+          <div class="eje mono" aria-hidden="true"><span>P</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+        </div>
+        <figcaption class="mono dim" style="padding:0 22px 15px">En el ejemplo, la mayoría arranca en el escalón 1 y termina en el 4.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="formato" aria-labelledby="t-form">
+    <div class="wrap">
+      <h2 id="t-form" class="reveal">Ocho horas que dejan <span class="or">capacidad instalada</span></h2>
+      <div class="formato">
+        <dl class="datos reveal">
+          <div><dt class="mono">Duración</dt><dd>8 horas: cuatro sesiones de 2 h o dos de 4 h</dd></div>
+          <div><dt class="mono">Modalidad</dt><dd>Presencial o virtual</dd></div>
+          <div><dt class="mono">Herramienta</dt><dd>La que tu empresa ya usa: ChatGPT, Claude, Copilot o Gemini</dd></div>
+          <div><dt class="mono">Material</dt><dd>Ejercicios y datos ficticios de tu sector, sobre tus tareas reales</dd></div>
+          <div><dt class="mono">Antes</dt><dd>Un formulario corto para saber en qué escalón está cada persona</dd></div>
+        </dl>
+        <div>
+          <p class="lead reveal" style="margin-top:0">Tu equipo se queda con:</p>
+          <ul class="piezas">
+            <li class="reveal">La biblioteca de pedidos del equipo, armada en la sala.</li>
+            <li class="reveal">Un asistente por persona, funcionando y probado.</li>
+            <li class="reveal">El backlog priorizado: qué automatizar, con responsable, fecha y nivel de riesgo.</li>
+            <li class="reveal">La foto de antes y después del equipo en la escalera.</li>
+            <li class="reveal">El siguiente escalón de cada persona, con una acción y una fecha.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-porque">
+    <div class="wrap">
+      <h2 id="t-porque" class="reveal">No enseñamos nada que <span class="or">no hagamos a diario</span></h2>
+      <div class="dos">
+        <ul class="lista">
+          <li class="reveal">Somos un equipo pequeño que entrega como uno grande porque trabaja así: con asistentes, fases y pruebas.</li>
+          <li class="reveal">Enseñamos la forma de trabajar, no el botón. Las herramientas cambian; la forma de trabajar se queda.</li>
+          <li class="reveal">Sin cajas negras: tu equipo entiende cómo funciona lo que construyó y lo ajusta solo.</li>
+        </ul>
+        <div>
+          <h3 class="reveal">No es para ti si buscas una charla</h3>
+          <ul class="lista no">
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Quieres una conferencia inspiradora sobre el futuro de la IA.</span></li>
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Buscas que construyamos las automatizaciones por ti: eso es un acompañamiento, que se cotiza sobre el backlog.</span></li>
+            <li class="reveal"><svg viewBox="0 0 11 11" aria-hidden="true" focusable="false"><path d="M1 1L10 10M10 1L1 10"/></svg><span>Tu equipo no puede dedicar las ocho horas con el computador abierto.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preguntas" aria-labelledby="t-faq">
+    <div class="wrap">
+      <h2 id="t-faq" class="reveal">Lo que suelen preguntarnos</h2>
+      <div class="faq">
+        <details><summary>¿Necesitamos comprar licencias? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>No. Trabajamos con la herramienta que tu empresa ya tiene. Si alguna parte necesita una licencia distinta, te lo decimos antes, con su costo, y tú decides.</p></details>
+        <details><summary>¿Sirve si mi equipo nunca ha usado IA? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Sí. Para eso existe el piso: nadie queda por fuera. Y si el grupo ya va avanzado, los primeros escalones se pasan rápido. El formulario previo y la primera medición deciden dónde nos detenemos.</p></details>
+        <details><summary>¿Usamos datos reales de la empresa? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>No en la sala. Preparamos datos ficticios con la forma de los tuyos. Cada persona aprende ahí a anonimizar y a decidir qué puede usar en su trabajo.</p></details>
+        <details><summary>¿Cuántas personas pueden participar? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Lo ajustamos contigo. Funciona mejor con grupos en los que las personas trabajan juntas, porque el backlog del final es de todo el equipo.</p></details>
+        <details><summary>¿Qué pasa cuando termina? <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></summary><p>Tu equipo queda con su backlog priorizado. Si quieres, te acompañamos a construir lo primero de esa lista y a poner las reglas de uso para toda la compañía.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" id="contacto" aria-labelledby="t-close">
+    <div class="wrap">
+      <span class="celda" aria-hidden="true"></span>
+      <h2 id="t-close">¿En qué escalón está tu equipo?</h2>
+      <p class="lead">Una conversación de 30 minutos para ver si el programa encaja con tu gente y tu momento.</p>
+      <div class="cta">
+        <a class="btn btn--inv" href="https://wa.me/573117191394?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20de%20IA-abilities%20para%20mi%20equipo" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+        <a class="link2" href="mailto:contacto@freaknerd.co?subject=IA-abilities">contacto@freaknerd.co</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="wrap pie-in">
+    <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a></span>
+    <span class="foot-links"><a href="/portafolio/">Portafolio</a><a href="/">Inicio</a><a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a></span>
+  </div>
+</footer>
+
+<script src="../assets/programa.js"></script>
+<script>
+(function () {
+  var pasos = [
+    ['Piso · Preguntar cosas sueltas', 'Se usa como un buscador: una pregunta, una respuesta, y se empieza de cero la próxima vez.', 'Nivel 1 · Entender'],
+    ['1 · Planear antes de pedir', 'Antes de pedir el resultado, se pide el plan: qué va a hacer, con qué y cómo se sabrá que quedó bien.', 'Nivel 1 · Entender'],
+    ['2 · Darle el manual', 'La IA recibe el archivo real, el contexto y las reglas de la tarea. Lo que está en el manual ya no hay que pedirlo.', 'Niveles 2 y 3 · Preguntar y Construir'],
+    ['3 · No repetir', 'Lo que se pide igual más de dos veces se vuelve un asistente propio, con su ficha y probado con tres casos.', 'Nivel 3 · Construir'],
+    ['4 · Conectar', 'La IA llega al correo, a las carpetas o al calendario, con los permisos de quien lo autoriza y dejando registro.', 'Nivel 3 · Construir'],
+    ['5 · Por fases', 'Un trabajo grande se parte en etapas, y cada una tiene una prueba de aceptación escrita antes de empezar.', 'Nivel 4 · Automatizar, en vivo'],
+    ['6 · Un equipo de especialistas', 'Uno planea, otro hace, otro verifica. Quien hace el trabajo no se califica a sí mismo.', 'Nivel 4 · Automatizar, en vivo'],
+    ['7 · Piloto automático', 'El trabajo corre solo, por ejemplo de noche, y una persona revisa el resultado antes de que salga.', 'Nivel 4 · Automatizar, en vivo']
+  ];
+  var esc = document.getElementById('esc');
+  var lec = document.getElementById('lectura');
+  var botones = esc.querySelectorAll('button');
+  function leer(b) {
+    botones.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    var p = pasos[+b.dataset.k];
+    lec.innerHTML = '<p class="tit">' + p[0] + '</p><p>' + p[1] + '</p><span class="mono">' + p[2] + '</span>';
+  }
+  botones.forEach(function (b) { b.addEventListener('click', function () { leer(b); }); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { esc.classList.add('on'); io.disconnect(); } });
+    io.observe(esc);
+  } else { esc.classList.add('on'); }
+})();
+</script>
+</body>
+</html>
