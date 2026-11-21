@@ -25,9 +25,15 @@
 <link rel="stylesheet" href="../assets/programa.css">
 <style>
   .hero { padding-block: 66px 44px; }
-  .hero-in { grid-template-columns: minmax(0, 1fr); }
+  .hero-in { align-items: end; }
   .hero h1 { max-width: 16ch; }
   .hero .lead { max-width: 56ch; }
+  .salto { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--fn-pizarra); }
+  .salto a { position: relative; display: grid; grid-template-columns: 66px minmax(0, 1fr) auto; gap: 15px; align-items: center; min-height: 66px; padding: 8px 11px 8px 0; border-bottom: 1px solid var(--fn-filete); color: var(--fn-pizarra); text-decoration: none; font: 900 18px/22px var(--fn-font); letter-spacing: -0.01em; transition: background-color var(--fn-dur-hover) ease; }
+  .salto svg.e { width: 66px; height: 50px; background: var(--fn-crema-2); }
+  .salto .chev { color: var(--fn-naranja-texto); }
+  @media (hover: hover) and (pointer: fine) { .salto a:hover { background: var(--fn-naranja-tinte); box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-naranja); } .salto a:hover::after { content: ""; position: absolute; right: -6px; bottom: -6px; width: 11px; height: 11px; background: var(--fn-naranja); box-shadow: 0 0 0 2px var(--fn-crema); } }
+  .salto a:focus-visible { outline-offset: 2px; }
 
   /* ---------- índice de programas ---------- */
   .indice { border-top: 0; padding-top: 0; }
@@ -98,7 +104,18 @@
       <div>
         <h1 id="t-hero">Tu equipo hace el trabajo y se queda con <span class="sel">el criterio</span></h1>
         <p class="lead">Tres programas con alcance, formato y entregable claros. En todos rige lo mismo: lo construye quien lo va a usar, y cada sesión deja algo que se puede ver.</p>
+        <div class="cta">
+          <a class="btn" href="https://wa.me/573117191394?text=Hola%2C%20vi%20el%20portafolio%20de%20freaknerd%20y%20quiero%20conversar." target="_blank" rel="noopener noreferrer">Hablemos de tu equipo <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+          <a class="link2" href="#empezar">No sé por cuál empezar</a>
+        </div>
       </div>
+      <nav aria-label="Ir a un programa">
+        <ol class="salto">
+          <li><a href="/ia-abilities/"><svg class="e" viewBox="-10 -8 196 148" aria-hidden="true"><rect class="k-pd" x="0" y="110" width="176" height="20"/><rect class="k-pz" x="22" y="88" width="154" height="20"/><rect class="k-pz" x="44" y="66" width="132" height="20"/><rect class="k-or" x="66" y="44" width="110" height="20"/><rect class="k-ln" x="89" y="23" width="86" height="18"/><rect class="k-ln" x="111" y="1" width="64" height="18"/></svg>IA-abilities<svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a></li>
+          <li><a href="/gobierno-datos-ia/"><svg class="e" viewBox="0 -8 176 148" aria-hidden="true"><rect class="k-pz" x="58" y="0" width="60" height="132"/><circle cx="88" cy="24" r="15" fill="#2F7D4F"/><circle cx="88" cy="66" r="15" fill="#B9790B"/><circle cx="88" cy="108" r="15" fill="#C23A1A"/></svg>Gobierno de datos con IA<svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a></li>
+          <li><a href="/blueprint-cosmetica/"><svg class="e" viewBox="-88 -72 176 144" aria-hidden="true"><use href="#rueda-def"/></svg>Blueprint de marca cosmética<svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a></li>
+        </ol>
+      </nav>
     </div>
   </section>
 
@@ -155,8 +172,8 @@
         <li class="prog reveal">
           <div class="fig" aria-hidden="true">
             <svg viewBox="-66 -66 132 132" style="width:132px">
-              <g id="rueda-mini"></g>
-              <circle class="k-pz" cx="0" cy="0" r="22"/>
+              <defs><g id="rueda-def"><g id="rueda-mini"></g><circle class="k-pz" cx="0" cy="0" r="22"/></g></defs>
+              <use href="#rueda-def"/>
             </svg>
           </div>
           <div>
@@ -174,7 +191,7 @@
     </div>
   </section>
 
-  <section aria-labelledby="t-emp">
+  <section id="empezar" aria-labelledby="t-emp">
     <div class="wrap">
       <div class="empezar">
         <div>

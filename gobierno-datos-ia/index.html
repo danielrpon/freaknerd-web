@@ -29,6 +29,7 @@
 
   /* ---------- el semáforo interactivo ---------- */
   .sema { border: 1px solid var(--fn-piedra); background: var(--fn-crema); }
+  #sema-n { white-space: nowrap; flex: none; }
   .sema-h { display: flex; justify-content: space-between; align-items: center; gap: 11px; padding: 11px 22px; border-bottom: 1px solid var(--fn-filete); color: var(--fn-piedra-osc); }
   .sema-b { padding: 22px; }
   .sema .pre { color: var(--fn-piedra-osc); margin: 0 0 6px; }
@@ -44,13 +45,17 @@
   @media (hover: hover) and (pointer: fine) { .op:hover { background: var(--fn-naranja-tinte); } }
   .op i, .tag i, .bandas i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; flex: none; }
   .v { background: var(--sem-verde); } .a { background: var(--sem-ambar); } .r { background: var(--sem-rojo); }
-  .op[aria-pressed="true"] { background: var(--fn-pizarra); color: var(--fn-crema); }
+  .op { position: relative; }
+  .op[aria-pressed="true"], .op[aria-pressed="true"]:hover { background: var(--fn-naranja-tinte); box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-naranja); }
+  .op[aria-pressed="true"]::after { content: ""; position: absolute; right: -6px; bottom: -6px; width: 11px; height: 11px; background: var(--fn-naranja); box-shadow: 0 0 0 2px var(--fn-crema); }
+  .op.correcta:not([aria-pressed="true"]) { box-shadow: inset 0 0 0 2px var(--fn-pizarra); }
+  .op.correcta::before { content: "Es este"; position: absolute; top: -9px; left: 8px; padding: 0 4px; background: var(--fn-crema); font: 500 10px/18px var(--fn-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--fn-pizarra); }
   .op[disabled] { cursor: default; }
   .veredicto { min-height: 110px; margin-top: 22px; padding-top: 15px; border-top: 1px solid var(--fn-filete); }
   .veredicto p { margin: 6px 0 0; }
   .tag { display: inline-flex; align-items: center; gap: 8px; font: 900 15px/22px var(--fn-font); }
   .sema-f { display: flex; justify-content: space-between; align-items: center; gap: 11px; padding: 11px 22px; border-top: 1px solid var(--fn-filete); }
-  .sig { all: unset; cursor: pointer; font: 700 15px/22px var(--fn-font); border-bottom: 2px solid var(--fn-naranja); padding-bottom: 3px; }
+  .sig { all: unset; cursor: pointer; white-space: nowrap; font: 700 15px/22px var(--fn-font); border-bottom: 2px solid var(--fn-naranja); padding-bottom: 3px; }
   .sig:focus-visible { outline: 2px solid var(--fn-pizarra); outline-offset: 6px; }
   .js .veredicto > * { animation: aparece 280ms var(--fn-ease) both; }
   @keyframes aparece { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
@@ -168,7 +173,7 @@
       </div>
 
       <div class="sema" id="sema" role="group" aria-labelledby="sema-t">
-        <div class="sema-h"><span class="mono" id="sema-t">Antes de pegarlo en la IA</span><span class="mono" id="sema-n">Dato 1 de 7</span></div>
+        <div class="sema-h"><span class="mono" id="sema-t">Antes de pegarlo</span><span class="mono" id="sema-n">Dato 1 de 7</span></div>
         <div class="sema-b">
           <p class="pre">¿De qué color es este dato?</p>
           <p class="dato" id="dato">Ideas para el nombre de una campaña</p>
@@ -370,12 +375,12 @@
     dato.textContent = datos[i][0];
     num.textContent = 'Dato ' + (i + 1) + ' de ' + datos.length;
     ver.innerHTML = '<p class="dim">Elige un color. Te decimos cuál es y por qué.</p>';
-    ops.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); o.disabled = false; });
+    ops.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); o.classList.remove('correcta'); });
   }
   ops.forEach(function (o) {
     o.addEventListener('click', function () {
       var d = datos[i], ok = o.dataset.c === d[1];
-      ops.forEach(function (x) { x.setAttribute('aria-pressed', x === o ? 'true' : 'false'); });
+      ops.forEach(function (x) { x.setAttribute('aria-pressed', x === o ? 'true' : 'false'); x.classList.toggle('correcta', x.dataset.c === d[1]); });
       ver.innerHTML = '<span class="tag"><i class="' + d[1] + '" aria-hidden="true"></i>' + nombres[d[1]] + (ok ? ' · acertaste' : ' · no era ' + nombres[o.dataset.c].toLowerCase()) + '</span><p>' + d[2] + '</p>';
     });
   });
