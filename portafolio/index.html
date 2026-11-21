@@ -71,8 +71,10 @@
   }
   /* trazos de las figuras */
   .k-pz { fill: var(--fn-pizarra); } .k-pd { fill: var(--fn-piedra); } .k-cr { fill: var(--fn-crema); }
-  .k-or { fill: var(--fn-naranja); } .k-ln { fill: none; stroke: var(--fn-piedra); stroke-width: 2; stroke-dasharray: 5 4; }
-  .k-gj { fill: var(--fn-crema); stroke: var(--fn-crema-2); stroke-width: 2; }
+  .k-or { fill: var(--fn-naranja); } .k-ln { fill: none; stroke: var(--fn-azul); stroke-width: 2; stroke-dasharray: 5 4; }
+  .k-az { fill: var(--fn-crema); stroke: var(--fn-azul); stroke-width: 3; }
+  .k-sv { fill: #8FB58A; } .k-sa { fill: #EDB540; } .k-sr { fill: #B83A12; }
+  .k-gj { fill: var(--fn-crema); stroke: var(--fn-pizarra); stroke-width: 1.5; }
 
   /* ---------- por dónde empezar ---------- */
   .empezar { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 66px; align-items: end; }
@@ -112,7 +114,7 @@
       <nav aria-label="Ir a un programa">
         <ol class="salto">
           <li><a href="/ia-abilities/"><svg class="e" viewBox="-10 -8 196 148" aria-hidden="true"><rect class="k-pd" x="0" y="110" width="176" height="20"/><rect class="k-pz" x="22" y="88" width="154" height="20"/><rect class="k-pz" x="44" y="66" width="132" height="20"/><rect class="k-or" x="66" y="44" width="110" height="20"/><rect class="k-ln" x="89" y="23" width="86" height="18"/><rect class="k-ln" x="111" y="1" width="64" height="18"/></svg>IA-abilities<svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a></li>
-          <li><a href="/gobierno-datos-ia/"><svg class="e" viewBox="0 -8 176 148" aria-hidden="true"><rect class="k-pz" x="58" y="0" width="60" height="132"/><circle cx="88" cy="24" r="15" fill="#2F7D4F"/><circle cx="88" cy="66" r="15" fill="#B9790B"/><circle cx="88" cy="108" r="15" fill="#C23A1A"/></svg>Gobierno de datos con IA<svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a></li>
+          <li><a href="/gobierno-datos-ia/"><svg class="e" viewBox="0 -8 176 148" aria-hidden="true"><rect class="k-pz" x="58" y="0" width="60" height="132"/><circle cx="88" cy="24" r="15" class="k-sv"/><circle cx="88" cy="66" r="15" class="k-sa"/><circle cx="88" cy="108" r="15" class="k-sr"/></svg>Gobierno de datos con IA<svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a></li>
           <li><a href="/blueprint-cosmetica/"><svg class="e" viewBox="-88 -72 176 144" aria-hidden="true"><use href="#rueda-def"/></svg>Blueprint de marca cosmética<svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a></li>
         </ol>
       </nav>
@@ -149,12 +151,9 @@
           <div class="fig" aria-hidden="true">
             <svg viewBox="0 0 176 132">
               <rect class="k-pz" x="58" y="0" width="60" height="132"/>
-              <circle cx="88" cy="24" r="15" fill="#2F7D4F"/>
-              <circle cx="88" cy="66" r="15" fill="#B9790B"/>
-              <circle cx="88" cy="108" r="15" fill="#C23A1A"/>
-              <rect class="k-or" x="128" y="56" width="20" height="20"/>
-              <rect class="k-pd" x="128" y="98" width="20" height="20"/>
-              <rect class="k-pd" x="128" y="14" width="20" height="20"/>
+              <circle cx="88" cy="24" r="15" class="k-sv"/>
+              <circle cx="88" cy="66" r="15" class="k-sa"/>
+              <circle cx="88" cy="108" r="15" class="k-sr"/>
             </svg>
           </div>
           <div>
@@ -172,7 +171,7 @@
         <li class="prog reveal">
           <div class="fig" aria-hidden="true">
             <svg viewBox="-66 -66 132 132" style="width:132px">
-              <defs><g id="rueda-def"><g id="rueda-mini"></g><circle class="k-pz" cx="0" cy="0" r="22"/></g></defs>
+              <defs><g id="rueda-def"><g id="rueda-mini"></g><circle class="k-pz" cx="0" cy="0" r="16"/><circle class="k-pz" cx="-30" cy="-34" r="6"/><circle class="k-pz" cx="40" cy="22" r="6"/><circle class="k-az" cx="-44" cy="16" r="6"/><circle class="k-az" cx="10" cy="46" r="6"/></g></defs>
               <use href="#rueda-def"/>
             </svg>
           </div>
@@ -234,7 +233,7 @@
 <script>
 (function () {
   /* rueda mini de 14 gajos, con el hueco en naranja */
-  var g = document.getElementById('rueda-mini'), n = 14, R = 64, r = 26, NS = 'http://www.w3.org/2000/svg';
+  var g = document.getElementById('rueda-mini'), n = 14, R = 64, r = 16, NS = 'http://www.w3.org/2000/svg';
   for (var k = 0; k < n; k++) {
     var a0 = (k / n) * 2 * Math.PI - Math.PI / 2, a1 = ((k + 1) / n) * 2 * Math.PI - Math.PI / 2;
     var p = document.createElementNS(NS, 'path');
@@ -245,7 +244,6 @@
       'A' + r + ' ' + r + ' 0 0 0 ' + (r * Math.cos(a0)).toFixed(1) + ' ' + (r * Math.sin(a0)).toFixed(1) + 'Z';
     p.setAttribute('d', d);
     p.setAttribute('class', k === 3 ? 'k-or' : 'k-gj');
-    if (k !== 3) p.setAttribute('style', 'fill:' + (k % 3 === 0 ? 'var(--fn-piedra)' : 'var(--fn-crema)'));
     g.appendChild(p);
   }
 })();

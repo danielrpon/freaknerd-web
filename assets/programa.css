@@ -96,7 +96,7 @@ h2 .or { color: var(--fn-naranja); white-space: nowrap; }
 .cols > li + li { padding-left: 22px; border-left: 1px solid var(--fn-filete); }
 .cols h3 { margin: 0 0 11px; }
 .cols p { font-size: 15px; }
-.cols .rango { display: block; color: var(--fn-naranja-texto); margin-bottom: 4px; }
+.cols .rango { display: block; color: var(--fn-azul); margin-bottom: 4px; }
 .cols .deja { display: block; margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--fn-filete); color: var(--fn-piedra-osc); }
 @media (max-width: 900px) {
   .cols { grid-template-columns: 1fr; border-top: 0; }

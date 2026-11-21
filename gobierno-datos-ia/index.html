@@ -24,8 +24,9 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../assets/programa.css">
 <style>
-  /* colores del semáforo: solo en las marcas (punto y filete), nunca en texto largo */
-  :root { --sem-verde: #2F7D4F; --sem-ambar: #B9790B; --sem-rojo: #C23A1A; }
+  /* semáforo de datos: excepción funcional del manual v2.2 (§4, regla 6).
+     Verde y amarillo llevan texto pizarra; rojo, texto crema. Solo aquí. */
+  :root { --sem-verde: #8FB58A; --sem-ambar: #EDB540; --sem-rojo: #B83A12; }
 
   /* ---------- el semáforo interactivo ---------- */
   .sema { border: 1px solid var(--fn-piedra); background: var(--fn-crema); }
@@ -43,7 +44,7 @@
   .op:active { transform: scale(0.97); }
   .op:focus-visible { outline: 2px solid var(--fn-pizarra); outline-offset: 3px; }
   @media (hover: hover) and (pointer: fine) { .op:hover { background: var(--fn-naranja-tinte); } }
-  .op i, .tag i, .bandas i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; flex: none; }
+  .op i, .tag i, .bandas i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; flex: none; box-shadow: 0 0 0 1.5px var(--fn-pizarra); }
   .v { background: var(--sem-verde); } .a { background: var(--sem-ambar); } .r { background: var(--sem-rojo); }
   .op { position: relative; }
   .op[aria-pressed="true"], .op[aria-pressed="true"]:hover { background: var(--fn-naranja-tinte); box-shadow: inset 0 0 0 var(--fn-sel-borde) var(--fn-naranja); }
@@ -53,7 +54,9 @@
   .op[disabled] { cursor: default; }
   .veredicto { min-height: 110px; margin-top: 22px; padding-top: 15px; border-top: 1px solid var(--fn-filete); }
   .veredicto p { margin: 6px 0 0; }
-  .tag { display: inline-flex; align-items: center; gap: 8px; font: 900 15px/22px var(--fn-font); }
+  .tag { display: inline-flex; align-items: center; gap: 8px; font: 900 15px/22px var(--fn-font); padding: 4px 11px; color: var(--fn-pizarra); }
+  .tag i { display: none; }
+  .tag.v { background: var(--sem-verde); } .tag.a { background: var(--sem-ambar); } .tag.r { background: var(--sem-rojo); color: var(--fn-crema); }
   .sema-f { display: flex; justify-content: space-between; align-items: center; gap: 11px; padding: 11px 22px; border-top: 1px solid var(--fn-filete); }
   .sig { all: unset; cursor: pointer; white-space: nowrap; font: 700 15px/22px var(--fn-font); border-bottom: 2px solid var(--fn-naranja); padding-bottom: 3px; }
   .sig:focus-visible { outline: 2px solid var(--fn-pizarra); outline-offset: 6px; }
@@ -65,7 +68,7 @@
   /* ---------- las ocho piezas ---------- */
   .piezas8 { margin-top: 66px; border-top: 2px solid var(--fn-pizarra); }
   .grupo { display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 22px; border-bottom: 1px solid var(--fn-filete); }
-  .grupo > .mono { padding: 15px 0; color: var(--fn-piedra-osc); }
+  .grupo > .mono { padding: 15px 0; color: var(--fn-azul); }
   .grupo ol { list-style: none; margin: 0; padding: 0; }
   .grupo li { display: grid; grid-template-columns: 44px minmax(0, 3fr) minmax(0, 2fr); gap: 0 22px; padding: 15px 0; }
   .grupo li + li { border-top: 1px solid var(--fn-filete); }
@@ -83,9 +86,10 @@
 
   /* ---------- semáforo en bandas ---------- */
   .bandas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 44px; border: 1px solid var(--fn-piedra); }
-  .bandas > div { padding: 22px; border-top: 6px solid var(--c); }
+  .bandas > div { padding: 0 22px 22px; }
   .bandas > div + div { border-left: 1px solid var(--fn-filete); }
-  .bandas h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .bandas h3 { display: flex; align-items: center; gap: 10px; margin: 0 -22px 15px; padding: 11px 22px; background: var(--c); color: var(--t, var(--fn-pizarra)); font-size: 18px; line-height: 22px; }
+  .bandas h3 i { display: none; }
   .bandas .ej { display: block; margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--fn-filete); color: var(--fn-piedra-osc); }
   .bandas .ej + p { margin-top: 4px; }
   @media (max-width: 900px) { .bandas { grid-template-columns: 1fr; } .bandas > div + div { border-left: 0; } }
@@ -247,7 +251,7 @@
       <div class="bandas reveal">
         <div style="--c:var(--sem-verde)"><h3><i class="v" aria-hidden="true"></i>Verde · se puede</h3><p>Información pública, o de la compañía que no es confidencial ni tiene datos de personas.</p><span class="ej mono">Por ejemplo</span><p>Textos, ideas para una campaña, presentaciones, información que ya es pública.</p></div>
         <div style="--c:var(--sem-ambar)"><h3><i class="a" aria-hidden="true"></i>Amarillo · con cuidado</h3><p>Información interna. Solo en la cuenta corporativa y sin nombres: códigos en lugar de personas.</p><span class="ej mono">Por ejemplo</span><p>Ventas por zona, cifras financieras agregadas, reportes del comité.</p></div>
-        <div style="--c:var(--sem-rojo)"><h3><i class="r" aria-hidden="true"></i>Rojo · nunca</h3><p>Datos que identifican a una persona, claves y contraseñas.</p><span class="ej mono">Por ejemplo</span><p>Clientes y empleados con nombre o cédula. Ninguna clave en un chat.</p></div>
+        <div style="--c:var(--sem-rojo);--t:var(--fn-crema)"><h3><i class="r" aria-hidden="true"></i>Rojo · nunca</h3><p>Datos que identifican a una persona, claves y contraseñas.</p><span class="ej mono">Por ejemplo</span><p>Clientes y empleados con nombre o cédula. Ninguna clave en un chat.</p></div>
       </div>
       <h3 class="reveal" style="margin-top:66px">Seis reglas para el primer mes</h3>
       <div class="dos" style="margin-top:0">
@@ -381,7 +385,7 @@
     o.addEventListener('click', function () {
       var d = datos[i], ok = o.dataset.c === d[1];
       ops.forEach(function (x) { x.setAttribute('aria-pressed', x === o ? 'true' : 'false'); x.classList.toggle('correcta', x.dataset.c === d[1]); });
-      ver.innerHTML = '<span class="tag"><i class="' + d[1] + '" aria-hidden="true"></i>' + nombres[d[1]] + (ok ? ' · acertaste' : ' · no era ' + nombres[o.dataset.c].toLowerCase()) + '</span><p>' + d[2] + '</p>';
+      ver.innerHTML = '<span class="tag ' + d[1] + '">' + nombres[d[1]] + (ok ? ' · acertaste' : ' · no era ' + nombres[o.dataset.c].toLowerCase()) + '</span><p>' + d[2] + '</p>';
     });
   });
   document.getElementById('sig').addEventListener('click', function () { i = (i + 1) % datos.length; pintar(); });
