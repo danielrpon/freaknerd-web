@@ -41,7 +41,7 @@ FIRMAS = [
          nombre="Mathias Rommel", cargo="Estrategia comercial / Venta directa / Social commerce",
          tel="", wa=""),
     dict(id="sig-4", etiqueta="INSTITUCIONAL", titulo="7 · Institucional",
-         nombre="Estrategia que se vuelve estructura.", cargo="Consultoría de estrategia / Medellín",
+         nombre="Estrategia que se vuelve estructura.", cargo="Consultoría de estrategia e IA aplicada / Medellín",
          tel="+57 311 719 1394", wa="573117191394",
          nota="Para el buzón compartido, cuando no firma una persona en particular."),
 ]

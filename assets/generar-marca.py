@@ -227,7 +227,7 @@ h1 b{color:%(n)s;font-weight:900}
 <h1>Estrategia que se vuelve <b>estructura</b></h1>
 <div class="wm">freaknerd<i></i></div>
 <div class="mono" style="left:792px;top:588px">&larr; Así llega · Así queda &rarr;</div>
-<div class="mono" style="left:66px;top:264px">Consultoría de estrategia · Medellín</div>
+<div class="mono" style="left:66px;top:264px">Consultoría de estrategia e IA aplicada · Medellín</div>
 </body></html>""" % dict(f=f, p=PIEDRA, c=CREMA, n=NARANJA, fig=figura)
 
 
