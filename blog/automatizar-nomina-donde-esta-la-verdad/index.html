@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automatizar la nómina: primero, dónde está la verdad · freaknerd</title>
+<meta name="description" content="Antes de automatizar la nómina, compare contra lo ya pagado y encuentre dónde está el dato real. Lo que aprendimos en un caso y qué hacer el lunes.">
+<link rel="canonical" href="https://freaknerd.co/blog/automatizar-nomina-donde-esta-la-verdad/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="freaknerd">
+<meta property="og:locale" content="es_CO">
+<meta property="og:url" content="https://freaknerd.co/blog/automatizar-nomina-donde-esta-la-verdad/">
+<meta property="og:title" content="Automatizar la nómina: primero, dónde está la verdad · freaknerd">
+<meta property="og:description" content="Antes de automatizar la nómina, compare contra lo ya pagado y encuentre dónde está el dato real. Lo que aprendimos en un caso y qué hacer el lunes.">
+<meta property="og:image" content="https://freaknerd.co/blog/automatizar-nomina-donde-esta-la-verdad/portada.jpg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#F4EFE6">
+<link rel="alternate" type="application/rss+xml" title="freaknerd" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Automatizar la nómina: primero, dónde está la verdad",
+  "description": "Antes de automatizar la nómina, compare contra lo ya pagado y encuentre dónde está el dato real. Lo que aprendimos en un caso y qué hacer el lunes.",
+  "datePublished": "2026-11-27",
+  "dateModified": "2026-11-16",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Restrepo"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "freaknerd",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://freaknerd.co/assets/icon-512.png"
+    }
+  },
+  "mainEntityOfPage": "https://freaknerd.co/blog/automatizar-nomina-donde-esta-la-verdad/",
+  "image": "https://freaknerd.co/blog/automatizar-nomina-donde-esta-la-verdad/portada.jpg",
+  "inLanguage": "es-CO"
+}
+</script>
+<link rel="stylesheet" href="/blog/blog.css">
+</head>
+<body>
+<div class="topbar-wrap">
+  <header class="topbar">
+    <a class="wm" href="/" aria-label="freaknerd, inicio">freaknerd<i></i></a>
+    <nav><a class="nav" href="/blog/">Blog</a><a class="nav nav--cta" href="/#contacto">Contacto</a></nav>
+  </header>
+</div>
+
+<main class="post">
+  <header class="post-head">
+    <div class="wrap">
+      <p class="kicker">Datos e IA · 27 de noviembre de 2026</p>
+      <h1>Automatizar la nómina: primero, dónde está la verdad</h1>
+      <p class="lead dim">Antes de automatizar la nómina, compare contra lo ya pagado y encuentre dónde está el dato real. Lo que aprendimos en un caso y qué hacer el lunes.</p>
+      <p class="meta">Daniel Restrepo · 5 min de lectura</p>
+    </div>
+  </header>
+
+    <div class="post-visual">
+    <div class="wrap">
+      <img class="visual" src="/blog/automatizar-nomina-donde-esta-la-verdad/portada.jpg" alt=""
+           width="2400" height="1260" loading="lazy">
+    </div>
+  </div>
+
+  <div class="post-body">
+    <div class="wrap">
+      <p>Una empresa de servicios con personal en turnos nos pidió automatizar su nómina quincenal. La tentación era empezar por la herramienta: escoger un software, conectar los datos y dejar que calculara. No empezamos por ahí. Empezamos por una pregunta más incómoda: cuando el sistema y la realidad no coinciden, ¿cuál tiene la razón?</p>
+      <p>Este texto cuenta qué encontramos al hacernos esa pregunta y deja una lista para aplicarla en cualquier proceso que se quiera automatizar, no solo en nómina.</p>
+      <h2 id="tabla-de-contenido">Tabla de contenido</h2>
+      <ul><li><a href="#por-que-no-basta-con-conectar-el-sistema">¿Por qué no basta con conectar el sistema?</a></li><li><a href="#como-se-usa-el-historico-como-juez">¿Cómo se usa el histórico como juez?</a></li><li><a href="#que-hacer-con-cada-diferencia">¿Qué hacer con cada diferencia?</a></li><li><a href="#donde-deben-vivir-las-reglas">¿Dónde deben vivir las reglas?</a></li><li><a href="#que-hacer-el-lunes">Qué hacer el lunes</a></li></ul>
+      <h2 id="por-que-no-basta-con-conectar-el-sistema">¿Por qué no basta con conectar el sistema?</h2>
+      <blockquote><p><strong>Respuesta rápida:</strong> porque el sistema puede tener el dato que se planeó y no el que pasó. Si automatiza sobre el dato equivocado, obtiene errores más rápido.</p></blockquote>
+      <p>La empresa tenía un registro de novedades en su sistema. Parecía la fuente obvia. Cuando lo comparamos con lo que se había pagado, las reglas no cuadraban. La razón apareció al revisar caso por caso con la responsable de nómina: el registro traía el horario pactado, no el real. No mostraba los compensatorios, los cambios de turno, los descansos ni los turnos repetidos. Todo eso estaba en las planillas en papel que se llenan en cada turno.</p>
+      <p>Ese hallazgo cambió el diseño. La planilla real pasó a ser la entrada única del cálculo, y el registro del sistema quedó como referencia.</p>
+      <h2 id="como-se-usa-el-historico-como-juez">¿Cómo se usa el histórico como juez?</h2>
+      <p>Antes de escribir reglas nuevas, tomamos tres quincenas que ya se habían liquidado y pagado. Esas quincenas son el juez: lo que calcule la herramienta tiene que dar lo mismo que se pagó, o la diferencia tiene que tener una explicación.</p>
+      <p>Esto tiene una ventaja que se subestima: no hace falta discutir en abstracto si una regla está bien. Se corre, se compara y se ve. Cuando revisamos a mano las planillas de cuatro personas, las cuatro cuadraron en todas sus quincenas. Eso dio confianza para seguir con el resto.</p>
+      <p>Con la responsable de nómina también acordamos qué evidencia pesa más cuando dos fuentes dicen cosas distintas:</p>
+      <ul><li>El registro del sistema, que trae lo pactado.</li><li>Por encima, la planilla firmada, que trae lo que pasó en el turno.</li><li>Por encima de todo, la novedad que reporta el cliente por escrito.</li></ul>
+      <p>Dejarlo por escrito evitó que cada caso se resolviera según quién estuviera revisando.</p>
+      <h2 id="que-hacer-con-cada-diferencia">¿Qué hacer con cada diferencia?</h2>
+      <p>Cada diferencia entre el cálculo y lo pagado se clasificó en uno de cuatro tipos:</p>
+      <ul><li><strong>Regla pendiente:</strong> algo que la persona sabe y hace, pero nadie había escrito.</li><li><strong>Dato de entrada:</strong> el cálculo está bien, pero le llegó un dato equivocado o incompleto.</li><li><strong>Error del cálculo:</strong> lo programamos mal. Se corrige y se vuelve a correr.</li><li><strong>Cambio de política:</strong> la empresa decide hacerlo distinto de ahora en adelante.</li></ul>
+      <p>La clasificación sirve porque cada tipo tiene un dueño distinto. Las reglas pendientes las aclara quien opera la nómina. Los datos de entrada, el equipo que los captura. Los errores, quien construye. Y los cambios de política los decide la gerencia, con las dudas legales y contables reunidas en una sola lista para el abogado y el contador, en lugar de resolverlas sobre la marcha.</p>
+      <p>Apareció un caso que vale la pena contar. Un pago se calculaba a mano y se redondeaba hacia arriba como una forma de reconocer el esfuerzo de algunas personas. En la herramienta, ese pago quedó como una regla fija, y el reconocimiento quedó aparte, como una bonificación con nombre propio. Así la generosidad sigue siendo una decisión, y no un error que nadie puede explicar.</p>
+      <h2 id="donde-deben-vivir-las-reglas">¿Dónde deben vivir las reglas?</h2>
+      <p>Fuera del código. El valor de la hora, la jornada y las reglas de cada cliente viven en una tabla que el equipo puede editar. Cuando cambia algo, no hay que llamar a un programador: se ajusta la tabla y se vuelve a correr contra el histórico.</p>
+      <p>Dos decisiones más, que salen del mismo principio de no depender de una sola persona:</p>
+      <ul><li><strong>Los datos sensibles se quedan en un solo lugar.</strong> Los salarios y las notas por persona no viajan en carpetas compartidas ni en el repositorio del código.</li><li><strong>El criterio de salida es concreto.</strong> El proyecto termina cuando la responsable de nómina liquida sola una quincena completa, con cero diferencias sin explicar. No cuando la herramienta «está lista».</li></ul>
+      <h2 id="que-hacer-el-lunes">Qué hacer el lunes</h2>
+      <p>Si va a automatizar un proceso, cualquiera, empiece por aquí:</p>
+      <ul><li><strong>Busque el último resultado que ya se aprobó</strong> (una nómina pagada, un cierre contable, un informe enviado) y úselo como juez.</li><li><strong>Compare la fuente que piensa automatizar con lo que de verdad pasó.</strong> Si no coinciden, ya sabe dónde está el primer problema.</li><li><strong>Ordene la evidencia.</strong> Escriba qué fuente prevalece cuando dos dicen cosas distintas.</li><li><strong>Clasifique cada diferencia</strong> en regla pendiente, dato de entrada, error o cambio de política, y asígnele un dueño.</li><li><strong>Saque las reglas del código</strong> y póngalas en una tabla que el equipo entienda.</li><li><strong>Defina el criterio de salida</strong> en términos de lo que el equipo hace solo.</li></ul>
+      <h2 id="en-resumen">En resumen</h2>
+      <ul><li>El sistema puede tener lo planeado y no lo que pasó. Verifíquelo antes de automatizar.</li><li>Lo que ya se pagó es el mejor juez para una regla nueva.</li><li>Cada diferencia se explica, se clasifica y tiene dueño.</li><li>La discreción también se puede automatizar: con nombre propio, no escondida en un redondeo.</li></ul>
+      <blockquote><p><strong>La tesis:</strong> automatizar no empieza por la herramienta. Empieza por saber dónde está la verdad.</p></blockquote>
+      <h2 id="fuentes">Fuentes</h2>
+      <ul><li>Trabajo de Freaknerd con una empresa de servicios, octubre y noviembre de 2026. Los datos de operación se presentan sin nombres ni cifras internas.</li></ul>
+    </div>
+  </div>
+
+  <section class="post-cta">
+    <div class="wrap">
+      <div class="reticula" aria-hidden="true"></div>
+      <div class="celdas" aria-hidden="true"><span class="fn" style="--s:88px"><b>fn</b></span><span class="cell-next"></span></div>
+      <h2>¿Esto le está pasando a tu operación?</h2>
+      <p class="lead">La primera charla no se cobra.</p>
+      <a class="btn" href="/#contacto">Hablemos del problema <svg class="chev" viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M0 0H5.2L14 9L5.2 18H0L8.8 9Z"/></svg></a>
+      <p class="volver"><a href="/blog/">← Todas las entradas</a></p>
+    </div>
+  </section>
+</main>
+<footer class="pie">
+  <div class="pie-in">
+  <span>&copy; 2026 <a class="wm" href="/" aria-label="freaknerd">freaknerd<i></i></a></span>
+  <span class="foot-links">
+    <a href="/blog/feed.xml">RSS</a>
+    <a href="https://instagram.com/freaknerd.co" target="_blank" rel="noopener noreferrer">@freaknerd.co</a>
+    <a href="mailto:contacto@freaknerd.co">contacto@freaknerd.co</a>
+  </span>
+  </div>
+</footer>
+</body>
+</html>
